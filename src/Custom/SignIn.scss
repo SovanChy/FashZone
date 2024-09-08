@@ -1,0 +1,23 @@
+// Define custom Bootstrap variables
+h1{
+  text-align: center;
+}
+
+.background-image {
+  /* background-image: url('https://example.com/your-image.jpg'); */
+  background-color: black;
+  background-size: cover;
+  background-position: center;
+  height: 100vh;
+  color: white;
+}
+
+$theme-colors: (
+  'danger': #800000
+);
+
+
+
+
+// Import Bootstrap SCSS
+@import '~bootstrap/scss/bootstrap';
