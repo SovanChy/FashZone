@@ -1,8 +1,13 @@
 
 /* The following line can be included in a src/App.scss */
 // Import custom SCSS
-@import './Custom/SignIn.scss';
+
 @import '~bootstrap/scss/bootstrap';
+@import './Custom/SignIn.scss';
+@import './Custom/Newsfeed.scss';
+@import './Custom/Trend.scss';
+
+
 
 
 

@@ -1,23 +1,55 @@
-// Define custom Bootstrap variables
-h1{
-  text-align: center;
-}
+// Custom/SignIn.scss
+
+
+// Custom/SignIn.scss
 
 .background-image {
-  /* background-image: url('https://example.com/your-image.jpg'); */
-  background-color: black;
-  background-size: cover;
-  background-position: center;
-  height: 100vh;
-  color: white;
+  background-color: black !important;
+  background-size: cover !important;
+  background-position: center !important;
+  min-height: 100vh !important;
+  color: white !important;
 }
 
-$theme-colors: (
-  'danger': #800000
-);
+//sign in or sign up centered
+h1 {
+  text-align: center;
+  margin-bottom: 2rem !important;
+}
+
+//a reference to the input in for 
+.custom-input-email{
+  border-radius: 0 !important;
+}
+
+.custom-input-password{
+  border-radius: 0 !important;
+}
+
+.custom-input-username{
+  border-radius: 0 !important;
+}
+
+//for making the forget password greyed out
+.link-grey{
+  
+  text-decoration: none !important;
+  color: grey !important;
+}
+
+//red button
+.custom-button {
+  border-radius: 0 !important;
+  background-color: #800000 !important;
+  border-color: #800000 !important;
+}
+
+//setting up margin for form
 
 
 
 
-// Import Bootstrap SCSS
-@import '~bootstrap/scss/bootstrap';
+
+
+
+ 

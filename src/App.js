@@ -1,12 +1,17 @@
 import React from 'react';
 import SignIn from './Pages/SignIn'
-import './css/App.css';
+import SignUp from './Pages/SignUp'
+import ForgetPassword from './Pages/ForgetPassword'
+import Newsfeed from './Pages/Newsfeed'
+import Trend from './Pages/Trend';
+
+
 
 
 function App() {
   return (
     <>
-      <SignIn/>
+    <Trend/>
     </>
   );
 }
