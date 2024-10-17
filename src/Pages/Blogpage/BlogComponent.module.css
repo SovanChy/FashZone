@@ -1,0 +1,233 @@
+.blogContainer {
+  max-width: fit-content;
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  padding: 20px ; 
+}
+
+.contentWrapper {
+  display: flex;
+  gap: 0; /* No gaps between content */
+  margin-top: 80px;
+}
+
+.header {
+  display: flex;
+  gap: 0; /* No gaps in header */
+  align-items: flex-start; /* Align items to the top */
+}
+
+.headerContent {
+  /* background-color: #f3f3f3; */
+  display: flex;
+  aspect-ratio: 1;
+  flex-direction: column;
+  overflow: hidden;
+  color: #040404;
+  width: 50%; /* Adjust based on layout needs */
+  text-align: center;
+  padding: 187px 0; /* Adjust padding for better spacing */
+  font: 200 48px/1 Geologica, -apple-system, Roboto, Helvetica, sans-serif;
+}
+
+.headerTitle {
+  font-weight: 600;
+  font-size: 64px;
+  letter-spacing: 5px;
+
+}
+
+.headerSubtitle {
+  font-size: 36px;
+  margin-top: 20px;
+  letter-spacing: 3px;
+}
+
+.headerAuthor {
+  margin-top: 40px;
+  font-size: 24px;
+  letter-spacing: 2px;
+}
+
+.headerImage {
+  aspect-ratio: 1;
+  object-fit: cover;
+  object-position: center;
+  width: 50%; /* Keep a specific width */
+  height: auto; /* Maintain aspect ratio */
+  align-self: flex-start; /* Align the image to the start */
+  margin: 0; /* Remove any margins */
+}
+
+.mainContent {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  padding: 0 20px;
+}
+
+.articleText {
+  color: #040404;
+  letter-spacing: 1px;
+  font: 400 16px/22px Gabarito, -apple-system, Roboto, Helvetica, sans-serif;
+}
+
+.imageContainer {
+  display: flex;
+  width: 500px; /* Set a specific width for the image */
+  height: auto; 
+  gap: 0px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.contentImage {
+  aspect-ratio: 1; 
+  object-fit: cover; /* Change to cover for better filling */
+  object-position: center;
+  width: 100%; /* Full width */
+  height: auto; /* Maintain aspect ratio */
+  margin: 0; /* Remove margins */
+}
+
+/* .sidebar {
+  background-color: rgba(176, 176, 176, 0.075);
+  display: flex;
+  width: 350px;
+  height: 700px;
+} */
+
+.imageGallery {
+  display: flex;
+  gap: 0; /* No gaps between gallery items */
+  margin-top: 40px;
+  align-items: stretch; /* Align items to stretch */
+}
+
+.galleryItem {
+  background-color: #f3f3f3;
+  display: flex;
+  flex-grow: 0;
+  flex-direction: column;
+  overflow: hidden;
+  width: 100%; /* Full width */
+}
+
+
+.galleryImage {
+  aspect-ratio:1.5;
+  object-fit: cover; /* Change to cover for better filling */
+  object-position: center;
+  width: 100%; /* Full width */
+  margin: 0; /* Remove margins */
+}
+
+.articlePreviews {
+  display: flex;
+  display:flexbox;
+  /* margin-left: 20px; */
+  gap: 0; /* No gaps in previews */
+  margin-top: 40px;
+  max-width: 100%;
+}
+
+.articlePreview {
+  display: flex;
+  flex-grow: 1;
+  flex-direction: column;
+  align-items: start;
+  color: #040404;
+  font: 400 24px/1 Geologica, -apple-system, Roboto, Helvetica, sans-serif;
+}
+
+.previewTitle {
+  font-size: 24px;
+}
+
+.previewSubtitle {
+  align-self: stretch;
+  margin-top: 20px;
+  font: 14px Gabarito, sans-serif;
+}
+
+.previewAuthor {
+  margin-top: 10px;
+  font: 16px Gabarito, sans-serif;
+}
+
+@media (max-width: 991px) {
+  .blogContainer {
+    padding: 0 20px; /* Responsive padding */
+  }
+
+  .contentWrapper {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0; /* No gaps for mobile */
+  }
+
+  .header {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+  }
+
+  .headerContent {
+    max-width: 100%;
+    margin-top: 40px;
+    font-size: 40px;
+    padding: 100px 20px; /* Responsive padding */
+  }
+
+  .headerImage {
+    max-width: 100%;
+    margin-top: 40px;
+  }
+
+  .mainContent {
+    width: 100%;
+  }
+
+ .imageContainer {
+  display: flex;
+  width: 500px; /* Set a specific width for the image */
+  height: auto; 
+  gap: 0px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+  .contentImage {
+    margin-top: 0; /* Remove margins for mobile */
+    max-width: 100%;
+  }
+
+  .imageGallery {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0; /* No gaps */
+    margin-top: 40px;
+    max-width: 100%;
+  }
+
+  .galleryItem {
+    max-width: 100%;
+    margin-top: 0; /* Remove margin for mobile */
+  }
+
+  .galleryImage {
+    max-width: 100%; /* Full width */
+  }
+
+  .articlePreviews {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0; /* No gaps */
+  }
+
+  .articlePreview {
+    max-width: 100%;
+    margin-top: 0; /* Remove margin for mobile */
+  }
+}

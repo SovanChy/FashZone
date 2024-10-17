@@ -1,29 +1,21 @@
-import React from "react";
-import { Container, Navbar, Nav, Button, Dropdown, Row, Col} from "react-bootstrap";
-import { useState } from "react";
-import '../Custom/NavBar.scss';
+import React, { useEffect } from "react";
+import { Container, Navbar, Nav, Button, Dropdown, Row, Col, NavItem} from "react-bootstrap";
+import { useState } from "react"; 
+import {Link} from 'react-router-dom';
+import './NavBar.scss'
+import {useLogout} from '../Hook/useLogout'
+
 
 export default function NavBar() {
-  const [isSignedIn, setIsSignedIn] = useState(true);
-  const [activeKey, setActiveKey] = useState('/');
+  const {logout, isPending} = useLogout()
 
-  //Thinking of using prop to alter element
-
-
-  //Handling sign in & sign out
-  const handleSignIn = () => {
-    setIsSignedIn(true);
-  };
-
-  const handleSignOut = () => {
-    setIsSignedIn(false);
-  };
+  
   return (
-    <>
+    <div>
       <Container fluid>
         <Navbar bg="light" expand="lg" fixed="top" className="py-1 shadow-sm "> 
           <Container>
-            <Navbar.Brand href="#home">
+            <Navbar.Brand as={Link} to="/">
               <span>WRK</span>
             </Navbar.Brand>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -31,15 +23,15 @@ export default function NavBar() {
               className="justify-content-end"
               id="basic-navbar-nav"
             >
-              <Nav activeKey="/Newsfeed">
-                <Nav.Link href="/Newsfeed">Newsfeed</Nav.Link>
-                <Nav.Link href="/News">News</Nav.Link>
-                <Nav.Link href="/Job">Job</Nav.Link>
-                <Nav.Link href="/Event">Event</Nav.Link>
+            <Nav>
+                <Nav.Link as={Link} to="/newsfeed">Newsfeed</Nav.Link>
+                <Nav.Link as={Link} to="/news">News</Nav.Link>
+                <Nav.Link as={Link} to="/job">Job</Nav.Link>
+                <Nav.Link as={Link} to="/events">Events</Nav.Link>
+                <Nav.Link as={Link} to="/pricing">Pricing</Nav.Link>
               </Nav>
               <Nav>
-                {isSignedIn ? (
-                  <>
+                  <div>
                     {/* Using Nav.Item for Avatar */}
                     <Dropdown>
                       <Dropdown.Toggle
@@ -55,29 +47,38 @@ export default function NavBar() {
                             width: "40px",
                             height: "40px",
                             cursor: "pointer",
+                           
                           }}
                         />
                       </Dropdown.Toggle>
 
                       <Dropdown.Menu>
-                        <Dropdown.Item href="/profile">Profile</Dropdown.Item>
+                        <Dropdown.Item as={Link} to="/profile">Profile</Dropdown.Item>
                         <Dropdown.Divider />
-                        <Dropdown.Item onClick={handleSignOut}>
+                        <Dropdown.Item as={Button} onClick={logout}>
                           Sign Out
                         </Dropdown.Item>
+                   
                       </Dropdown.Menu>
                     </Dropdown>
-                  </>
-                ) : (
-                  <Button variant="outline-primary" onClick={handleSignIn}>
-                    Sign In
-                  </Button>
-                )}
+                  </div>
+                  <div>
+                  <Link to="/login">
+                      <Button className="primary">Login</Button>
+                  </Link>
+                  <Link to="/signup">
+                      <Button className="primary">Sign up</Button>
+                  </Link>
+                  </div>
               </Nav>
             </Navbar.Collapse>
           </Container>
         </Navbar>
       </Container>
-    </>
+    </div>
   );
 }
+
+
+
+

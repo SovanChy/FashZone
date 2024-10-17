@@ -1,0 +1,180 @@
+
+/* Badge Styles */
+.badge-container {
+  display: flex;
+  gap: 8px; /* Space between badges */
+  white-space: nowrap; /* Prevent badges from wrapping to the next line */
+  margin-bottom: 5px; /* Adds space below the badge container */
+}
+
+.badge {
+  background-color: #800000; /* Richer red color */
+  color: #ffffff; /* White text for better contrast */
+  padding: 8px 16px; /* Increased padding for a cleaner look */
+  border-radius: 5px; /* More rounded corners */
+  font-size: 14px; /* Keep font size consistent */
+  font-weight: 500; /* Slightly bolder text */
+  display: inline-block; /* Keep badge inline */
+  transition: transform 0.2s; /* Adds a hover effect */
+}
+
+.badge:hover {
+  transform: translateY(-3px); 
+}
+
+.view-button-portfolio {
+  font-size: 14px; 
+  padding: 10px 20px; 
+  border-radius: 5px; 
+  transition: background-color 0.3s, transform 0.3s; 
+  background-color: #600000; 
+  border: none; 
+  color: white; 
+  position: absolute;
+  right: 20px;
+  bottom: 30px;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+}
+
+.view-button:hover {
+  background-color: #c6bfbf; /* Slightly lighter red on hover */
+  transform: translateY(-5px); /* Button moves up on hover */
+}
+
+
+.job-container {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start; 
+  padding: 20px;
+}
+
+.job-card {
+  flex: 1; /* Make the job card take the remaining space */
+  padding: 20px;
+  border-radius: px;
+  background-color: #fff;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.logo-img {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #f0f0f0;
+  margin-right: 20px; /* Space between logo and job card */
+}
+
+.job-button {
+  font-size: 16px; 
+  padding: 10px 65px; 
+  border-radius: 5px; 
+  transition: background-color 0.3s, transform 0.3s; 
+  background-color: #600000 !important; 
+  border: none; 
+  color: white; 
+  margin-top: 15px;
+}
+.job-button:hover {
+  background-color: #c6bfbf; 
+  transform: translateY(-5px); 
+}
+
+.portfolio-button {
+  font-size: 16px; 
+  padding: 10px 50px; 
+  border-radius: 5px; 
+  transition: background-color 0.3s, transform 0.3s; 
+  background-color: #600000 !important;
+  border: none; 
+  color: white; 
+  margin-top: 15px;
+}
+.portfolio-button:hover {
+  background-color: #c6bfbf; 
+  transform: translateY(-5px); 
+}
+
+ 
+.button-container {
+  display: flex;
+  justify-content: center; 
+  align-items: center; 
+  gap: 20px;
+
+}
+
+.job-details h3 {
+  margin: 10px;
+  text-align: center;
+}
+
+.view-button {
+  font-size: 14px; 
+  padding: 10px 10px; 
+  border-radius: 5px; 
+  transition: background-color 0.3s, transform 0.3s; 
+  background-color: #600000; 
+  border: none; 
+  color: white; 
+  position: absolute;
+  margin: 15px 10px;
+  right: 30px; 
+ }
+ 
+
+.img {
+  width: 120px;
+  height: 120px;
+}
+.img-fluid{
+  width: 120px;
+  height: 120px;
+
+} 
+
+/* .card {
+  border: none;
+} */
+
+/* Typography */
+
+h3 {
+  font-size: 24px;
+  
+  color: white;
+  
+  /*margin-top: */
+}
+
+p {
+  font-size: 16px;
+  line-height: 1.5;
+}
+.who-looking-for {
+  background-color: #600000; /* Light grey background */
+  padding: 20px; /* Add some padding */
+  border-radius: 5px; /* Rounded corners */
+  box-shadow: 0 2px 
+  
+}
+
+.carousel-control-prev, .carousel-control-next {
+  width: 5%; 
+}
+
+.carousel-control-prev-icon, .carousel-control-next-icon {
+  background-color: rgba(0, 0, 0, 0.5); 
+  border-radius: 5px; 
+}
+
+.carousel-item {
+  text-align: center; 
+  
+}
+
+.carousel-indicators {
+  bottom: -30px; /* Adjust the position of the indicators */
+}

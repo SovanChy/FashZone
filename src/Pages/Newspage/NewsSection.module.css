@@ -1,0 +1,278 @@
+.newsContainer {
+  background-color: #fff;
+  display: flex;
+  padding-top: 40px;
+  padding-bottom: 100px;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.navLinks {
+  align-self: center;
+  display: flex;
+  width: 950px;
+  max-width: 100%;
+  gap: 40px;
+  color: #040404;
+  text-align: center;
+  text-transform: uppercase;
+  justify-content: space-between;
+  font: 400 16px/1 Geologica, -apple-system, Roboto, Helvetica, sans-serif;
+}
+
+@media (max-width: 991px) {
+  .navLinks {
+    white-space: initial;
+  }
+}
+
+.contentWrapper {
+  display: flex;
+  margin-top: 40px;
+  width: 100%;
+  flex-direction: column;
+  
+}
+
+@media (max-width: 991px) {
+  .contentWrapper {
+    max-width: 100%;
+  }
+}
+
+.heroImage {
+  /* aspect-ratio: 2.06; */
+  object-fit: contain;
+  object-position: center;
+  width: 100%;
+}
+
+@media (max-width: 991px) {
+  .heroImage {
+    max-width: 100%;
+  }
+}
+
+.sectionTitle {
+  border-color: #040404;
+  /* border-top-width: 1px;
+  border-bottom-width: 1px; */
+  margin: 40px  40px 0;
+  overflow: hidden;
+  color: #040404;
+  text-align: center;
+  text-transform: uppercase;
+  /* padding: 40px; */
+  font: 400 24px/1 Geologica, -apple-system, Roboto, Helvetica, sans-serif;
+  margin-left: 0;
+  margin-right: 0;
+}
+
+@media (max-width: 991px) {
+  .sectionTitle {
+    max-width: 100%;
+    white-space: initial;
+    padding: 0 40px;
+  }
+}
+
+.articleGrid {
+  margin-top: 40px;
+  margin-left: 0;
+  margin-right: 0;
+}
+
+@media (max-width: 991px) {
+  .articleGrid {
+    max-width: 100%;
+  }
+}
+
+.articleRow {
+  gap: 2px;
+  display: flex;
+  margin-left: 0;
+  margin-right: 0;
+}
+
+@media (max-width: 991px) {
+  .articleRow {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0px;
+  }
+}
+
+.articleColumn {
+  display: flex;
+  flex-direction: column;
+  line-height: normal;
+  width: 35%;
+}
+
+@media (max-width: 991px) {
+  .articleColumn {
+    width: 100%;
+  }
+}
+
+.articleContent {
+  display: flex;
+  flex-grow: 1;
+  flex-direction: column;
+  align-items: start;
+  color: #040404;
+  margin-left: 0;
+  margin-right: 0;
+}
+
+@media (max-width: 991px) {
+  .articleContent {
+    max-width: 100%;
+    margin-top: 10px;
+  }
+}
+
+.articleImage {
+  aspect-ratio: 1.3;
+  object-fit: contain;
+  object-position: center;
+  width: 100%;
+  align-self: stretch;
+  margin-left: 0;
+  margin-right: 0;
+}
+
+@media (max-width: 991px) {
+  .articleImage {
+    max-width: 100%;
+  }
+}
+
+.articleTitle {
+  margin-top: 20px;
+  margin-left: 10px;
+  margin-right: 0;
+  font-weight: bold;
+  /* font: 400 24px/1 Geologica, -apple-system, Roboto, Helvetica, sans-serif; */
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.articleExcerpt {
+  margin-top: 20px;
+  margin-left: 10px;
+  font: 14px Arial, Helvetica, sans-serif;
+  
+}
+
+.articleAuthor {
+  margin-top: 5px;
+  margin-left: 10px;
+  font: 16px Arial, Helvetica, sans-serif;
+  
+}
+
+.imageGallery {
+  margin-top: 40px;
+
+}
+
+@media (max-width: 991px) {
+  .imageGallery {
+    max-width: 100%;
+    margin-top: 40px;
+  }
+}
+
+.imageRow {
+  gap: 0px;
+  display: flex;
+  
+}
+
+@media (max-width: 991px) {
+  .imageRow {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0px;
+  }
+}
+
+.imageColumn {
+  display: flex;
+  height: 200%;
+  flex-direction: column;
+  line-height: normal;
+  width: 50%;
+}
+
+@media (max-width: 991px) {
+  .imageColumn {
+    width: 100%;
+  }
+}
+
+.galleryImage {
+  aspect-ratio: 1.5;
+  object-fit: contain;
+  object-position: center;
+  width: 100%;
+  flex-grow: 1;
+}
+
+@media (max-width: 991px) {
+  .galleryImage {
+    max-width: 100%;
+    
+    }
+}
+
+/*for all blog title- all blog contents*/
+.blogTitle {
+  color: #040404;
+  align-self: start;
+  padding-left: 20px;
+  margin: 0px 0 40px 0;
+  font: 400 24px/ Gabarito, -apple-system, Roboto, Helvetica, sans-serif;
+  margin-left: 0;
+  margin-right: 0;
+}
+
+@media (max-width: 991px) {
+  .blogTitle {
+    margin: 0px 0 40px 0;
+  }
+}
+
+.blogContent {
+  color: #040404;
+  padding-left: 20px;
+  align-self: center;
+  margin: 0px 0 10px 0;
+  width: 1076px;
+  font: 400 14px/14px Gabarito, -apple-system, Roboto, Helvetica, sans-serif;
+  margin-left: 0;
+  margin-right: 0;
+}
+
+@media (max-width: 991px) {
+  .blogContent {
+    max-width: 100%;
+  }
+}
+
+.blogAuthor {
+  color: #040404;
+  align-self: start;
+  padding-left: 20px;
+  margin: 0px 0 40px 0;
+  font: 400 16px/ Geologica, -apple-system, Roboto, Helvetica, sans-serif;
+  margin-left: 0;
+  margin-right: 0;
+}
+
+@media (max-width: 991px) {
+  .blogAuthor {
+    margin-left: 10px;
+  }
+}
