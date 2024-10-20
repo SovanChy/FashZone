@@ -2,7 +2,6 @@ import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Button, Container, Row, Col, Image, Carousel } from 'react-bootstrap';
 import './Job.css';
-import { LinkContainer } from 'react-router-bootstrap';
 export default function View() 
 {
     const jobs = [
@@ -18,7 +17,7 @@ export default function View()
 
     return(
         <Container className="mt-5">
-            <h1 className="mt-3">Job Details</h1>
+            {/* <h1 className="mt-3">Job Details</h1>
             <Row className="mb-4">
             <Col className="button-container">
             <LinkContainer to="/Job">
@@ -32,7 +31,7 @@ export default function View()
                  </Button>
             </LinkContainer>
             </Col>
-            </Row>
+            </Row> */}
 
             {/* Banner Image */}
             <Row>
@@ -53,14 +52,11 @@ export default function View()
                 {jobs.map(({ title, company, salary, location, description, logo }, index) => (
                 <div className="mb-4" key={index}>
                     <div className="d-flex align-items-center">
-                    {/* Company Logo */}
                     <img
                         src={logo}
                         alt={`${company} logo`}
                         className="img-fluid rounded me-3"
-                    
                     />
-                    {/* Job Details */}
                     <div>
                         <strong>Title: </strong>{title}<br />
                         <strong>Company: </strong>{company}<br />
@@ -87,8 +83,6 @@ export default function View()
                 </ul>
             </Col>
             </Row>
-
-            {/* What You Will Work On Section */}
             <Row className="mt-5">
             <Col>
                 <h3 className="who-looking-for">What You Will Work On</h3>
@@ -103,56 +97,3 @@ export default function View()
         </Container>
     )
 }
-
-
-
-
-
-
-
-
-//     <Container className="mt-5">
-//       <h1 className="mt-3">Job Details</h1>
-//       <Row className="mb-4">
-//         <Col>
-//         <div class="button-container">
-//         <button class="job-button">Job </button>
-//         <button class="portfolio-button">Portfolio </button>
-//         </div>
-//         </Col>
-//       </Row>
-//       <Row>
-//         <Col>
-//           <Image
-//             src="https://substackcdn.com/image/fetch/f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F5362a828-0f5b-4d17-a6c5-d0677dc89baa_1000x1000.jpeg"
-//             alt="Banner"
-//             fluid
-//             className="w-100"
-//             style={{ height: '500px', objectFit: 'cover' }} 
-//           />
-//         </Col>
-//       </Row>
-//       <Col>
-//         {jobs.map((job, index) => (
-//           <>
-//           <Card key={index}>
-//             <Card.Body className="d-flex align-items-center">
-//               <img
-//                 src={jobs.logo}
-//                // alt={`${job.company} logo`}
-//                 className="img-fluid rounded me-3"
-//                 style={{ width: '120px', height: '120px' }} 
-//               />
-//                <Card.Text>
-//                 <strong>Title</strong>{job.title}<br />
-//                 <strong>Company:</strong> {job.company}<br />
-//                   <strong>Salary:</strong> {job.salary}<br />
-//                   <strong>Location:</strong> {job.location}<br />
-//                   <strong>Description:</strong> {job.description}
-//                 </Card.Text>
-//               </Card.Body>
-//             </Card>
-//             </>
-//           ))}
-//         </Col>
-//  </Container>

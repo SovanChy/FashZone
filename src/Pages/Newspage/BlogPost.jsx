@@ -9,7 +9,7 @@ function BlogPost({ title, content, author}) {
     <article>
       <h3 className={styles.blogTitle}>{title}</h3>
       <p className={styles.blogContent}>{content}</p>
-      <p className={styles.blogAuthor}>{author}</p>
+      <p className={styles.blogAuthor}>Written by <em>{author}</em></p>
     </article>
   );
 }

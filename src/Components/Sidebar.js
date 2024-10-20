@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 //css styling
 import './Sidebar.scss'
  
-export default function Sidebar() {
+export default function Sidebar() { 
           return (
             <Container>
                 <Row>
@@ -29,13 +29,13 @@ export default function Sidebar() {
                             <Nav.Item>
                             <Nav.Link as={Link} to="/events">EVENTS</Nav.Link>
                             </Nav.Item>
-                            <div className="sidebar-bottom">
+                            <div className="sidebar-bottom"> 
                             <Nav.Item>
                                 <Nav.Link as={Link} to="/profile">PROFILE</Nav.Link>
                             </Nav.Item>
                             <Nav.Item>
                                 <Nav.Link as={Link} to="/setting">SETTING</Nav.Link>
-                            </Nav.Item>
+                            </Nav.Item>                
                             </div>
                         </div>
                         </Nav>

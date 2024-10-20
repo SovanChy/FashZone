@@ -12,7 +12,7 @@ export default function CalendarEvent() {
   const [events, setEvents] = useState([
     { title: 'event 1', start: '2024-10-01', end: '2024-10-10', },
     { title: 'event 2', date: '2024-10-12',  end: '2024-10-10', },
-    {title: 'Sovan birthday. WHere my fucking present?', date: '2024-10-17', end: '2024-10-17'}
+    {title: 'job', description: 'Job offer for this week', date: '2024-10-17', end: '2024-10-17'}
   ]);
 
 
@@ -43,8 +43,11 @@ export default function CalendarEvent() {
           }
         }
         eventClick={(info) => {
-          alert('Event: ' + info.event.title);
-          alert('start: ' + info.event.start + 'end' + info.event.end);
+          alert(
+            'Event: ' + info.event.title + " " + 
+            'Description: ' + info.event.description,
+          );
+          
         }}
 
 

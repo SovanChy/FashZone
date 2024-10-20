@@ -9,15 +9,16 @@ function PortfolioCard({ name, role, description, imageSrc }) {
         <h3 className={styles.portfolioName}>{name}</h3>
         <p className={styles.portfolioRole}>{role}</p>
         <p className={styles.portfolioDescription}>{description}</p>
-        <button className={styles.viewMoreButton}>View More</button>
+        {/* <button className={styles.viewMoreButton}>View More</button> */}
+        <button className={styles.PButton}>View More</button>
       </div>
-      <div className={styles.portfolioImageWrapper}>
+      {/* <div className={styles.portfolioImageWrapper}> */}
         <img
           src={imageSrc}
           alt={`${name}'s portfolio`}
           className={styles.portfolioImage}
         />
-      </div>
+      {/* </div> */}
     </article>
   );
 }

@@ -14,61 +14,86 @@ import View from './Pages/Job/View';
 import BlogComponent from './Pages/Blogpage/BlogComponent';
 import NewsSection from './Pages/LandingPage/NewsSection';
 import CalendarEvent from './Pages/Calendar/Calendar';
+import ProfilePage from './Pages/Profile/ProfilePage';
 import { useAuthContext } from './Hook/useAuthContext';
+import { useLocation } from 'react-router-dom';
 
 function App() {
   const { user, authIsReady } = useAuthContext()
+  const location = useLocation()
+  const AuthPage = ["/signup", "/login", "/newsfeed"].includes(location.pathname)
+
   
   return (
    
     <div className='App'>
        {authIsReady && (
         <>
+        {!AuthPage && (
+          // Add your conditional rendering logic here
         <NavBar />
+       )}
         <Routes>
           <Route path="/" element={
-            user ? <Trend /> : <Navigate to="/landing" replace />          
+            <LandingPage/>         
           }
          />
           <Route path="/newsfeed" element={
-            user ? <Newsfeed /> : <Navigate to="/landing" replace />               
+            user ? <Newsfeed /> : <Navigate to="/" replace />    
+            // <Newsfeed />            
             } />
           <Route path="/signup" element={
-            user ? <Navigate to="/" /> : <SignUp/>           
+            user ? <Navigate to="/trending" /> :  <SignUp/>           
 
             } />
           <Route path="/login" element={
-            user ? <Navigate to="/" /> : <Login />                
+            user ? <Navigate to="/trending" /> : <Login/>                
             } />
           <Route path='/job' element={
-            user ? <Job /> : <Navigate to="/landing" replace />               
+            user ? <Job /> : <Navigate to="/" replace />     
+            // <Job />          
             }/>
           <Route path='/portfolio' element={
-            user ? <Portfolio/> : <Navigate to="/landing" replace />               
+            user ? <Portfolio/> : <Navigate to="/" replace />   
+            // <Portfolio/>             
             }/>
           <Route path='/view/*' element={
             <View/>
             } />
           <Route path='/events' element={
-            user ? <CalendarEvent/> : <Navigate to="/landing" replace />               
+            user ? <CalendarEvent/> : <Navigate to="/" replace />   
+            // <CalendarEvent/>            
 
             }/>
           <Route path='/pricing' element={
-            user ? <PricingPlans/> : <Navigate to="/landing" replace />               
+            user ? <PricingPlans/> : <Navigate to="/" replace />   
+            // <PricingPlans/>            
 
             }/>
-          <Route path='/landing' element={<LandingPage/>}/>
+          <Route path='/trending' element={
+            user ? <Trend /> : <Navigate to="/" replace /> 
+           }/>
+
           <Route path='/blog' element={
-            user ? <BlogComponent/> : <Navigate to="/landing" replace />               
+            user ? <BlogComponent/> : <Navigate to="/" replace />   
+            // <BlogComponent/>            
 
             } />
           <Route path='/news' element={
-            user ? <NewsSection/> : <Navigate to="/landing" replace />               
+            user ? <NewsSection/> : <Navigate to="/" replace />  
+                
             } />
+          <Route path='/profile' element={
+            user? <ProfilePage/> : <Navigate to="/" replace/>
+            // <ProfilePage/> 
+          }/>
         </Routes>
+        {!AuthPage && (
+          // Add your conditional rendering logic here
         <Footer />
-        </>
       )}
+        </>
+   )} 
     </div>
   );
 }

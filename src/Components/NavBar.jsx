@@ -4,10 +4,12 @@ import { useState } from "react";
 import {Link} from 'react-router-dom';
 import './NavBar.scss'
 import {useLogout} from '../Hook/useLogout'
+import { useAuthContext } from "../Hook/useAuthContext";
 
 
 export default function NavBar() {
   const {logout, isPending} = useLogout()
+  const { user } = useAuthContext()
 
   
   return (
@@ -31,6 +33,9 @@ export default function NavBar() {
                 <Nav.Link as={Link} to="/pricing">Pricing</Nav.Link>
               </Nav>
               <Nav>
+
+                {user && (
+                  
                   <div>
                     {/* Using Nav.Item for Avatar */}
                     <Dropdown>
@@ -40,20 +45,20 @@ export default function NavBar() {
                         className="d-flex align-items-center"
                       >
                         <img
-                          src="https://via.placeholder.com/40"
+                          src={user.photoURL}
                           alt="User Avatar"
                           className="rounded-circle"
                           style={{
                             width: "40px",
                             height: "40px",
                             cursor: "pointer",
-                           
                           }}
                         />
+                       
                       </Dropdown.Toggle>
 
                       <Dropdown.Menu>
-                        <Dropdown.Item as={Link} to="/profile">Profile</Dropdown.Item>
+                        <Dropdown.Item as={Link} to="/profile">{user.displayName}</Dropdown.Item>
                         <Dropdown.Divider />
                         <Dropdown.Item as={Button} onClick={logout}>
                           Sign Out
@@ -62,14 +67,18 @@ export default function NavBar() {
                       </Dropdown.Menu>
                     </Dropdown>
                   </div>
+                  )}
+
+                  {!user && (
                   <div>
                   <Link to="/login">
-                      <Button className="primary">Login</Button>
+                      <Button className="custom-button-nav">Login</Button>
                   </Link>
                   <Link to="/signup">
-                      <Button className="primary">Sign up</Button>
+                      <Button className="custom-button-nav">Sign up</Button>
                   </Link>
                   </div>
+                  )}
               </Nav>
             </Navbar.Collapse>
           </Container>

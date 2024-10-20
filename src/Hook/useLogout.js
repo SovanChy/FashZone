@@ -7,33 +7,36 @@ export const useLogout = () => {
   const [error, setError] = useState(null)
   const [isPending, setIsPending] = useState(false)
   const { dispatch, user } = useAuthContext()
-  
+
   const logout = async () => {
     setError(null)
     setIsPending(true)
 
     try {
+      // update online status
+      const { uid } = user
+      await projectFirebase.collection('users').doc(uid).update({ online: false })
 
-      //update online status
-      const {uid} = user
-      await projectFirebase.collection('users').doc(uid).update({online: false})
       // sign the user out
       await projectAuth.signOut()
-      
+
       // dispatch logout action
       dispatch({ type: 'LOGOUT' })
 
       // update state
-      if (!isCancelled) {
-        setIsPending(false)
-        setError(null)
-      } 
-    } 
+      setIsPending(false)
+      setError(null)
+      // if (!isCancelled) {
+    
+      // }
+    }
     catch(err) {
-      if (!isCancelled) {
-        setError(err.message)
-        setIsPending(false)
-      }
+      console.log(err.message)
+      setError(err.message)
+      setIsPending(false)
+      // if (!isCancelled) {
+       
+      // }
     }
   }
 

@@ -1,33 +1,4 @@
-.btnLatest{
-    color: black !important;
-    font-size: 4em !important;
-    background-color: white!important;
-    border-color: white !important;
-}
 
-.btnLatest-active{
-    color: red !important;
-    font-size: 4em !important;
-    background-color: white !important;
-    border-color: white !important;
-    text-decoration: underline !important;
-}
-
-.btnTrending{
-    color: black !important;
-    font-size: 4em !important;
-    background-color: white!important;
-    border-color: white !important;
-}
-
-.btnTrending-active{
-    color: red !important;
-    font-size: 4em !important;
-    background-color: white!important;
-    border-color: white !important;
-    text-decoration: underline !important;
-
-}
 
 .newsfeed-container {
     height: 100vh;
@@ -45,30 +16,63 @@
   
   .feed-column {
     padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   
     .post-list {
-      max-width: 600px;
-      margin: 0 auto;
+      
     }
   }
   
   .button-column {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
     .sticky-wrapper {
       position: sticky;
       top: 20px;
       padding: 20px;
     }
-  
+    
     .post-button {
       background-color: #800000 !important;
       border-color: #800000 !important;
       margin-bottom: 10px !important;
-      width: 100%;
-      max-width: 200px;
+      width: 300px;
+      max-width: 500px;
+      min-width: 200px;
       border-radius: 0 !important;
-
     }
   }
+
+  .online-status{
+    display: inline-block;
+    margin-right: 10px;
+    width: 12px;
+    height: 12px;
+    background-color: #0ebb50;
+    border-radius: 50%;
+    margin-top: 2px;
+  }
+  .offline-status{
+    display: inline-block;
+    margin-right: 10px;
+    width: 12px;
+    height: 12px;
+    background-color: grey;
+    border-radius: 50%;
+    margin-top: 2px;
+  }
+
+  .user-sidebar {
+    margin: 2px auto;
+    padding: 10px;
+    text-align: left;
+  }
+
+ 
   
   // Hide scrollbars for a cleaner look (optional)
   .sidebar-column, .feed-column, .button-column {

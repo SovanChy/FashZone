@@ -33,24 +33,27 @@ export const useSignup = () => {
         online: true,
         displayName,
         photoURL: imgUrl,
-        roles : 'user'
+        roles : 'user',
+        occupations: 'fashion designer'
       })
 
       // dispatch login action
       dispatch({ type: 'LOGIN', payload: res.user })
 
-      if (!isCancelled) {
+      // if (!isCancelled) {
         setIsPending(false)
         setError(null)
-      }
+      // }
     } 
     catch(err) {
-      if (!isCancelled) {
+      // if (!isCancelled) {
         setError(err.message)
         setIsPending(false)
-      }
+      // }
     }
   }
+
+ 
 
   useEffect(() => {
     return () => setIsCancelled(true)

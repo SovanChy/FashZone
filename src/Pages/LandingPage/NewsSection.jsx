@@ -3,6 +3,7 @@ import React from "react";
 import styles from "./LandingPage.module.css";
 import NewsCard from "./NewsCard";
 
+//the whole thing of news aexction with data
 const newsArticles = [
   {
     title: "Beige Runway",
@@ -33,13 +34,15 @@ const newsArticles = [
 function NewsSection() {
   return (
     <section className={styles.newsSection}>
-      <h2 className={styles.sectionTitle}>News/ Article</h2>
+      <h2 className={styles.sectionTitle}>News & Article</h2>
       <div className={styles.newsGrid}>
         {newsArticles.map((article, index) => (
           <NewsCard key={index} {...article} />
         ))}
       </div>
     </section>
+    
+    
   );
 }
 

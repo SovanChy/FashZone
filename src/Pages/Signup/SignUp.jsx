@@ -87,23 +87,36 @@ export default function SignUp() {
                   className="custom-input-username"
                   type="file"
                   onChange={handleFileChange}
+                  required
                 />
               </Form.Group>
               {thumbnailError && <div className='error'>{thumbnailError}</div>}
-       
+              {error && <div>{error}</div>}
+
               <div className="d-grid gap-2">
-                  <Button className="custom-button" type="submit">
+                {!isPending && (
+                  <Button className="custom-button" type="submit" >
                   Sign Up
                   </Button>
-              </div>
-
-              <hr style={{ backgroundColor: 'white', color: 'white', opacity: "100%", height: '3px', border: 'none', margin: '20px 10px'}} />
-              <div className="d-grid gap-2 mt-3">
-                <Button className="custom-button" variant="danger" as={Link} to="/login">
-                  To login
-                </Button>
+                  )}
+                  {isPending && (
+                    <Button className="custom-button" type="submit" disabled >
+                    Signing...
+                    </Button>
+                  )}
               </div>
             </Form>
+            <hr style={{ backgroundColor: 'white', color: 'white', opacity: "100%", height: '3px', border: 'none', margin: '20px 10px'}} />
+            <div className="d-grid gap-2 mt-3">
+                <Button className="custom-button" variant="danger" as={Link} to="/login">
+                  Login
+                </Button>
+              </div>
+            <div className="d-grid gap-2 mt-3">
+                <Button className="custom-button" variant="danger" as={Link} to="/">
+                  Back
+                </Button>
+              </div>
           </Col>
         </Row>
       </Container>

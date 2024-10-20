@@ -29,12 +29,22 @@ export const useLogin = () => {
         setError(null)
       }
     }catch(err) {
-      if (!isCancelled) {
-        setError(err.message)
-        setIsPending(false)
-        console.log(err.message)
-
+      if (err.code === "auth/user-not-found" || err.code === "auth/wrong-password"){
+        setError("Invalid email or password")
       }
+      else{
+        setError(`An error occured during login`);
+      }
+      setIsPending(false)
+
+
+      // if (!isCancelled) {
+      //   setError(err.message)
+      //   setIsPending(false)
+      //   console.log(err.message)
+
+      // }
+      
     }
   }
 

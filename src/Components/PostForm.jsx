@@ -2,9 +2,36 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { Form } from 'react-bootstrap';
 import { useState } from 'react';
+import { useFirestore } from '../Hook/useFirestore';
+import { useAuthContext} from '../Hook/useAuthContext';
+
 
 function PostForm(props) {
+  const {user} = useAuthContext()
+  const { addDocument} = useFirestore('MediaPost')
+  const { uid, displayName, photoURL } = user
+  
+
+  //add like, views, share, and comment
     const [imageVideo, setImageVideo] = useState('')
+    const [title, setTitle] = useState('')
+    const [description, setDescription] = useState('') 
+    const [like, setLike] = useState(0)
+    const [view, setView] = useState(0)
+    const [share, setShare] = useState('')
+
+    const doc ={
+      uid: uid,
+      username: displayName, 
+      photoURL: photoURL,
+      imageVideo: imageVideo, 
+      title: title, 
+      description: description, 
+      like: like, 
+      view: view,
+    } 
+
+
     const handlePost = (e) => {
         setImageVideo(null)
         let selected = e.target.files[0]
@@ -12,7 +39,8 @@ function PostForm(props) {
             setImageVideo("Please select a file");
             return;
           }
-          if (!selected.type.includes('image') && !selected.type.includes('video')) {
+          // || !selected.type.includes('video')) 
+          if (!selected.type.includes('image')) {
             setImageVideo("A selected file must be an image");
             return;
           }
@@ -25,9 +53,19 @@ function PostForm(props) {
 
     }
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault()
-        console.log(imageVideo)
+        console.log(doc)
+        try{
+        addDocument(doc)
+        console.log("Document added successfully");
+        }
+        catch(err)
+        {
+          console.log(err.message)
+          console.error("Error adding document:", err.message);
+        }
+
 
     }
     
@@ -50,24 +88,33 @@ function PostForm(props) {
         <Form onSubmit={handleSubmit}>
           <Form.Group className="mb-3" controlId="formTitle">
             <Form.Label>Post Title</Form.Label>
-            <Form.Control type="text" placeholder="Title..." />
+            <Form.Control 
+            type="text" placeholder="Title..."  
+            onChange={(e) => setTitle(e.target.value)}
+            value={title}/>
           </Form.Group>
 
           <Form.Group className="mb-3" controlId="formImage">
             <Form.Label>Description</Form.Label>
-            <Form.Control  type="file" placeholder="Description..." onChange={handlePost} />
+            <Form.Control  
+            type="text" 
+            placeholder="Description..." 
+            onChange={(e) => setDescription(e.target.value)} 
+            value={description}/>
           </Form.Group>
 
-          <Form.Group className="mb-3" controlId="formDescription">
-            <Form.Label>Description</Form.Label>
-            <Form.Control as="textarea" type="text" placeholder="Description..." />
+          <Form.Group className="mb-3" controlId="formImage">
+            <Form.Label>Image/Video</Form.Label>
+            <Form.Control  type="file" placeholder="Image..." onChange={handlePost} />
           </Form.Group>
-          </Form>
-
-      <Button variant="danger" className='me-2' type="submit">
+          <Button variant="danger" className='me-2' type="submit">
         Submit
       </Button>
-      <Button variant="danger" onClick={props.onHide}>Close</Button>
+
+          </Form>
+          <Button variant="danger" onClick={props.onHide}>Close</Button>
+
+
       </Modal.Body>
     </Modal>
     </>

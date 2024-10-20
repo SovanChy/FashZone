@@ -1,6 +1,5 @@
 import { useReducer, useEffect, useState } from "react"
-import { projectFirebase, projectFirestore, timestamp } from "../firebase/config"
-import { type } from "@testing-library/user-event/dist/type"
+import { projectFirebase, timestamp } from "../firebase/config"
 
 let initialState = {
   document: null,
@@ -55,7 +54,7 @@ export const useFirestore = (collection) => {
 
   // edit a document
 
-  const updatedDocument = async(id, doc) => {
+  const updateDocument = async(id, doc) => {
     dispatch({type: 'IS_PENDING'})
 
     try {
@@ -86,6 +85,6 @@ export const useFirestore = (collection) => {
     return () => setIsCancelled(true)
   }, [])
 
-  return { addDocument, deleteDocument, updatedDocument, response }
+  return { addDocument, deleteDocument, updateDocument, response }
 
 }

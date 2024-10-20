@@ -20,9 +20,9 @@ function OpportunityCard({ title, imageSrc, description }) {
             <strong>Experience:</strong>
           </p>
           <p>{description}</p>
-        </div>
+        </div> </div>
         <button className={styles.viewMoreButton}>View more</button>
-      </div>
+     
     </article>
   );
 }

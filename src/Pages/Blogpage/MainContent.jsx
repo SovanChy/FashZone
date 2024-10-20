@@ -5,7 +5,8 @@ import styles from "./BlogComponent.module.css";
 function MainContent() {
   return (
     <article className={styles.mainContent}>
-      <p className={styles.articleText}>
+      {/* <p className={styles.articleText}> */}
+        <p>
         Lorem ipsum dolor sit amet consectetur. Amet eros tortor nisl ac
         integer. Scelerisque blandit duis viverra enim. Nunc pellentesque odio
         eu diam scelerisque. Mattis nunc viverra nisl lorem tellus. Egestas
@@ -30,8 +31,9 @@ function MainContent() {
           className={styles.contentImage}
         />
       </div>
-      <p className={styles.articleText}>
-        Lorem ipsum dolor sit amet consectetur. Amet eros tortor nisl ac
+      {/* <p className={styles.articleText}> */}
+        <p>
+        sum dolor sit amet consectetur. Amet eros tortor nisl ac
         integer. Scelerisque blandit duis viverra enim. Nunc pellentesque odio
         eu diam scelerisque. Mattis nunc viverra nisl lorem tellus. Egestas
         ipsum et adipiscing ornare felis placerat nec convallis. Quisque
