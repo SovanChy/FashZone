@@ -1,0 +1,6 @@
+ /* Fix the issue where carousl keeps sliding when pressing on the video controls button */
+  .carousel-control-prev, .carousel-control-next {
+    height: 50% !important;
+    top: 25% !important;
+  }
+

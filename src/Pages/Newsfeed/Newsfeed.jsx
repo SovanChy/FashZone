@@ -35,7 +35,7 @@ export default function Newsfeed() {
               <PostCard />
             </div>
           </Col>
-          <Col xs={3} md={3} lg={3} sm={3} className="button-column">
+          <Col xs={3} md={2} lg={3} sm={2} className="button-column">
             <div className="sticky-wrapper">
               <Button variant="danger" className="post-button" onClick={Post}>Post</Button>
               <hr />
