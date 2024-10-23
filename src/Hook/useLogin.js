@@ -33,7 +33,7 @@ export const useLogin = () => {
         setError("Invalid email or password")
       }
       else{
-        setError(`An error occured during login`);
+        setError("Incorrect email or password. Please try again.");
       }
       setIsPending(false)
 
@@ -48,9 +48,9 @@ export const useLogin = () => {
     }
   }
 
-  useEffect(() => {
-    return () => setIsCancelled(true)
-  }, [])
+  // useEffect(() => {
+  //   return () => setIsCancelled(true)
+  // }, [])
 
   return { login, isPending, error }
 }

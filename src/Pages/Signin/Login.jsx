@@ -55,7 +55,7 @@ export default function Login() {
                 />
               </Form.Group>
               {/* {error && <div style={{color: "red"}}>Invalid email or password</div>} */}
-              {error && <div >{error}</div>}
+              {error && <div style={{color: "red", fontWeight: "bold"}} >{error}</div>}
 
 
             {!isPending && (

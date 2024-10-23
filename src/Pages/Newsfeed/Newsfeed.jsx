@@ -60,6 +60,7 @@ export default function Newsfeed() {
                             width: "40px",
                             height: "40px",
                             cursor: "pointer",
+                            objectFit: "cover"
                           }}
                         />
                         <span className="ms-2">{user.displayName}</span>
