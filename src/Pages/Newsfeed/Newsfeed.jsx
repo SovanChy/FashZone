@@ -1,11 +1,11 @@
 import React from "react";
 import { Container, Row, Col, Button } from "react-bootstrap";
-import Sidebar from "../../Components/Sidebar.js";
-import PostCard from "../../Components/Postcard.js";
+import Sidebar from "../../Components/Sidebar.jsx";
+import PostCard from "../../Components/Postcard.jsx";
 import PostForm from "../../Components/PostForm.jsx";
 import TrendSearchBar from "../../Components/TrendSearchBar.jsx";
 import { useState } from "react";
-import { useCollection } from "../../Hook/useCollection.js";
+import { useCollection } from "../../Hook/useCollection.jsx";
 
 //css styling
 import "./Newsfeed.scss";
@@ -27,14 +27,20 @@ export default function Newsfeed() {
     <div className="no-padding-top">
       <Container fluid className="newsfeed-container">
         <Row className="h-100">
+          
+          {/* Left Sidebar */}
           <Col xs={2} md={2} lg={2} sm={2} className="sidebar-column">
             <Sidebar />
           </Col>
           <Col xs={7} md={7} lg={7} sm={7} className="feed-column">
+
+          {/* Post List */}
             <div className="post-list">
               <PostCard />
             </div>
           </Col>
+
+          {/*  Right Sidebar */}
           <Col xs={3} md={2} lg={3} sm={2} className="button-column">
             <div className="sticky-wrapper">
               <Button variant="danger" className="post-button" onClick={Post}>Post</Button>

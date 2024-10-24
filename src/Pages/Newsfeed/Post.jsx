@@ -1,6 +1,6 @@
 import React from "react";
 import { Container, Row, Col } from "react-bootstrap";
-import { Navigate, useNavigate, useParams } from "react-router-dom";
+import {  useNavigate, useParams, useLocation } from "react-router-dom";
 import { useDocument } from "../../Hook/useDocument";
 import {
   Card,
@@ -16,6 +16,7 @@ import Comment from "./Comment";
 import "./Post.scss";
 import { projectFirebase, firebase, projectAuth } from "../../firebase/config";
 import { useState } from "react";
+import Sharelink from "../../Components/Sharelink";
 
 export default function Post() {
   const { id } = useParams();
@@ -23,7 +24,10 @@ export default function Post() {
   const { updateDocument, deleteDocument } = useFirestore("MediaPost");
   const { formatTimestamp } = useTimestampFormat();
   const [viewComment, setViewComment] = useState(false);
-  const navigate = useNavigate()
+  const [modalShow, setModalShow] = useState(false);
+  const navigate = useNavigate(); 
+  const url = window.location.href;
+  
 
   if (error) {
     return <div>{error}</div>;
@@ -31,6 +35,12 @@ export default function Post() {
   if (!document) {
     return <div>Loading...</div>;
   }
+
+  //handle Share function
+  const handleShare = (e) => {
+    e.preventDefault();
+    setModalShow(true);
+  };
 
   // Edit and Delete functions
   const handleDelete = (e, id) => {
@@ -208,7 +218,9 @@ export default function Post() {
               <div className="d-flex align-items-center">
                 <img
                   src={document.photoURL}
-                  onClick={(e) => {navigate('/product')}}
+                  onClick={(e) => {
+                    navigate("/product");
+                  }}
                   alt="User Avatar"
                   className="rounded-circle me-3"
                   style={{
@@ -253,16 +265,16 @@ export default function Post() {
                 document.likes[projectAuth.currentUser.uid] ? (
                   <div className="me-1">
                     <i
-                      className="bi bi-hand-thumbs-up-fill me-1"
+                      className="bi bi-heart-fill me-2"
                       as={Button}
                       onClick={(e) => handleLike(e, document.id)}
                     />
-                    <span>{document.like}</span>
+                    <span>{document.like} </span>
                   </div>
                 ) : (
                   <div className="me-1">
                     <i
-                      className="bi bi-hand-thumbs-up me-1"
+                      className="bi bi-heart me-2"
                       as={Button}
                       onClick={(e) => handleLike(e, document.id)}
                     />
@@ -270,11 +282,16 @@ export default function Post() {
                   </div>
                 )}
 
-                <i
-                  className="bi bi-eye me-1"
+                <i className="bi bi-eye me-1" />
+                <span>{document.view}</span>
+
+                {/* share */}
+                <Sharelink
+                  show={modalShow}
+                  onHide={() => setModalShow(false)}
+                  urlLink={{url}}
                 />
-                 <span>{document.view}</span>
-                <i className="bi bi-share ms-auto"></i>
+                <i className="bi bi-send ms-auto" onClick={handleShare}></i>
               </div>
 
               <Card.Title>{document.title}</Card.Title>
@@ -288,7 +305,7 @@ export default function Post() {
                   <p style={{ color: "#800000" }}>Hide comments</p>
                 ) : (
                   <p style={{ color: "#800000" }}>
-                    View more comments {document.comment.length}
+                    View more comments ({document.comment.length})
                   </p>
                 )}
               </div>

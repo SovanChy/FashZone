@@ -7,21 +7,52 @@ import {
   DropdownToggle,
   Button,
 } from "react-bootstrap";
-import { useCollection } from "../Hook/useCollection";
+import Comment from "../Pages/Newsfeed/Comment";
+import { projectFirebase, firebase, projectAuth } from "../firebase/config";
+import { useState, useEffect } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import Sharelink from "./Sharelink.jsx";
+
+
+
+//custom hooks
+import { useCollection } from "../Hook/useCollection.jsx";
 import { useFirestore } from "../Hook/useFirestore";
 import useTimestampFormat from "../Hook/useTimeStampFormat";
-import Comment from "../Pages/Newsfeed/Comment";
+
+
+//css styling
 import "./Postcard.css";
-import { projectFirebase, firebase, projectAuth } from "../firebase/config";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+
+
 
 export default function Postcard() {
-  const { documents, error } = useCollection("MediaPost");
+  const { documents, error } = useCollection("MediaPost", ["createdAt", "desc"]);
   const { updateDocument, deleteDocument } = useFirestore("MediaPost");
   const { formatTimestamp } = useTimestampFormat();
   const [viewComment, setViewComment] = useState(false);
   const navigate = useNavigate();
+  const [modalShow, setModalShow] = useState(false)
+  const [url, setUrl] = useState('')
+  const location = useLocation()
+
+  useEffect(() => {
+  const url = `${window.location.origin}${location.pathname}`
+  setUrl(url)
+},[location])
+
+
+
+
+  const handleShare = (e, id) => {
+    e.preventDefault()
+    setModalShow(true)
+    const tempUrl = `${url}/${id}`
+    setUrl(tempUrl)
+
+  }
+
+
   // Read more function
   const truncateDescription = (description, wordLimit, id) => {
     const words = description.split(" ");
@@ -52,6 +83,7 @@ export default function Postcard() {
   };
 
   // Handle like function
+  // Handle Like function
   const handleLike = (e, id) => {
     e.preventDefault();
     const userId = projectAuth.currentUser.uid;
@@ -83,13 +115,7 @@ export default function Postcard() {
       });
   };
 
-  if (error) {
-    return <div>Error: {error}</div>;
-  }
-
-  if (!documents) {
-    return <div>Loading...</div>;
-  }
+ 
 
   // Handle view function
   const handleView = (e, id) => {
@@ -116,6 +142,14 @@ export default function Postcard() {
         console.error("Error handling view:", error);
       });
   };
+
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
+
+  if (!documents) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <>
@@ -285,20 +319,21 @@ export default function Postcard() {
                 </div>
               )}
 
-              <div className="d-flex gap-2 mb-3">
-                {doc.likes && doc.likes[projectAuth.currentUser.uid] ? (
+          <div className="d-flex gap-2 mb-3">
+                {doc.likes &&
+                doc.likes[projectAuth.currentUser.uid] ? (
                   <div className="me-1">
                     <i
-                      className="bi bi-hand-thumbs-up-fill me-1"
+                      className="bi bi-heart-fill me-2"
                       as={Button}
                       onClick={(e) => handleLike(e, doc.id)}
                     />
-                    <span>{doc.like}</span>
+                    <span>{doc.like} </span>
                   </div>
                 ) : (
                   <div className="me-1">
                     <i
-                      className="bi bi-hand-thumbs-up me-1"
+                      className="bi bi-heart me-2"
                       as={Button}
                       onClick={(e) => handleLike(e, doc.id)}
                     />
@@ -312,8 +347,15 @@ export default function Postcard() {
                  <span>{doc.view}</span>
                  
             
-                <i className="bi bi-share ms-auto"></i>
-              </div>
+            {/* share */}
+            <Sharelink
+                  show={modalShow}
+                  onHide={() => setModalShow(false)}
+                  urlLink={{url}}
+                />
+            
+                <i className="bi bi-send ms-auto" onClick={(e) => handleShare(e, doc.id)}></i>
+              </div> 
 
               <Card.Title>{doc.title}</Card.Title>
               <Card.Text>
@@ -328,7 +370,7 @@ export default function Postcard() {
                   <p style={{ color: "#800000" }}>Hide comments</p>
                 ) : (
                   <p style={{ color: "#800000" }}>
-                    View more comments {doc.comment.length}
+                    View more comments ({doc.comment.length})
                   </p>
                 )}
               </div>

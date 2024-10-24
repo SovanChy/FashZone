@@ -4,24 +4,5 @@
     top: 25% !important;
   }
 
-  .like-button{
-    cursor: pointer !important;
-  }
   
-  .like-button span {
-    margin-left: 10px;
-  }
-  
-  .like-button.liked {
-    color: red;
-    transform: scale(1.3);
-  }
-  
-  .like-button.liked:hover {
-    transform: scale(1.4);
-  }
-  
-  .like-button:active {
-    transform: scale(1.1);
-  }
   
