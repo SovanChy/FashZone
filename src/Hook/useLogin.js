@@ -14,8 +14,9 @@ export const useLogin = () => {
   
     try {
      
-      // login
       const res = await projectAuth.signInWithEmailAndPassword(email, password)
+
+   
       
       //set online status
       await projectFirebase.collection('users').doc(res.user.uid).update({online: true})

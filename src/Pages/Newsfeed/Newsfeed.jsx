@@ -42,7 +42,7 @@ export default function Newsfeed() {
               <Button variant="danger" className="post-button" onClick={Search}>Search</Button>
               <hr/> 
               <div className="user-sidebar">
-                <h2>Friends</h2>
+                <h2>Other users</h2>
                 {error && <div>{error}</div>}
                 {documents && (
                   <div style={{ maxHeight: '400px', overflowY: 'auto' }}>
