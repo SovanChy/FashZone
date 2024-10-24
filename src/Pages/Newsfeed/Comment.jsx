@@ -35,7 +35,8 @@ export default function Comment({ input }) {
     <div>
       <form onSubmit={handleComment}>
         <label>
-          <input
+          <textarea
+            style={{ textDecoration: "none", outline: "none" }}
             className="comment"
             type="text"
             required
@@ -44,18 +45,20 @@ export default function Comment({ input }) {
             placeholder="add new comment..."
           />
         </label>
-        <button></button>
+        <button className="ms-auto" type="submit">Submit</button>
       </form>
+
       <h4>Comment</h4>
-      <ul>
+      <ul className="comment-list">
         {input.comment.length > 0 &&
           input.comment.map((comment) => {
             return (
               <li key={comment.id}>
-                <div className="d-flex ">
+                <div className="d-flex align-items-center">
                   <img
                     src={comment.photoURL}
                     alt="User Avatar"
+                    className="rounded-circle me-2"
                     style={{
                       width: "40px",
                       height: "40px",
@@ -63,14 +66,16 @@ export default function Comment({ input }) {
                       objectFit: "cover",
                     }}
                   />
-                  <p>{comment.displayName}</p>
+                  <p className="mb-0">{comment.displayName}</p>
                 </div>
                 <div>
-                  <p>{formatTimestamp(comment.createdAt)}</p>
                 </div>
                 <div>
-                  <p>{comment.content}</p>
+                  <p className="mt-2">{comment.content}</p>
                 </div>
+                <p className="mb-2">{formatTimestamp(comment.createdAt)}</p>
+                <hr/>
+
               </li>
             );
           })}

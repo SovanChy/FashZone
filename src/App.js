@@ -15,13 +15,14 @@ import BlogComponent from './Pages/Blogpage/BlogComponent';
 import NewsSection from './Pages/LandingPage/NewsSection';
 import CalendarEvent from './Pages/Calendar/Calendar';
 import ProfilePage from './Pages/Profile/ProfilePage';
+import Post from './Pages/Newsfeed/Post';
 import { useAuthContext } from './Hook/useAuthContext';
 import { useLocation } from 'react-router-dom';
 
 function App() {
   const { user, authIsReady } = useAuthContext()
   const location = useLocation()
-  const AuthPage = ["/signup", "/login", "/newsfeed"].includes(location.pathname)
+  const AuthPage = ["/signup", "/login", "/newsfeed"].includes(location.pathname) || location.pathname.startsWith("/product/")
 
   
   return (
@@ -46,6 +47,10 @@ function App() {
             user ? <Navigate to="/trending" /> :  <SignUp/>           
 
             } />
+
+          <Route path="/product/:id" element={
+            user ? <Post /> : <Navigate to ="/" replace/>
+          } />
           <Route path="/login" element={
             user ? <Navigate to="/trending" /> : <Login/>                
             } />
