@@ -22,7 +22,7 @@ import { useLocation } from 'react-router-dom';
 function App() {
   const { user, authIsReady } = useAuthContext()
   const location = useLocation()
-  const AuthPage = ["/signup", "/login", "/newsfeed", "/news"].includes(location.pathname) || location.pathname.startsWith("/product/")
+  const AuthPage = ["/signup", "/login", "/newsfeed", "/news"].includes(location.pathname) || location.pathname.startsWith("/post/")
 
   
   return (
@@ -48,7 +48,7 @@ function App() {
 
             } />
 
-          <Route path="/product/:id" element={
+          <Route path="/post/:id" element={
             user ? <Post /> : <Navigate to ="/" replace/>
           } />
           <Route path="/login" element={

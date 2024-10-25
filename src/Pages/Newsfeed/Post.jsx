@@ -259,6 +259,7 @@ export default function Post() {
                     <Dropdown.Item
                       as={Button}
                       onClick={(e) => handleDelete(e, document.id)}
+                      name="edit"
                     >
                       Delete
                     </Dropdown.Item>

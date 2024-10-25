@@ -79,6 +79,7 @@ export default function Newsfeed() {
               <PostForm
                 show={postForm}
                 onHide={() => setPostForm(false)}
+                name="Create"
               />
               <TrendSearchBar
                 show={searchBar}

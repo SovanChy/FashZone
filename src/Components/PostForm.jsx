@@ -1,7 +1,7 @@
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { Form } from 'react-bootstrap';
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import { useFirestore } from '../Hook/useFirestore';
 import { useAuthContext } from '../Hook/useAuthContext';
 import { useStorage } from '../Hook/useStorage';
@@ -10,7 +10,7 @@ function PostForm(props) {
   const { user } = useAuthContext();
   const { addDocument } = useFirestore('MediaPost');
   const { uid, displayName, photoURL } = user;
-  const { uploadMedia, urls, paths } = useStorage('MediaPost');
+  const { uploadMedia, urls, paths, clearMedia } = useStorage('MediaPost');
 
   const [imageVideo, setImageVideo] = useState([]);
   const [title, setTitle] = useState('');
@@ -30,29 +30,17 @@ function PostForm(props) {
       console.log(err);
     }
 
-    console.log(selectedFiles);
-
-    if (selectedFiles.length === 0) {
-      setImageVideo("Please select at least one file");
-      return;
-    }
-
     const validFiles = selectedFiles.filter((file) => {
       if (!file.type.includes('image') && !file.type.includes('video')) {
-        alert("A selected file must be an image, a video, or an MKV file");
+        alert("A selected file must be an image or a video file");
         return false;
       }
-      if (file.size > 1000000000) { // 1GB = 1000000000 bytes
+      if (file.size > 1000000000) {
         alert('File size must be less than 1GB');
         return false;
       }
       return true;
     });
-
-    if (validFiles.length === 0) {
-      setImageVideo("No valid files selected");
-      return;
-    }
 
     setImageVideo(validFiles);
   };
@@ -60,54 +48,51 @@ function PostForm(props) {
   // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (imageVideo.length === 0) {
-      alert("No file selected");
-      return;
-    }
 
-    try {
-      // Start the upload process
-      await uploadMedia(imageVideo);
-      setIsSubmitted(true); // Set submission status to true
-    } catch (err) {
-      alert("Error during upload:", err.message);
+    if (imageVideo.length > 0) {
+      try {
+        await uploadMedia(imageVideo);
+        setIsSubmitted(true); // Set submission status to true if media is uploaded
+      } catch (err) {
+        alert("Error during upload:", err.message);
+      }
+    } else {
+      // No media to upload, set submission status directly
+      setIsSubmitted(true);
     }
   };
 
-  // useEffect to wait for url and path to be set before adding the document
   useEffect(() => {
-    if (isSubmitted && urls.length > 0 && paths.length > 0) {
-      // Prepare document to be added
+    if (isSubmitted && (urls.length > 0 || imageVideo.length === 0)) {
       const doc = {
         uid: uid,
         username: displayName,
         photoURL: photoURL,
-        imageURL: urls, // Use the uploaded image URLs
-        imagePath: paths, // Use the file paths
+        imageURL: urls.length > 0 ? urls : null, // Conditionally add URLs
+        imagePath: paths.length > 0 ? paths : null, // Conditionally add paths
         title: title,
         description: description,
         like: like,
         view: view,
-        share: share, // Add share field
+        share: share,
         comment: []
       };
 
-      // Add the document to Firestore
       addDocument(doc)
         .then(() => {
           console.log("Document added successfully:", doc);
-          // Reset form fields after successful upload
           setImageVideo([]);
           setTitle('');
           setDescription('');
-          props.onHide(); // Close the modal
-          setIsSubmitted(false); // Reset submission status
+          props.onHide();
+          setIsSubmitted(false);
+          clearMedia(); 
         })
         .catch((err) => {
           alert("Error adding document:", err.message);
         });
     }
-  }, [isSubmitted, urls, paths]); // This effect runs when isSubmitted, urls, and paths are updated
+  }, [isSubmitted, urls, paths]);
 
   return (
     <>
@@ -118,7 +103,7 @@ function PostForm(props) {
         centered>
         <Modal.Header closeButton>
           <Modal.Title id="contained-modal-title-vcenter">
-            Create Post
+            {props.name} Post
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
@@ -130,7 +115,7 @@ function PostForm(props) {
                 onChange={(e) => setTitle(e.target.value)}
                 value={title} />
             </Form.Group>
-            <Form.Group className="mb-3" controlId="formImage">
+            <Form.Group className="mb-3" controlId="formDescription">
               <Form.Label>Description</Form.Label>
               <Form.Control
                 as="textarea"
@@ -140,9 +125,9 @@ function PostForm(props) {
                 onChange={(e) => setDescription(e.target.value)}
                 value={description} />
             </Form.Group>
-            <Form.Group className="mb-3" controlId="formImage">
-              <Form.Label>Image/Video</Form.Label>
-              <Form.Control type="file" multiple placeholder="Image..." onChange={handlePost} />
+            <Form.Group className="mb-3" controlId="formMedia">
+              <Form.Label>Image/Video (optional)</Form.Label>
+              <Form.Control type="file" multiple onChange={handlePost} />
             </Form.Group>
             <Button variant="danger" className='custom-button me-2' type="submit">
               Submit

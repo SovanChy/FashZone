@@ -4,17 +4,19 @@ import { timestamp, firebase, projectAuth, projectFirebase} from "../../firebase
 import { useAuthContext } from "../../Hook/useAuthContext";
 import useTimestampFormat from "../../Hook/useTimeStampFormat";
 import { useFirestore } from "../../Hook/useFirestore";
-import { Button, Form } from "react-bootstrap";
+import { Button, Form, Dropdown, DropdownToggle, DropdownMenu} from "react-bootstrap";
 import TruncateDescription from "../../Components/TruncateDescription.jsx";
 
 //css styling
 import "./Comment.scss";
+import { JournalMedical } from "react-bootstrap-icons";
 
 export default function Comment({ input }) {
   const { updateDocument, deleteDocument, response } = useFirestore("MediaPost");
   const { formatTimestamp } = useTimestampFormat();
   const [newComment, setNewComment] = useState("");
   const { user } = useAuthContext();
+
 
 
   const truncateDescription = (description, wordLimit) => {
@@ -33,6 +35,43 @@ export default function Comment({ input }) {
     }
     return <>{description}</>;
   };
+
+  //editing comment
+  const handleEdit = async (e, postId, commentId) => {
+    e.preventDefault();
+    const docRef = projectFirebase.collection("MediaPost").doc(postId);
+    const doc = await docRef.get();
+    const data = doc.data();
+    const comments = data.comment ? [...data.comment] : [];
+    const commentIndex = comments.findIndex(comment => comment.id === commentId);
+    if (commentIndex === -1) {
+      console.error("Comment not found");
+      return;
+    }
+    const updatedContent = prompt("Edit your comment:", comments[commentIndex].content);
+    if (updatedContent !== null) {
+      comments[commentIndex].content = updatedContent;
+      await docRef.update({ comment: comments });
+    }
+  }
+
+  //deleting comment
+  const handleDelete = async (e, postId, commentId) => {
+    e.preventDefault();
+    const docRef = projectFirebase.collection("MediaPost").doc(postId);
+    const doc = await docRef.get();
+    const data = doc.data();
+    const comments = data.comment ? [...data.comment] : [];
+    console.log(comments);
+    const commentIndex = comments.findIndex(comment => comment.id === commentId);
+    console.log(commentIndex);
+    if (commentIndex === -1) {
+      console.error("Comment not found");
+      return;
+    }
+    comments.splice(commentIndex, 1); // Remove the comment from the array
+    await docRef.update({ comment: comments }); // Update the document in Firestore
+  }
 
 
   const handleLike = async (e, postId, commentId) => {
@@ -56,6 +95,7 @@ export default function Comment({ input }) {
       
       // Find the specific comment that match the comment.id
       const commentIndex = comments.findIndex(comment => comment.id === commentId);
+      console.log(commentIndex)
       if (commentIndex === -1) {
         console.error("Comment not found");
         return;
@@ -68,7 +108,7 @@ export default function Comment({ input }) {
   
       // Toggle like status and update like count
       if (comments[commentIndex].likes[userId]) {
-        // Unlike: Remove user from likes and decrease count
+        // Unlike: Remove user from likes and decrease count 
         delete comments[commentIndex].likes[userId];
         comments[commentIndex].like = (comments[commentIndex].like || 0) - 1;
       } else {
@@ -143,6 +183,34 @@ export default function Comment({ input }) {
                     }}
                   />
                   <p className="mb-0">{comment.displayName}</p>
+                  <Dropdown className="ms-auto">
+                  <DropdownToggle
+                    style={{
+                      backgroundColor: "white",
+                      borderColor: "white",
+                      color: "black",
+                      padding: "20px",
+                    }}
+                  >
+                    <i className="bi bi-three-dots ms-auto"> </i>
+                  </DropdownToggle>
+                  <DropdownMenu>
+                    <Dropdown.Item
+                      as={Button}
+                      onClick={(e) => {
+                        handleEdit(e, input.id, comment.id)
+                      }}
+                    >
+                      Edit
+                    </Dropdown.Item>
+                    <Dropdown.Item
+                      as={Button}
+                      onClick={(e) => handleDelete(e, input.id, comment.id)}
+                    >
+                      Delete
+                    </Dropdown.Item>
+                  </DropdownMenu>
+                </Dropdown>
                 </div>
                 <div>
                 </div>

@@ -40,5 +40,10 @@ export const useStorage = (folderPath) => {
         }
     };
 
-    return { uploadMedia, urls, paths, error };
+    const clearMedia = () => {
+        setUrls([]);
+        setPaths([]);
+      };
+
+    return { uploadMedia, urls, paths, error, clearMedia };
 };

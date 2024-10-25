@@ -13,64 +13,53 @@ import { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import Sharelink from "./Sharelink.jsx";
 import TruncateDescription from "./TruncateDescription.jsx";
-
-
+import EditForm from "./EditForm.jsx";
 
 //custom hooks
 import { useCollection } from "../Hook/useCollection.jsx";
 import { useFirestore } from "../Hook/useFirestore";
 import useTimestampFormat from "../Hook/useTimeStampFormat";
 
-
 //css styling
 import "./Postcard.css";
 
-
-
 export default function Postcard() {
-  const { documents, error } = useCollection("MediaPost", ["createdAt", "desc"]);
-  const { updateDocument, deleteDocument, response} = useFirestore("MediaPost");
+  const { documents, error } = useCollection("MediaPost", [
+    "createdAt",
+    "desc",
+  ]);
+  const { updateDocument, deleteDocument, response } =
+    useFirestore("MediaPost");
   const { formatTimestamp } = useTimestampFormat();
   const [viewComment, setViewComment] = useState(false);
   const navigate = useNavigate();
-  const [modalShow, setModalShow] = useState(false)
-  const [url, setUrl] = useState('')
-  const location = useLocation()
-
+  const [modalShow, setModalShow] = useState(false);
+  const [url, setUrl] = useState("");
+  const location = useLocation();
+  const [editForm, setEditForm] = useState(false);
 
   //get current web url
   useEffect(() => {
-  const url = `${window.location.origin}`
-  console.log(url)
-  setUrl(url)
-},[location])
-
-
-
+    const url = `${window.location.origin}`;
+    console.log(url);
+    setUrl(url);
+  }, [location]);
 
   const handleShare = (e, id) => {
-    e.preventDefault()
-    setModalShow(true)
-    const tempUrl = `${url}/product/${id}`
-    setUrl(tempUrl)
-
-  }
-
-
-  
+    e.preventDefault();
+    setModalShow(true);
+    const tempUrl = `${url}/post/${id}`;
+    setUrl(tempUrl);
+  };
 
   // Edit and Delete function
   const handleDelete = (e, id) => {
     e.preventDefault();
-    try{
-    deleteDocument(id);
-    }catch{
-      alert(response.error)
+    try {
+      deleteDocument(id);
+    } catch {
+      alert(response.error);
     }
-  };
-
-  const handleEdit = (e) => {
-    e.preventDefault();
   };
 
   // Handle like function
@@ -105,8 +94,6 @@ export default function Postcard() {
         console.error("Error handling like:", error);
       });
   };
-
- 
 
   // Handle view function
   const handleView = (e, id) => {
@@ -159,7 +146,7 @@ export default function Postcard() {
                 <img
                   src={doc.photoURL}
                   onClick={(e) => {
-                    navigate(`/profile`)
+                    navigate(`/profile`);
                   }}
                   alt="User Avatar"
                   className="rounded-circle me-3"
@@ -185,7 +172,23 @@ export default function Postcard() {
                     <i className="bi bi-three-dots ms-auto"> </i>
                   </DropdownToggle>
                   <DropdownMenu>
-                    <Dropdown.Item as={Button}>Edit</Dropdown.Item>
+                    <Dropdown.Item
+                      as={Button}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        setEditForm(true);
+                      }}
+                    >
+                      Edit
+                    </Dropdown.Item>
+
+                    <EditForm
+                      show={editForm}
+                      onHide={() => setEditForm(false)}
+                      name="Edit"
+                      doc={doc}
+                    />
+
                     <Dropdown.Item
                       as={Button}
                       onClick={(e) => handleDelete(e, doc.id)}
@@ -215,14 +218,12 @@ export default function Postcard() {
                         <Carousel.Item key={index} style={{ height: "100%" }}>
                           {path.includes("image") ? (
                             <a
-                              onClick={(e) => 
-                                {
-                                  navigate(`/product/${doc.id}`)
-                                  handleView(e,doc.id)
-                                }}
+                              onClick={(e) => {
+                                navigate(`/post/${doc.id}`);
+                                handleView(e, doc.id);
+                              }}
                               target="_blank"
                               rel="noopener noreferrer"
-
                             >
                               <Card.Img
                                 variant="top"
@@ -237,51 +238,49 @@ export default function Postcard() {
                             </a>
                           ) : (
                             <a
-                            onClick={(e) => 
-                              {
-                                navigate(`/product/${doc.id}`)
-                                handleView(e,doc.id)
-                                }}
+                              onClick={(e) => {
+                                navigate(`/post/${doc.id}`);
+                                handleView(e, doc.id);
+                              }}
                               target="_blank"
                               rel="noopener noreferrer"
-                              >
+                            >
                               <video
                                 muted
                                 controls
                                 style={{
-                                width: "100%",
-                                height: "100%",
-                                objectFit: "cover",
-                                backgroundColor: "#000000",
+                                  width: "100%",
+                                  height: "100%",
+                                  objectFit: "cover",
+                                  backgroundColor: "#000000",
                                 }}
                               >
                                 <source
-                                src={doc.imageURL[index]}
-                                type="video/mp4"
+                                  src={doc.imageURL[index]}
+                                  type="video/mp4"
                                 />
                                 <source
-                                src={doc.imageURL[index]}
-                                type="video/ogg"
+                                  src={doc.imageURL[index]}
+                                  type="video/ogg"
                                 />
                                 <source
-                                src={doc.imageURL[index]}
-                                type="video/webm"
+                                  src={doc.imageURL[index]}
+                                  type="video/webm"
                                 />
                                 Your browser doesn't support this video tag.
                               </video>
-                              </a>
-                              )}
-                            </Carousel.Item>
-                            ))}
-                          </Carousel>
-                          ) : (
-                          <div style={{ height: "100%", width: "100%" }}>
-                            {doc.imagePath[0].includes("image") ? (
-                            <a
-                            onClick={(e) => 
-                              {
-                            navigate(`/product/${doc.id}`)
-                            handleView(e,doc.id)
+                            </a>
+                          )}
+                        </Carousel.Item>
+                      ))}
+                    </Carousel>
+                  ) : (
+                    <div style={{ height: "100%", width: "100%" }}>
+                      {doc.imagePath[0].includes("image") ? (
+                        <a
+                          onClick={(e) => {
+                            navigate(`/post/${doc.id}`);
+                            handleView(e, doc.id);
                           }}
                           target="_blank"
                           rel="noopener noreferrer"
@@ -300,29 +299,28 @@ export default function Postcard() {
                         </a>
                       ) : (
                         <a
-                        onClick={(e) => 
-                          {
-                            navigate(`/product/${doc.id}`)
-                            handleView(e,doc.id)
+                          onClick={(e) => {
+                            navigate(`/post/${doc.id}`);
+                            handleView(e, doc.id);
                           }}
-                        target="_blank"
-                        rel="noopener noreferrer"
+                          target="_blank"
+                          rel="noopener noreferrer"
                         >
-                        <video
-                          muted
-                          controls
-                          style={{
-                            width: "100%",
-                            height: "100%",
-                            objectFit: "cover",
-                            backgroundColor: "#000000"
-                          }}
-                        >
-                          <source src={doc.imageURL[0]} type="video/mp4" />
-                          <source src={doc.imageURL[0]} type="video/ogg" />
-                          <source src={doc.imageURL[0]} type="video/webm" />
-                          Your browser doesn't support this video tag.
-                        </video>
+                          <video
+                            muted
+                            controls
+                            style={{
+                              width: "100%",
+                              height: "100%",
+                              objectFit: "cover",
+                              backgroundColor: "#000000",
+                            }}
+                          >
+                            <source src={doc.imageURL[0]} type="video/mp4" />
+                            <source src={doc.imageURL[0]} type="video/ogg" />
+                            <source src={doc.imageURL[0]} type="video/webm" />
+                            Your browser doesn't support this video tag.
+                          </video>
                         </a>
                       )}
                     </div>
@@ -330,9 +328,8 @@ export default function Postcard() {
                 </div>
               )}
 
-          <div className="d-flex gap-2 mb-3">
-                {doc.likes &&
-                doc.likes[projectAuth.currentUser.uid] ? (
+              <div className="d-flex gap-2 mb-3">
+                {doc.likes && doc.likes[projectAuth.currentUser.uid] ? (
                   <div className="me-1">
                     <i
                       className="bi bi-heart-fill me-2"
@@ -352,27 +349,27 @@ export default function Postcard() {
                   </div>
                 )}
 
-                <i
-                  className="bi bi-eye me-1"
-                />
-                 <span>{doc.view}</span>
-                 
-            
-            {/* share */}
-            <Sharelink
+                <i className="bi bi-eye me-1" />
+                <span>{doc.view}</span>
+
+                {/* share */}
+                <Sharelink
                   show={modalShow}
                   onHide={() => setModalShow(false)}
-                  urlLink={{url}}
+                  urlLink={{ url }}
                 />
-            
-                <i className="bi bi-send ms-auto" onClick={(e) => handleShare(e, doc.id)}></i>
-              </div> 
+
+                <i
+                  className="bi bi-send ms-auto"
+                  onClick={(e) => handleShare(e, doc.id)}
+                ></i>
+              </div>
 
               <Card.Title>{doc.title}</Card.Title>
               <Card.Text>
                 <TruncateDescription
-                description={doc.description}
-                wordLimit={20}
+                  description={doc.description}
+                  wordLimit={20}
                 />
               </Card.Text>
 
