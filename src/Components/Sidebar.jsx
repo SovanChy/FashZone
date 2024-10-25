@@ -24,6 +24,7 @@ export default function Sidebar() {
                             alt="User Avatar"
                             className="rounded-circle ms-3"
                             style={{
+                            objectFit:"cover",
                             width: "60px",
                             height: "60px",
                             cursor: "pointer",

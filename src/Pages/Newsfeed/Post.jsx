@@ -1,6 +1,6 @@
 import React from "react";
 import { Container, Row, Col } from "react-bootstrap";
-import {  useNavigate, useParams, useLocation } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useDocument } from "../../Hook/useDocument";
 import {
   Card,
@@ -100,6 +100,7 @@ export default function Post() {
                     marginBottom: "1rem",
                     boxShadow: "0 1px 3px rgba(1, 1, 0, 1)",
                     maxHeight: "800px",
+                    backgroundColor: "#ffffff", // Ensure the background is white
                   }}
                 >
                   {document.imagePath.length > 1 ? (
@@ -117,10 +118,9 @@ export default function Post() {
                                 variant="top"
                                 style={{
                                   width: "100%",
-                                  height: "100%",
+                                  height: "800px", // Set height to 800px
                                   objectFit: "contain",
-                                  backgroundColor: "#f8f9fa",
-                                  maxHeight: "800px",
+                                  backgroundColor: "#000000", // Ensure the background is white
                                 }}
                                 src={document.imageURL[index]}
                               />
@@ -130,10 +130,9 @@ export default function Post() {
                               controls
                               style={{
                                 width: "100%",
-                                height: "100%",
+                                height: "800px", // Set height to 800px
                                 objectFit: "contain",
-                                backgroundColor: "#f8f9fa",
-                                maxHeight: "800px",
+                                backgroundColor: "#000000", // Ensure the background is black
                               }}
                             >
                               <source
@@ -167,10 +166,9 @@ export default function Post() {
                             variant="top"
                             style={{
                               width: "100%",
-                              height: "100%",
+                              height: "800px", // Set height to 800px
                               objectFit: "contain",
-                              backgroundColor: "#f8f9fa",
-                              maxHeight: "800px",
+                              backgroundColor: "#000000", // Ensure the background is white
                             }}
                             src={document.imageURL[0]}
                           />
@@ -180,10 +178,9 @@ export default function Post() {
                           controls
                           style={{
                             width: "100%",
-                            height: "100%",
+                            height: "800px", // Set height to 800px
                             objectFit: "contain",
-                            backgroundColor: "#f8f9fa",
-                            maxHeight: "800px",
+                            backgroundColor: "#000000", // Ensure the background is white
                           }}
                         >
                           <source src={document.imageURL[0]} type="video/mp4" />
@@ -219,7 +216,7 @@ export default function Post() {
                 <img
                   src={document.photoURL}
                   onClick={(e) => {
-                    navigate("/product");
+                    navigate("/profile");
                   }}
                   alt="User Avatar"
                   className="rounded-circle me-3"

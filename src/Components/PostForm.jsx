@@ -38,12 +38,12 @@ function PostForm(props) {
     }
 
     const validFiles = selectedFiles.filter((file) => {
-      if (!file.type.includes('image') && !file.type.includes('video')) {
-        console.log("A selected file must be an image or a video");
+      if (!file.type.includes('image') && !file.type.includes('video') && !file.name.endsWith('.mkv')) {
+        alert("A selected file must be an image, a video, or an MKV file");
         return false;
       }
-      if (file.size > 100000000) {
-        console.log('File size must be less than 100000kb');
+      if (file.size > 1000000000) { // 1GB = 1000000000 bytes
+        alert('File size must be less than 1GB');
         return false;
       }
       return true;

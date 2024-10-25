@@ -37,7 +37,8 @@ export default function Postcard() {
   const location = useLocation()
 
   useEffect(() => {
-  const url = `${window.location.origin}${location.pathname}`
+  const url = `${window.location.origin}`
+  console.log(url)
   setUrl(url)
 },[location])
 
@@ -47,7 +48,7 @@ export default function Postcard() {
   const handleShare = (e, id) => {
     e.preventDefault()
     setModalShow(true)
-    const tempUrl = `${url}/${id}`
+    const tempUrl = `${url}/product/${id}`
     setUrl(tempUrl)
 
   }
@@ -237,48 +238,58 @@ export default function Postcard() {
                                 variant="top"
                                 style={{
                                   width: "100%",
-                                  height: "100%",
+                                  height: "100%", // Set height to 800px
                                   objectFit: "contain",
-                                  backgroundColor: "#f8f9fa",
+                                  backgroundColor: "#000000", // Ensure the background is white
                                 }}
                                 src={doc.imageURL[index]}
                               />
                             </a>
                           ) : (
-                            <video
-                              muted
-                              controls
-                              style={{
+                            <a
+                            onClick={(e) => 
+                              {
+                                navigate(`/product/${doc.id}`)
+                                handleView(e,doc.id)
+                                }}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              >
+                              <video
+                                muted
+                                controls
+                                style={{
                                 width: "100%",
                                 height: "100%",
                                 objectFit: "contain",
-                                backgroundColor: "#f8f9fa",
-                              }}
-                            >
-                              <source
+                                backgroundColor: "#000000",
+                                }}
+                              >
+                                <source
                                 src={doc.imageURL[index]}
                                 type="video/mp4"
-                              />
-                              <source
+                                />
+                                <source
                                 src={doc.imageURL[index]}
                                 type="video/ogg"
-                              />
-                              <source
+                                />
+                                <source
                                 src={doc.imageURL[index]}
                                 type="video/webm"
-                              />
-                              Your browser doesn't support this video tag.
-                            </video>
-                          )}
-                        </Carousel.Item>
-                      ))}
-                    </Carousel>
-                  ) : (
-                    <div style={{ height: "100%", width: "100%" }}>
-                      {doc.imagePath[0].includes("image") ? (
-                        <a
-                        onClick={(e) => 
-                          {
+                                />
+                                Your browser doesn't support this video tag.
+                              </video>
+                              </a>
+                              )}
+                            </Carousel.Item>
+                            ))}
+                          </Carousel>
+                          ) : (
+                          <div style={{ height: "100%", width: "100%" }}>
+                            {doc.imagePath[0].includes("image") ? (
+                            <a
+                            onClick={(e) => 
+                              {
                             navigate(`/product/${doc.id}`)
                             handleView(e,doc.id)
                           }}
@@ -291,21 +302,30 @@ export default function Postcard() {
                             style={{
                               width: "100%",
                               height: "100%",
-                              objectFit: "cover",
-                              backgroundColor: "#f8f9fa",
+                              objectFit: "contain",
+                              backgroundColor: "#000000",
                             }}
                             src={doc.imageURL[0]}
                           />
                         </a>
                       ) : (
+                        <a
+                        onClick={(e) => 
+                          {
+                            navigate(`/product/${doc.id}`)
+                            handleView(e,doc.id)
+                          }}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        >
                         <video
                           muted
                           controls
                           style={{
                             width: "100%",
                             height: "100%",
-                            objectFit: "cover",
-                            backgroundColor: "#f8f9fa",
+                            objectFit: "contain",
+                            backgroundColor: "#000000"
                           }}
                         >
                           <source src={doc.imageURL[0]} type="video/mp4" />
@@ -313,6 +333,7 @@ export default function Postcard() {
                           <source src={doc.imageURL[0]} type="video/webm" />
                           Your browser doesn't support this video tag.
                         </video>
+                        </a>
                       )}
                     </div>
                   )}
