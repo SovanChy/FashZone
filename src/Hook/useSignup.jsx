@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { projectAuth, projectStorage, projectFirebase} from '../firebase/config'
+import { projectAuth, projectStorage, projectFirebase} from '../firebase/config.js'
 import { useAuthContext } from './useAuthContext'
 
 export const useSignup = () => {

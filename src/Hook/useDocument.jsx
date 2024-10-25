@@ -1,5 +1,5 @@
 import {useState, useEffect} from 'react'
-import { projectFirebase } from '../firebase/config'
+import { projectFirebase } from '../firebase/config.js'
 
 //for collecting individual document
 export const useDocument = (collection, id) => {

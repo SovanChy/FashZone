@@ -14,9 +14,10 @@ import { useFirestore } from "../../Hook/useFirestore";
 import useTimestampFormat from "../../Hook/useTimeStampFormat";
 import Comment from "./Comment";
 import "./Post.scss";
-import { projectFirebase, firebase, projectAuth } from "../../firebase/config";
+import { projectFirebase, firebase, projectAuth } from "../../firebase/config.js";
 import { useState } from "react";
 import Sharelink from "../../Components/Sharelink";
+import TruncateDescription from "../../Components/TruncateDescription.jsx";
 
 export default function Post() {
   const { id } = useParams();
@@ -55,6 +56,7 @@ export default function Post() {
   // Handle Like function
   const handleLike = (e, id) => {
     e.preventDefault();
+    console.log(id)
     const userId = projectAuth.currentUser.uid;
     const userLikedField = `likes.${userId}`;
     const docRef = projectFirebase.collection("MediaPost").doc(id);
@@ -85,9 +87,18 @@ export default function Post() {
   };
 
   return (
-    <Container>
+ 
+    <Container >
       <Row>
-        <Col lg={8} md={8}>
+        <Col lg={2} md={2}>
+          <div className="d-flex f-column justify-content-start">
+          <i className="bi bi-arrow-left-circle h1"
+          onClick={() => {
+            navigate(-1)
+          }}></i>
+          </div>
+        </Col>
+        <Col lg={6} md={6}>
           <div key={document.id}>
             {Array.isArray(document.imagePath) &&
               document.imagePath.length > 0 && (
@@ -256,8 +267,17 @@ export default function Post() {
               </div>
               <p>{formatTimestamp(document.createdAt)}</p>
 
-              {/* Like, thumbs up, and share */}
-              <div className="d-flex gap-2 mb-3">
+             
+
+              <Card.Title>{document.title}</Card.Title>
+              <Card.Text>
+                <TruncateDescription 
+                description={document.description}
+                wordLimit={50}/>
+              </Card.Text>
+
+               {/* Like, thumbs up, and share */}
+               <div className="d-flex gap-2 mb-3">
                 {document.likes &&
                 document.likes[projectAuth.currentUser.uid] ? (
                   <div className="me-1">
@@ -288,11 +308,8 @@ export default function Post() {
                   onHide={() => setModalShow(false)}
                   urlLink={{url}}
                 />
-                <i className="bi bi-send ms-auto" onClick={handleShare}></i>
+                <i className="bi bi-send ms-auto" onClick={(e) => handleShare(e)}></i>
               </div>
-
-              <Card.Title>{document.title}</Card.Title>
-              <Card.Text>{document.description}</Card.Text>
 
               <div
                 style={{ cursor: "pointer" }}

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { projectStorage } from '../firebase/config';
+import { projectStorage } from '../firebase/config.js';
 
 export const useStorage = (folderPath) => {
     const [urls, setUrls] = useState([]);

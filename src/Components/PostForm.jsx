@@ -38,7 +38,7 @@ function PostForm(props) {
     }
 
     const validFiles = selectedFiles.filter((file) => {
-      if (!file.type.includes('image') && !file.type.includes('video') && !file.name.endsWith('.mkv')) {
+      if (!file.type.includes('image') && !file.type.includes('video')) {
         alert("A selected file must be an image, a video, or an MKV file");
         return false;
       }
@@ -61,7 +61,7 @@ function PostForm(props) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (imageVideo.length === 0) {
-      console.log("No file selected");
+      alert("No file selected");
       return;
     }
 
@@ -70,7 +70,7 @@ function PostForm(props) {
       await uploadMedia(imageVideo);
       setIsSubmitted(true); // Set submission status to true
     } catch (err) {
-      console.log("Error during upload:", err.message);
+      alert("Error during upload:", err.message);
     }
   };
 
@@ -104,7 +104,7 @@ function PostForm(props) {
           setIsSubmitted(false); // Reset submission status
         })
         .catch((err) => {
-          console.log("Error adding document:", err.message);
+          alert("Error adding document:", err.message);
         });
     }
   }, [isSubmitted, urls, paths]); // This effect runs when isSubmitted, urls, and paths are updated
@@ -133,6 +133,8 @@ function PostForm(props) {
             <Form.Group className="mb-3" controlId="formImage">
               <Form.Label>Description</Form.Label>
               <Form.Control
+                as="textarea"
+                rows={3}
                 type="text"
                 placeholder="Description..."
                 onChange={(e) => setDescription(e.target.value)}

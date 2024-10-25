@@ -8,10 +8,11 @@ import {
   Button,
 } from "react-bootstrap";
 import Comment from "../Pages/Newsfeed/Comment";
-import { projectFirebase, firebase, projectAuth } from "../firebase/config";
+import { projectFirebase, firebase, projectAuth } from "../firebase/config.js";
 import { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import Sharelink from "./Sharelink.jsx";
+import TruncateDescription from "./TruncateDescription.jsx";
 
 
 
@@ -28,7 +29,7 @@ import "./Postcard.css";
 
 export default function Postcard() {
   const { documents, error } = useCollection("MediaPost", ["createdAt", "desc"]);
-  const { updateDocument, deleteDocument } = useFirestore("MediaPost");
+  const { updateDocument, deleteDocument, response} = useFirestore("MediaPost");
   const { formatTimestamp } = useTimestampFormat();
   const [viewComment, setViewComment] = useState(false);
   const navigate = useNavigate();
@@ -36,6 +37,8 @@ export default function Postcard() {
   const [url, setUrl] = useState('')
   const location = useLocation()
 
+
+  //get current web url
   useEffect(() => {
   const url = `${window.location.origin}`
   console.log(url)
@@ -54,29 +57,16 @@ export default function Postcard() {
   }
 
 
-  // Read more function
-  const truncateDescription = (description, wordLimit, id) => {
-    const words = description.split(" ");
-    if (words.length > wordLimit) {
-      return (
-        <>
-          {words.slice(0, wordLimit).join(" ")}...
-          <span
-            style={{ color: "#800000 ", cursor: "pointer" }}
-            onClick={() => navigate(`/product/${id}`)}
-          >
-            Read more
-          </span>
-        </>
-      );
-    }
-    return description;
-  };
+  
 
   // Edit and Delete function
   const handleDelete = (e, id) => {
     e.preventDefault();
+    try{
     deleteDocument(id);
+    }catch{
+      alert(response.error)
+    }
   };
 
   const handleEdit = (e) => {
@@ -239,7 +229,7 @@ export default function Postcard() {
                                 style={{
                                   width: "100%",
                                   height: "100%", // Set height to 800px
-                                  objectFit: "contain",
+                                  objectFit: "cover",
                                   backgroundColor: "#000000", // Ensure the background is white
                                 }}
                                 src={doc.imageURL[index]}
@@ -261,7 +251,7 @@ export default function Postcard() {
                                 style={{
                                 width: "100%",
                                 height: "100%",
-                                objectFit: "contain",
+                                objectFit: "cover",
                                 backgroundColor: "#000000",
                                 }}
                               >
@@ -302,7 +292,7 @@ export default function Postcard() {
                             style={{
                               width: "100%",
                               height: "100%",
-                              objectFit: "contain",
+                              objectFit: "cover",
                               backgroundColor: "#000000",
                             }}
                             src={doc.imageURL[0]}
@@ -324,7 +314,7 @@ export default function Postcard() {
                           style={{
                             width: "100%",
                             height: "100%",
-                            objectFit: "contain",
+                            objectFit: "cover",
                             backgroundColor: "#000000"
                           }}
                         >
@@ -380,7 +370,10 @@ export default function Postcard() {
 
               <Card.Title>{doc.title}</Card.Title>
               <Card.Text>
-                {truncateDescription(doc.description, 50, doc.id)}
+                <TruncateDescription
+                description={doc.description}
+                wordLimit={20}
+                />
               </Card.Text>
 
               <div
