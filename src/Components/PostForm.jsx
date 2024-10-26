@@ -1,6 +1,6 @@
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-import { Form } from 'react-bootstrap';
+import { Form, Spinner } from 'react-bootstrap';
 import { useState, useEffect } from 'react';
 import { useFirestore } from '../Hook/useFirestore';
 import { useAuthContext } from '../Hook/useAuthContext';
@@ -19,6 +19,7 @@ function PostForm(props) {
   const [view] = useState(0);
   const [share] = useState('');
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handlePost = (e) => {
     let selectedFiles = [];
@@ -48,6 +49,7 @@ function PostForm(props) {
   // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
 
     if (imageVideo.length > 0) {
       try {
@@ -55,6 +57,7 @@ function PostForm(props) {
         setIsSubmitted(true); // Set submission status to true if media is uploaded
       } catch (err) {
         alert("Error during upload:", err.message);
+        setIsLoading(false);
       }
     } else {
       // No media to upload, set submission status directly
@@ -86,10 +89,12 @@ function PostForm(props) {
           setDescription('');
           props.onHide();
           setIsSubmitted(false);
+          setIsLoading(false);
           clearMedia(); 
         })
         .catch((err) => {
           alert("Error adding document:", err.message);
+          setIsLoading(false);
         });
     }
   }, [isSubmitted, urls, paths]);
@@ -107,33 +112,41 @@ function PostForm(props) {
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <Form onSubmit={handleSubmit}>
-            <Form.Group className="mb-3" controlId="formTitle">
-              <Form.Label>Post Title</Form.Label>
-              <Form.Control
-                type="text" placeholder="Title..."
-                onChange={(e) => setTitle(e.target.value)}
-                value={title} />
-            </Form.Group>
-            <Form.Group className="mb-3" controlId="formDescription">
-              <Form.Label>Description</Form.Label>
-              <Form.Control
-                as="textarea"
-                rows={3}
-                type="text"
-                placeholder="Description..."
-                onChange={(e) => setDescription(e.target.value)}
-                value={description} />
-            </Form.Group>
-            <Form.Group className="mb-3" controlId="formMedia">
-              <Form.Label>Image/Video (optional)</Form.Label>
-              <Form.Control type="file" multiple onChange={handlePost} />
-            </Form.Group>
-            <Button variant="danger" className='custom-button me-2' type="submit">
-              Submit
-            </Button>
-            <Button variant="danger" className='custom-button' onClick={props.onHide}>Close</Button>
-          </Form>
+          {isLoading ? (
+            <div className="d-flex justify-content-center">
+              <Spinner animation="border" role="status">
+                <span className="visually-hidden">Loading...</span>
+              </Spinner>
+            </div>
+          ) : (
+            <Form onSubmit={handleSubmit}>
+              <Form.Group className="mb-3" controlId="formTitle">
+                <Form.Label>Post Title</Form.Label>
+                <Form.Control
+                  type="text" placeholder="Title..."
+                  onChange={(e) => setTitle(e.target.value)}
+                  value={title} />
+              </Form.Group>
+              <Form.Group className="mb-3" controlId="formDescription">
+                <Form.Label>Description</Form.Label>
+                <Form.Control
+                  as="textarea"
+                  rows={3}
+                  type="text"
+                  placeholder="Description..."
+                  onChange={(e) => setDescription(e.target.value)}
+                  value={description} />
+              </Form.Group>
+              <Form.Group className="mb-3" controlId="formMedia">
+                <Form.Label>Image/Video (optional)</Form.Label>
+                <Form.Control type="file" multiple onChange={handlePost} />
+              </Form.Group>
+              <Button variant="danger" className='custom-button me-2' type="submit">
+                Submit
+              </Button>
+              <Button variant="danger" className='custom-button' onClick={props.onHide}>Close</Button>
+            </Form>
+          )}
         </Modal.Body>
       </Modal>
     </>

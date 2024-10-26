@@ -27,7 +27,8 @@ export default function Post() {
   const [viewComment, setViewComment] = useState(false);
   const [modalShow, setModalShow] = useState(false);
   const navigate = useNavigate(); 
-  const url = window.location.href;
+  const [shareUrl, setShareUrl] = useState("")
+
   
 
   if (error) {
@@ -37,11 +38,14 @@ export default function Post() {
     return <div>Loading...</div>;
   }
 
-  //handle Share function
-  const handleShare = (e) => {
+  //Handle share
+  const handleShare = (e, id) => {
     e.preventDefault();
+    const tempUrl = `${window.location.origin}/post/${id}`;
+    setShareUrl(tempUrl); // Set the specific post URL
     setModalShow(true);
   };
+
 
   // Edit and Delete functions
   const handleDelete = (e, id) => {
@@ -306,10 +310,15 @@ export default function Post() {
                 {/* share */}
                 <Sharelink
                   show={modalShow}
-                  onHide={() => setModalShow(false)}
-                  urlLink={{url}}
+                  onHide={() => 
+                  {
+                    setModalShow(false)
+                    setShareUrl("")
+                  }
+                  }
+                  urllink={shareUrl}
                 />
-                <i className="bi bi-send ms-auto" onClick={(e) => handleShare(e)}></i>
+                <i className="bi bi-send ms-auto" onClick={(e) => handleShare(e, document.id)}></i>
               </div>
 
               <div

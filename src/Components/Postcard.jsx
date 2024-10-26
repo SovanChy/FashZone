@@ -19,37 +19,34 @@ import EditForm from "./EditForm.jsx";
 import { useCollection } from "../Hook/useCollection.jsx";
 import { useFirestore } from "../Hook/useFirestore";
 import useTimestampFormat from "../Hook/useTimeStampFormat";
+import { useAuthContext } from "../Hook/useAuthContext.jsx";
+
 
 //css styling
 import "./Postcard.css";
 
 export default function Postcard() {
+  const  {user } = useAuthContext()
   const { documents, error } = useCollection("MediaPost", [
     "createdAt",
     "desc",
-  ]);
+  ],
+  );
   const { updateDocument, deleteDocument, response } =
     useFirestore("MediaPost");
   const { formatTimestamp } = useTimestampFormat();
   const [viewComment, setViewComment] = useState(false);
   const navigate = useNavigate();
   const [modalShow, setModalShow] = useState(false);
-  const [url, setUrl] = useState("");
-  const location = useLocation();
   const [editForm, setEditForm] = useState(false);
+  const [shareUrl, setShareUrl] = useState("");
 
-  //get current web url
-  useEffect(() => {
-    const url = `${window.location.origin}`;
-    console.log(url);
-    setUrl(url);
-  }, [location]);
-
+  // Edit and Delete function
   const handleShare = (e, id) => {
     e.preventDefault();
+    const tempUrl = `${window.location.origin}/post/${id}`;
+    setShareUrl(tempUrl); // Set the specific post URL
     setModalShow(true);
-    const tempUrl = `${url}/post/${id}`;
-    setUrl(tempUrl);
   };
 
   // Edit and Delete function
@@ -199,83 +196,88 @@ export default function Postcard() {
                 </Dropdown>
               </div>
               <p>{formatTimestamp(doc.createdAt)}</p>
-
               {Array.isArray(doc.imagePath) && doc.imagePath.length > 0 && (
                 <div
                   className="media-container"
                   style={{
                     maxWidth: "600px",
                     margin: "0 auto",
-                    aspectRatio: "4/3",
                     overflow: "hidden",
                     marginBottom: "1rem",
                     boxShadow: "0 1px 3px rgba(1, 1, 0, 1)",
+                    backgroundColor: "#000000"
+                    
                   }}
                 >
                   {doc.imagePath.length > 1 ? (
-                    <Carousel style={{ height: "100%", width: "100%" }}>
+                    <Carousel style={{ height: "100%", width: "100%"}}>
                       {doc.imagePath.map((path, index) => (
                         <Carousel.Item key={index} style={{ height: "100%" }}>
                           {path.includes("image") ? (
-                            <a
-                              onClick={(e) => {
-                                navigate(`/post/${doc.id}`);
-                                handleView(e, doc.id);
-                              }}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                            >
-                              <Card.Img
-                                variant="top"
-                                style={{
-                                  width: "100%",
-                                  height: "100%", // Set height to 800px
-                                  objectFit: "cover",
-                                  backgroundColor: "#000000", // Ensure the background is white
+                       
+                              <a
+                                onClick={(e) => {
+                                  navigate(`/post/${doc.id}`);
+                                  handleView(e, doc.id);
                                 }}
-                                src={doc.imageURL[index]}
-                              />
-                            </a>
-                          ) : (
-                            <a
-                              onClick={(e) => {
-                                navigate(`/post/${doc.id}`);
-                                handleView(e, doc.id);
-                              }}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                            >
-                              <video
-                                muted
-                                controls
-                                style={{
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                >
+                                <Card.Img
+                                  variant="top"
+                                  style={{
                                   width: "100%",
-                                  height: "100%",
+                                  height: "400px",
                                   objectFit: "cover",
                                   backgroundColor: "#000000",
+                                  }}
+                                  src={doc.imageURL[index]}
+                                />
+                                </a>
+                        
+                              ) : (
+                              <>
+                                <a
+                                onClick={(e) => {
+                                  navigate(`/post/${doc.id}`);
+                                  handleView(e, doc.id);
                                 }}
+                                target="_blank"
+                                rel="noopener noreferrer"
                               >
-                                <source
-                                  src={doc.imageURL[index]}
-                                  type="video/mp4"
-                                />
-                                <source
-                                  src={doc.imageURL[index]}
-                                  type="video/ogg"
-                                />
-                                <source
-                                  src={doc.imageURL[index]}
-                                  type="video/webm"
-                                />
-                                Your browser doesn't support this video tag.
-                              </video>
-                            </a>
+                               
+                                <video
+                                  muted
+                                  controls
+                                  style={{
+                                    width: "100%",
+                                    height: "400px",
+                                    objectFit: "cover",
+                                    backgroundColor: "#000000",
+                                  }}
+                                >
+                                  <source
+                                    src={doc.imageURL[index]}
+                                    type="video/mp4"
+                                  />
+                                  <source
+                                    src={doc.imageURL[index]}
+                                    type="video/ogg"
+                                  />
+                                  <source
+                                    src={doc.imageURL[index]}
+                                    type="video/webm"
+                                  />
+                                  Your browser doesn't support this video tag.
+                                </video>
+                              </a>
+                            </>
                           )}
                         </Carousel.Item>
                       ))}
                     </Carousel>
                   ) : (
-                    <div style={{ height: "100%", width: "100%" }}>
+                    <div style={{ height: "100%", width: "100%"}}>
                       {doc.imagePath[0].includes("image") ? (
                         <a
                           onClick={(e) => {
@@ -284,13 +286,12 @@ export default function Postcard() {
                           }}
                           target="_blank"
                           rel="noopener noreferrer"
-                          style={{ display: "block", height: "100%" }}
                         >
                           <Card.Img
                             variant="top"
                             style={{
                               width: "100%",
-                              height: "100%",
+                              height: "400px",
                               objectFit: "cover",
                               backgroundColor: "#000000",
                             }}
@@ -311,7 +312,7 @@ export default function Postcard() {
                             controls
                             style={{
                               width: "100%",
-                              height: "100%",
+                              height: "400px",
                               objectFit: "cover",
                               backgroundColor: "#000000",
                             }}
@@ -328,7 +329,7 @@ export default function Postcard() {
                 </div>
               )}
 
-              <div className="d-flex gap-2 mb-3">
+              <div className="d-flex gap-2 mb-3 align-items-center">
                 {doc.likes && doc.likes[projectAuth.currentUser.uid] ? (
                   <div className="me-1">
                     <i
@@ -352,17 +353,38 @@ export default function Postcard() {
                 <i className="bi bi-eye me-1" />
                 <span>{doc.view}</span>
 
-                {/* share */}
+            
+
+                <Button
+                  className="custom-button"
+                  style={{
+                    padding: "5px",
+                    margin: "0px 10px ",
+                    textDecoration: "none",
+                    color: "white",
+                    cursor: "pointer",
+                  }}
+                  onClick={() => {
+                    navigate(`/post/${doc.id}`);
+                  }}
+                >
+                  Go to Post
+                </Button>
+
                 <Sharelink
                   show={modalShow}
-                  onHide={() => setModalShow(false)}
-                  urlLink={{ url }}
+                  onHide={() => {
+                    setModalShow(false);
+                    setShareUrl("");
+                  }}
+                  urllink={shareUrl}
                 />
 
                 <i
                   className="bi bi-send ms-auto"
                   onClick={(e) => handleShare(e, doc.id)}
                 ></i>
+               
               </div>
 
               <Card.Title>{doc.title}</Card.Title>
@@ -372,7 +394,6 @@ export default function Postcard() {
                   wordLimit={20}
                 />
               </Card.Text>
-
               <div
                 style={{ cursor: "pointer" }}
                 onClick={() => setViewComment((prev) => !prev)}
@@ -386,6 +407,7 @@ export default function Postcard() {
                 )}
               </div>
               {viewComment && <Comment key={doc.id} input={doc} />}
+            
             </Card.Body>
           </Card>
         ))}

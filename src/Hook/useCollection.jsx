@@ -2,7 +2,7 @@ import { useEffect, useState, useRef } from "react"
 import { projectFirebase } from "../firebase/config.js"
 
 //change location of query later 
-export const useCollection = (collection,  _orderBy, _query) => {
+export const useCollection = (collection,  _orderBy,  _query) => {
   const [documents, setDocuments] = useState(null)
   const [error, setError] = useState(null)
 

@@ -1,6 +1,6 @@
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-import { Form } from 'react-bootstrap';
+import { Form, Spinner } from 'react-bootstrap';
 import { useState, useEffect } from 'react';
 import { useFirestore } from '../Hook/useFirestore';
 import { useAuthContext } from '../Hook/useAuthContext';
@@ -16,12 +16,12 @@ function EditForm({ doc, show, onHide, name }) {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   //accessing the id of an object modal
   const id = typeof doc === 'object' && doc !== null ? doc.id : doc;
 
-
-const handlePost = (e) => {
+  const handlePost = (e) => {
     let selectedFiles = [];
     try {
         for (let i = 0; i < e.target.files.length; i++) {
@@ -44,10 +44,11 @@ const handlePost = (e) => {
     });
 
     setImageVideo(validFiles);
-};
+  };
 
-const handleSubmit = async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
 
     try {
         if (imageVideo.length > 0) {
@@ -56,16 +57,17 @@ const handleSubmit = async (e) => {
         setIsSubmitted(true);
     } catch (err) {
         alert("Error during upload:", err.message);
+    } finally {
+        setIsLoading(false);
     }
-};
+  };
 
-useEffect(() => {
+  useEffect(() => {
     try {
         if (isSubmitted) {
             let updateData = {
                 title: title,
                 description: description,
-               
             };
 
             if (urls.length > 0 && paths.length > 0) {
@@ -79,11 +81,13 @@ useEffect(() => {
             setTitle('');
             setDescription('');
             setIsSubmitted(false);
+            setIsLoading(false);
+
         }
     } catch (err) {
         alert("Error updating document: " + err.message);
     }
-}, [isSubmitted, urls, paths]);
+  }, [isSubmitted, urls, paths]);
 
   return (
     <Modal
@@ -99,41 +103,49 @@ useEffect(() => {
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <Form onSubmit={handleSubmit}>
-          <Form.Group className="mb-3" controlId="formTitle">
-            <Form.Label>Post Title</Form.Label>
-            <Form.Control
-              type="text"
-              placeholder="Title..."
-              onChange={(e) => setTitle(e.target.value)}
-              value={title}
-            />
-          </Form.Group>
-          <Form.Group className="mb-3" controlId="formDescription">
-            <Form.Label>Description</Form.Label>
-            <Form.Control
-              as="textarea"
-              rows={3}
-              placeholder="Description..."
-              onChange={(e) => setDescription(e.target.value)}
-              value={description}
-            />
-          </Form.Group>
-          <Form.Group className="mb-3" controlId="formImage">
-            <Form.Label>Image/Video (Optional)</Form.Label>
-            <Form.Control 
-              type="file" 
-              multiple 
-              onChange={handlePost} 
-            />
-          </Form.Group>
-          <Button variant="danger" className='custom-button me-2' type="submit">
-            Submit
-          </Button>
-          <Button variant="danger" className='custom-button' onClick={onHide}>
-            Close
-          </Button>
-        </Form>
+        {isLoading ? (
+          <div className="text-center">
+            <Spinner animation="border" role="status">
+              <span className="visually-hidden">Loading...</span>
+            </Spinner>
+          </div>
+        ) : (
+          <Form onSubmit={handleSubmit}>
+            <Form.Group className="mb-3" controlId="formTitle">
+              <Form.Label>Post Title</Form.Label>
+              <Form.Control
+                type="text"
+                placeholder="Title..."
+                onChange={(e) => setTitle(e.target.value)}
+                value={title}
+              />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="formDescription">
+              <Form.Label>Description</Form.Label>
+              <Form.Control
+                as="textarea"
+                rows={3}
+                placeholder="Description..."
+                onChange={(e) => setDescription(e.target.value)}
+                value={description}
+              />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="formImage">
+              <Form.Label>Image/Video (Optional)</Form.Label>
+              <Form.Control 
+                type="file" 
+                multiple 
+                onChange={handlePost} 
+              />
+            </Form.Group>
+            <Button variant="danger" className='custom-button me-2' type="submit">
+              Submit
+            </Button>
+            <Button variant="danger" className='custom-button' onClick={onHide}>
+              Close
+            </Button>
+          </Form>
+        )}
       </Modal.Body>
     </Modal>
   );
