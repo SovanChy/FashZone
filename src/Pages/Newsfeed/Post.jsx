@@ -18,6 +18,7 @@ import { projectFirebase, firebase, projectAuth } from "../../firebase/config.js
 import { useState } from "react";
 import Sharelink from "../../Components/Sharelink";
 import TruncateDescription from "../../Components/TruncateDescription.jsx";
+import EditForm from "../../Components/EditForm.jsx";
 
 export default function Post() {
   const { id } = useParams();
@@ -28,6 +29,8 @@ export default function Post() {
   const [modalShow, setModalShow] = useState(false);
   const navigate = useNavigate(); 
   const [shareUrl, setShareUrl] = useState("")
+  const [editForm, setEditForm] = useState(false);
+
 
   
 
@@ -53,9 +56,7 @@ export default function Post() {
     deleteDocument(id);
   };
 
-  const handleEdit = (e) => {
-    e.preventDefault();
-  };
+  
 
   // Handle Like function
   const handleLike = (e, id) => {
@@ -259,7 +260,22 @@ export default function Post() {
                     <i className="bi bi-three-dots ms-auto"></i>
                   </DropdownToggle>
                   <DropdownMenu>
-                    <Dropdown.Item as={Button}>Edit</Dropdown.Item>
+                  <Dropdown.Item
+                      as={Button}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        setEditForm(true);
+                      }}
+                    >
+                      Edit
+                    </Dropdown.Item>
+
+                    <EditForm
+                      show={editForm}
+                      onHide={() => setEditForm(false)}
+                      name="Edit"
+                      doc={document}
+                    />
                     <Dropdown.Item
                       as={Button}
                       onClick={(e) => handleDelete(e, document.id)}
@@ -278,7 +294,8 @@ export default function Post() {
               <Card.Text>
                 <TruncateDescription 
                 description={document.description}
-                wordLimit={50}/>
+                wordLimit={20}
+              />
               </Card.Text>
 
                {/* Like, thumbs up, and share */}
@@ -318,7 +335,7 @@ export default function Post() {
                   }
                   urllink={shareUrl}
                 />
-                <i className="bi bi-send ms-auto" onClick={(e) => handleShare(e, document.id)}></i>
+                <i className="bi bi-send ms-2" onClick={(e) => handleShare(e, document.id)}></i>
               </div>
 
               <div

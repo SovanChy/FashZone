@@ -107,27 +107,47 @@ export default function Trend() {
                     Score: {post.trendingScore.toFixed(2)}
                   </Badge>
                 </Card.Header>
-
                 <Card.Body>
-                <a
-                             onClick={(e) => {
-                              navigate(`/post/${post.id}`);
-                              handleView(e, post.id);
+
+                {post.imagePath[0].includes("image") ? (
+                        <a
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          style={{ display: "block", height: "100%" }}
+                          onClick={() => navigate(`/post/${post.id}`)}
+                        >
+                          <Card.Img
+                            variant="top"
+                            style={{
+                              width: "100%",
+                              height: "400px", // Set height to 800px
+                              objectFit: "cover",
+                              backgroundColor: "#000000", // Ensure the background is white
                             }}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            >
-                              <Card.Img
-                                variant="top"
-                                style={{
-                                  width: "100%",
-                                  height: "100%", // Set height to 800px
-                                  objectFit: "cover",
-                                  backgroundColor: "#000000", // Ensure the background is white
-                                }}
-                                src={post.imageURL[0]}
-                              />
-                            </a>
+                            src={post.imageURL[0]}
+                          />
+                        </a>
+                      ) : (
+                        <video
+                          
+                          onClick={() => navigate(`/post/${post.id}`)}
+                          style={{
+                            width: "100%",
+                            height: "400px", // Set height to 800px
+                            objectFit: "cover",
+                            backgroundColor: "#000000",
+                            // Ensure the background is white
+                          }}
+                        >
+                          <source src={post.imageURL[0]} type="video/mp4" />
+                          <source src={post.imageURL[0]} type="video/ogg" />
+                          <source
+                            src={post.imageURL[0]}
+                            type="video/webm"
+                          />
+                          Your browser doesn't support this video tag.
+                        </video>
+                      )}
                   <Card.Text>{post.description}</Card.Text>
 
                   <div className="mt-3 d-flex justify-content-between align-items-center">

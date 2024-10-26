@@ -5,11 +5,10 @@ import { useAuthContext } from "../../Hook/useAuthContext";
 import useTimestampFormat from "../../Hook/useTimeStampFormat";
 import { useFirestore } from "../../Hook/useFirestore";
 import { Button, Form, Dropdown, DropdownToggle, DropdownMenu} from "react-bootstrap";
-import TruncateDescription from "../../Components/TruncateDescription.jsx";
+import TruncateDescription from "../../Components/TruncateDescription.jsx"
 
 //css styling
 import "./Comment.scss";
-import { JournalMedical } from "react-bootstrap-icons";
 
 export default function Comment({ input }) {
   const { updateDocument, deleteDocument, response } = useFirestore("MediaPost");
@@ -19,22 +18,7 @@ export default function Comment({ input }) {
 
 
 
-  const truncateDescription = (description, wordLimit) => {
-    const words = description.split(" ");
-    if (words.length > wordLimit) {
-      return (
-        <>
-          {words.slice(0, wordLimit).join(" ")}...
-          <span
-            style={{ color: "#800000 ", cursor: "pointer" }}
-          >
-            Read more
-          </span>
-        </>
-      );
-    }
-    return <>{description}</>;
-  };
+  
 
   //editing comment
   const handleEdit = async (e, postId, commentId) => {
@@ -212,12 +196,11 @@ export default function Comment({ input }) {
                   </DropdownMenu>
                 </Dropdown>
                 </div>
-                <div>
-                </div>
                 <div className="mt-2 mb-2"> 
                   <TruncateDescription
                   description={comment.content}
-                  wordLimit={20}/>
+                  wordLimit={20}
+                  />
                   
                 </div>
 

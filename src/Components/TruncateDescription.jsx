@@ -3,30 +3,36 @@ import React, { useState } from 'react';
 const TruncateDescription = ({ description, wordLimit = 20 }) => {
   const [isExpanded, setIsExpanded] = useState(false);
   
-  // Handle empty or null description
-  if (!description) return null;
+  // Handle empty, null, or non-string description
+  if (!description || typeof description !== 'string') {
+    return null;
+  }
   
-
-  //putting it in one and comparing it
-  const words = description.split(" ");
+  // Insert space every 20 characters if no spaces found
+  const processedDescription = description.includes(' ') 
+    ? description 
+    : description.replace(/(.{20})/g, "$1 ");
+  
+  // Trim the description and split into words
+  const words = processedDescription.trim().split(/\s+/);
   const shouldTruncate = words.length > wordLimit;
-
-  //make the read more function activate
+  
   const toggleExpand = (e) => {
     e.preventDefault();
     setIsExpanded(!isExpanded);
   };
-
+  
   if (!shouldTruncate) {
-    return <span>{description}</span>;
+    return <span className="text-gray-700">{description}</span>;
   }
-
+  
   return (
     <span className="text-gray-700">
       {isExpanded ? (
         <>
           {description}
           <button
+            type="button"
             onClick={toggleExpand}
             className="ml-1 text-red-800 hover:text-red-600 font-medium cursor-pointer"
           >
@@ -37,6 +43,7 @@ const TruncateDescription = ({ description, wordLimit = 20 }) => {
         <>
           {words.slice(0, wordLimit).join(" ")}...
           <button
+            type="button"
             onClick={toggleExpand}
             className="ml-1 text-red-800 hover:text-red-600 font-medium cursor-pointer"
           >

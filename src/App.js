@@ -22,7 +22,7 @@ import { useLocation } from 'react-router-dom';
 function App() {
   const { user, authIsReady } = useAuthContext()
   const location = useLocation()
-  const AuthPage = ["/signup", "/login", "/newsfeed", "/news"].includes(location.pathname) || location.pathname.startsWith("/post/")
+  const AuthPage = ["/signup", "/login", "/newsfeed"].includes(location.pathname) || location.pathname.startsWith("/post/")
 
   
   return (

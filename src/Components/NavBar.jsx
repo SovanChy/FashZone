@@ -1,6 +1,5 @@
-import React, { useEffect } from "react";
-import { Container, Navbar, Nav, Button, Dropdown, Row, Col, NavItem} from "react-bootstrap";
-import { useState } from "react"; 
+import React from "react";
+import { Container, Navbar, Nav, Button, Dropdown} from "react-bootstrap";
 import {Link} from 'react-router-dom';
 import './NavBar.scss'
 import {useLogout} from '../Hook/useLogout'
@@ -17,15 +16,19 @@ export default function NavBar() {
       <Container fluid>
         <Navbar bg="light" expand="lg" fixed="top" className="py-1 shadow-sm "> 
           <Container>
-            <Navbar.Brand as={Link} to="/">
-              <span>WRK</span>
+            <Navbar.Brand>
+              <img 
+                src={require(`../assets/Asset1.png`)} 
+                alt="Logo" 
+                
+              />
             </Navbar.Brand>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse
               className="justify-content-end"
               id="basic-navbar-nav"
             >
-            <Nav>
+              <Nav>
                 <Nav.Link as={Link} to="/newsfeed">Newsfeed</Nav.Link>
                 <Nav.Link as={Link} to="/news">News</Nav.Link>
                 <Nav.Link as={Link} to="/job">Job</Nav.Link>
@@ -33,11 +36,8 @@ export default function NavBar() {
                 <Nav.Link as={Link} to="/pricing">Pricing</Nav.Link>
               </Nav>
               <Nav>
-
                 {user && (
-                  
                   <div>
-                    {/* Using Nav.Item for Avatar */}
                     <Dropdown>
                       <Dropdown.Toggle
                         as="div"
@@ -54,31 +54,27 @@ export default function NavBar() {
                             cursor: "pointer",
                           }}
                         />
-                       
                       </Dropdown.Toggle>
-
                       <Dropdown.Menu>
                         <Dropdown.Item as={Link} to="/profile">{user.displayName}</Dropdown.Item>
                         <Dropdown.Divider />
                         <Dropdown.Item as={Button} onClick={logout}>
                           Sign Out
                         </Dropdown.Item>
-                   
                       </Dropdown.Menu>
                     </Dropdown>
                   </div>
-                  )}
-
-                  {!user && (
+                )}
+                {!user && (
                   <div>
-                  <Link to="/login">
+                    <Link to="/login">
                       <Button className="custom-button-nav">Login</Button>
-                  </Link>
-                  <Link to="/signup">
+                    </Link>
+                    <Link to="/signup">
                       <Button className="custom-button-nav">Sign up</Button>
-                  </Link>
+                    </Link>
                   </div>
-                  )}
+                )}
               </Nav>
             </Navbar.Collapse>
           </Container>

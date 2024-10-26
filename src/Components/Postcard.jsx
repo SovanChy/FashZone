@@ -353,13 +353,17 @@ export default function Postcard() {
                 <i className="bi bi-eye me-1" />
                 <span>{doc.view}</span>
 
+                <i
+                  className="bi bi-send ms-2"
+                  onClick={(e) => handleShare(e, doc.id)}
+                ></i>
+
             
 
                 <Button
-                  className="custom-button"
+                  className="custom-button ms-auto"
                   style={{
                     padding: "5px",
-                    margin: "0px 10px ",
                     textDecoration: "none",
                     color: "white",
                     cursor: "pointer",
@@ -380,10 +384,7 @@ export default function Postcard() {
                   urllink={shareUrl}
                 />
 
-                <i
-                  className="bi bi-send ms-auto"
-                  onClick={(e) => handleShare(e, doc.id)}
-                ></i>
+               
                
               </div>
 
