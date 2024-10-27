@@ -1,8 +1,10 @@
 
 import React from "react";
 import styles from "./LandingPage.module.css";
+import { useNavigate } from "react-router-dom";
 
 function TrendingSection() {
+  const navigate = useNavigate()
   return (
     <section className={styles.trendingSection}>
       <div className={styles.trendingGrid}>
@@ -24,12 +26,12 @@ function TrendingSection() {
             <br />
             Start today—fashion is waiting for you!
           </p>
-          <button className={styles.TButton}>Dive In With us!</button> 
+          <button className={styles.TButton} onClick={() => navigate("/signup")}>Dive In With us!</button> 
           {/* button is in the trending section with letter in the grey box */}
           
         </div>
       </div>
-      {/* <div className={styles.trendingGallery}> */}
+      <div className={styles.trendingGallery}>
         <img
           src="https://cdn.builder.io/api/v1/image/assets/TEMP/391ebdbcac9130bbff11b4a88e8a92b604c4d57d3d81bbe97ba1da255abb6041?placeholderIfAbsent=true&apiKey=17f720a5f6cf49c2bf2c38812f1e2179"
           alt="Trending fashion gallery image 1"
@@ -40,7 +42,7 @@ function TrendingSection() {
           alt="Trending fashion gallery image 2"
           className={styles.galleryImage}
         />
-      {/* </div> */}
+      </div>
     </section>
   );
 }

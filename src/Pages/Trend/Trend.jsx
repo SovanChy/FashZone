@@ -3,59 +3,30 @@ import {
   Row,
   Col,
   Card,
-  Badge,
   Spinner,
   Alert,
 } from "react-bootstrap";
 import React, { useState, useEffect } from "react";
 import { PostsAPI } from "./Posts";
 import useTimestampFormat from "../../Hook/useTimeStampFormat";
-import {  useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useAuthContext } from "../../Hook/useAuthContext";
 import { projectFirebase, projectAuth, firebase } from "../../firebase/config";
 import { useFirestore } from "../../Hook/useFirestore";
 
 export default function Trend() {
-  const  {user } = useAuthContext()
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const { formatTimestamp } = useTimestampFormat();
-  const {updateDocument} = useFirestore("MediaPost")
-
-   // Handle view function
-   const handleView = (e, id) => {
-    e.preventDefault();
-    const userId = projectAuth.currentUser.uid;
-    const userViewedField = `views.${userId}`;
-    const docRef = projectFirebase.collection("MediaPost").doc(id);
-
-    docRef
-      .get()
-      .then((doc) => {
-        if (doc.exists) {
-          const data = doc.data();
-          if (!data.views || !data.views[userId]) {
-            updateDocument(id, {
-              [userViewedField]: true,
-              viewsBy: firebase.firestore.FieldValue.arrayUnion(userId),
-              view: firebase.firestore.FieldValue.increment(1),
-            });
-          }
-        }
-      })
-      .catch((error) => {
-        console.error("Error handling view:", error);
-      });
-  };
+  const { updateDocument } = useFirestore("MediaPost");
 
   useEffect(() => {
     const fetchTrendingPosts = async () => {
       try {
         setLoading(true);
         const trendingPosts = await PostsAPI.getTrendingPosts(10);
-        //add data to posts
         setPosts(trendingPosts);
       } catch (err) {
         setError(err.message);
@@ -88,6 +59,7 @@ export default function Trend() {
       </Container>
     );
   }
+
   return (
     <>
       <Container className="py-4">
@@ -100,78 +72,55 @@ export default function Trend() {
         <Row xs={1} md={2} className="g-4">
           {posts.map((post) => (
             <Col key={post.id}>
-              <Card className="h-100 shadow-sm">
-                <Card.Header className="d-flex justify-content-between align-items-center bg-primary text-white">
-                  <h5 className="mb-0">{post.title}</h5>
-                  <Badge bg="light" text="dark">
-                    Score: {post.trendingScore.toFixed(2)}
-                  </Badge>
-                </Card.Header>
+              <Card>
                 <Card.Body>
-
-                {post.imagePath[0].includes("image") ? (
-                        <a
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          style={{ display: "block", height: "100%" }}
-                          onClick={() => navigate(`/post/${post.id}`)}
-                        >
-                          <Card.Img
-                            variant="top"
-                            style={{
-                              width: "100%",
-                              height: "400px", // Set height to 800px
-                              objectFit: "cover",
-                              backgroundColor: "#000000", // Ensure the background is white
-                            }}
-                            src={post.imageURL[0]}
-                          />
-                        </a>
-                      ) : (
-                        <video
-                          
-                          onClick={() => navigate(`/post/${post.id}`)}
-                          style={{
-                            width: "100%",
-                            height: "400px", // Set height to 800px
-                            objectFit: "cover",
-                            backgroundColor: "#000000",
-                            // Ensure the background is white
-                          }}
-                        >
-                          <source src={post.imageURL[0]} type="video/mp4" />
-                          <source src={post.imageURL[0]} type="video/ogg" />
-                          <source
-                            src={post.imageURL[0]}
-                            type="video/webm"
-                          />
-                          Your browser doesn't support this video tag.
-                        </video>
-                      )}
-                  <Card.Text>{post.description}</Card.Text>
-
-                  <div className="mt-3 d-flex justify-content-between align-items-center">
-                    <div className="d-flex gap-3 text-muted">
-                      <span>
-                        <i className="bi bi-heart me-1" />
-                        {post.like}
-                      </span>
-                      <span>
-                        <i className="bi bi-eye me-1"></i>
-                        {post.view}
-                      </span>
-                    </div>
-
-                    <p className="text-muted">
-                      {formatTimestamp(post.createdAt)}
-                    </p>
-                  </div>
+                  {post.imagePath[0].includes("image") ? (
+                    <a
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      style={{ display: "block", height: "100%" }}
+                      onClick={() => navigate(`/post/${post.id}`)}
+                    >
+                      <Card.Img
+                        variant="top"
+                        style={{
+                          width: "100%",
+                          height: "400px",
+                          objectFit: "cover",
+                          backgroundColor: "#000000",
+                        }}
+                        src={post.imageURL[0]}
+                      />
+                    </a>
+                  ) : (
+                    <video
+                      onClick={() => navigate(`/post/${post.id}`)}
+                      style={{
+                        width: "100%",
+                        height: "400px",
+                        objectFit: "cover",
+                        backgroundColor: "#000000",
+                      }}
+                    >
+                      <source src={post.imageURL[0]} type="video/mp4" />
+                      <source src={post.imageURL[0]} type="video/ogg" />
+                      <source src={post.imageURL[0]} type="video/webm" />
+                      Your browser doesn't support this video tag.
+                    </video>
+                  )}
+                  <p className="text-muted">
+                    {formatTimestamp(post.createdAt)}
+                  </p>
                 </Card.Body>
               </Card>
             </Col>
           ))}
         </Row>
       </Container>
+    </>
+  );
+}
+    
 
       {/* <Container fluid>
         <Row>
@@ -303,6 +252,4 @@ export default function Trend() {
         </Row>
       </Container>
       */}
-    </>
-  );
-}
+  

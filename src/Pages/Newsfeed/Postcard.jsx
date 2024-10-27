@@ -7,19 +7,19 @@ import {
   DropdownToggle,
   Button,
 } from "react-bootstrap";
-import Comment from "../Pages/Newsfeed/Comment";
-import { projectFirebase, firebase, projectAuth } from "../firebase/config.js";
+import Comment from "./Comment.jsx";
+import { projectFirebase, firebase, projectAuth } from "../../firebase/config.js";
 import { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import Sharelink from "./Sharelink.jsx";
-import TruncateDescription from "./TruncateDescription.jsx";
+import Sharelink from "../../Components/Sharelink.jsx";
+import TruncateDescription from "../../Components/TruncateDescription.jsx";
 import EditForm from "./EditForm.jsx";
 
 //custom hooks
-import { useCollection } from "../Hook/useCollection.jsx";
-import { useFirestore } from "../Hook/useFirestore";
-import useTimestampFormat from "../Hook/useTimeStampFormat";
-import { useAuthContext } from "../Hook/useAuthContext.jsx";
+import { useCollection } from "../../Hook/useCollection.jsx";
+import { useFirestore } from "../../Hook/useFirestore.jsx";
+import useTimestampFormat from "../../Hook/useTimeStampFormat.jsx";
+import { useAuthContext } from "../../Hook/useAuthContext.jsx";
 
 
 //css styling

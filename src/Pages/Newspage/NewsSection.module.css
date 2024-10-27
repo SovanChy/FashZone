@@ -38,12 +38,20 @@
 }
 
 .sectionTitle {
-  margin: 40px auto ;
+  margin: 40px auto 0px auto;
   overflow: hidden;
   color: #040404;
   text-align: center;
   text-transform: uppercase;
   font: 400 24px/1 Geologica, -apple-system, Roboto, Helvetica, sans-serif;
+  cursor: pointer;
+  transition: transform 0.3s ease-in-out;
+}
+
+.sectionTitle:hover {
+  transform: rotate(10deg);
+  color: #800000;
+
 }
 
 .articleGrid {
@@ -131,8 +139,15 @@
   font-size: 24px;
   font-weight: 500;
   /* font: 400 24px Gabarito, -apple-system, Roboto, Helvetica, sans-serif; */
+  cursor: pointer;
+  transition: transform 0.3s ease-in-out;
 }
 
+.sectionTitle:hover {
+  transform: rotate(10deg);
+  color: #800000;
+
+}
 .blogContent {
   color: #040404;
   margin: 0 0 10px 0;

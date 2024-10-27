@@ -1,8 +1,8 @@
 import React from "react";
 import { Container, Row, Col, Button } from "react-bootstrap";
 import Sidebar from "../../Components/Sidebar.jsx";
-import PostCard from "../../Components/Postcard.jsx";
-import PostForm from "../../Components/PostForm.jsx";
+import PostCard from "./Postcard.jsx";
+import PostForm from "./PostForm.jsx";
 import TrendSearchBar from "../../Components/TrendSearchBar.jsx";
 import { useState } from "react";
 import { useCollection } from "../../Hook/useCollection.jsx";

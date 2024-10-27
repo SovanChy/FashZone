@@ -3,7 +3,7 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { Container, Row, Col } from "react-bootstrap";
 import "./Login.scss";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {Link} from 'react-router-dom';
 import { useLogin } from "../../Hook/useLogin";
 
@@ -12,6 +12,19 @@ export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const {login, isPending, error} = useLogin()
+
+  //apply css styling
+  useEffect(() => {
+    // Apply specific styles to the body when this component is mounted
+  
+    document.body.style.paddingTop = '0px';
+
+    // Clean up and remove styles when component unmounts
+    return () => {
+        document.body.style = '';
+    };
+}, []);
+
   
   
   const handleSubmit = async (e) => {
@@ -27,7 +40,7 @@ export default function Login() {
     }, 3000);
   };
   return (
-    <>
+    <div className="login">
       <Container fluid className="background-image">
         <Row className="Justify-content-center align-items-center vh-100">
           <Col lg={{ span: 4, offset: 4 }}>
@@ -53,7 +66,14 @@ export default function Login() {
                   value={password}
                   required
                 />
+              <Form.Text
+              style={{
+                color: "gray"
+              }}>
+                Forgot your password?
+              </Form.Text>
               </Form.Group>
+
               {/* {error && <div style={{color: "red"}}>Invalid email or password</div>} */}
               {error && <div style={{color: "red", fontWeight: "bold"}} >{error}</div>}
 
@@ -89,7 +109,7 @@ export default function Login() {
           </Col>
         </Row>
       </Container>
-    </>
+    </div>
   );
 }
 

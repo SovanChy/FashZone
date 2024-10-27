@@ -102,11 +102,9 @@
   border: 2px solid #f3f3f3;
 }
 
-/* .trendingGallery { */
-  /* display: flex; */
-  /* gap: 20px; */
-  /* margin-top: 40px; */
-/* } */
+.trendingGallery { 
+  display: flex;
+ } 
 
 /* 2 pics at the bottom */
 .galleryImage {

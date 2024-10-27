@@ -2,9 +2,9 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { Form, Spinner } from 'react-bootstrap';
 import { useState, useEffect } from 'react';
-import { useFirestore } from '../Hook/useFirestore';
-import { useAuthContext } from '../Hook/useAuthContext';
-import { useStorage } from '../Hook/useStorage';
+import { useFirestore } from '../../Hook/useFirestore';
+import { useAuthContext } from '../../Hook/useAuthContext';
+import { useStorage } from '../../Hook/useStorage';
 
 function PostForm(props) {
   const { user } = useAuthContext();

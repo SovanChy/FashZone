@@ -1,8 +1,11 @@
 
 import React from "react";
 import styles from "./LandingPage.module.css";
+import { useNavigate } from "react-router-dom";
 
 function PortfolioCard({ name, role, description, imageSrc }) {
+  const navigate = useNavigate(); 
+
   return (
     <article className={styles.portfolioCard}>
       <div className={styles.portfolioInfo}>
@@ -10,7 +13,7 @@ function PortfolioCard({ name, role, description, imageSrc }) {
         <p className={styles.portfolioRole}>{role}</p>
         <p className={styles.portfolioDescription}>{description}</p>
         {/* <button className={styles.viewMoreButton}>View More</button> */}
-        <button className={styles.PButton}>View More</button>
+        <button className={styles.PButton} onClick={() => navigate("signup")}>View More</button>
       </div>
       {/* <div className={styles.portfolioImageWrapper}> */}
         <img

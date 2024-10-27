@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { Container, Row, Col } from "react-bootstrap";
@@ -13,6 +13,19 @@ export default function SignUp() {
   const [thumbnail, setThumbnail] = useState(null);
   const [thumbnailError, setThumbnailError] = useState(null);
   const {signup, isPending, error} = useSignup()
+
+  //apply css styling 
+  //apply css styling
+  useEffect(() => {
+    // Apply specific styles to the body when this component is mounted
+  
+    document.body.style.paddingTop = '0px';
+
+    // Clean up and remove styles when component unmounts
+    return () => {
+        document.body.style = '';
+    };
+}, []);
 
   const handleSubmit = (e) => {
     e.preventDefault()

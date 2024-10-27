@@ -6,6 +6,7 @@ import React from "react";
 import styles from "./NewsSection.module.css";
 import ArticleCard from "./ArticleCard";
 import BlogPost from "./BlogPost";
+import { useNavigate } from "react-router-dom";
 
 // Article data
 const articles = [
@@ -31,6 +32,32 @@ const articles = [
     author: "Jessica",
     link: "/articles/winter-spring-collection",
   },
+
+  {
+    image: "https://cdn.builder.io/api/v1/image/assets/TEMP/b637dd4937a6606a7262f4f0d64a58c576de4e6eb97a132efec7c4161271d4ff?placeholderIfAbsent=true&apiKey=4c9afea5c10940a19f40b930532a4cdd",
+    title: "Winter-Spring Collection",
+    excerpt: "Lorem ipsum dolor sit amet consectetur. Sed et id at proin. Gravida",
+    author: "Jessica",
+    link: "/articles/winter-spring-collection",
+  },
+
+  {
+    image: "https://cdn.builder.io/api/v1/image/assets/TEMP/b637dd4937a6606a7262f4f0d64a58c576de4e6eb97a132efec7c4161271d4ff?placeholderIfAbsent=true&apiKey=4c9afea5c10940a19f40b930532a4cdd",
+    title: "Winter-Spring Collection",
+    excerpt: "Lorem ipsum dolor sit amet consectetur. Sed et id at proin. Gravida",
+    author: "Jessica",
+    link: "/articles/winter-spring-collection",
+  },
+  {
+    image: "https://cdn.builder.io/api/v1/image/assets/TEMP/b637dd4937a6606a7262f4f0d64a58c576de4e6eb97a132efec7c4161271d4ff?placeholderIfAbsent=true&apiKey=4c9afea5c10940a19f40b930532a4cdd",
+    title: "Winter-Spring Collection",
+    excerpt: "Lorem ipsum dolor sit amet consectetur. Sed et id at proin. Gravida",
+    author: "Jessica",
+    link: "/articles/winter-spring-collection",
+  },
+
+ 
+  
 ];
 
 // Blog data
@@ -50,9 +77,28 @@ const blogPosts = [
     content: "Lorem ipsum dolor sit amet consectetur. Sed et id at proin.",
     author: "Author",
   },
+
+  {
+    title: "New Winter Collection",
+    content: "Lorem ipsum dolor sit amet consectetur. Sed et id at proin.",
+    author: "Author",
+  },
+
+  {
+    title: "New Winter Collection",
+    content: "Lorem ipsum dolor sit amet consectetur. Sed et id at proin.",
+    author: "Author",
+  },
+
+  {
+    title: "New Winter Collection",
+    content: "Lorem ipsum dolor sit amet consectetur. Sed et id at proin.",
+    author: "Author",
+  },
 ];
 
 function NewsSection() {
+  const navigate = useNavigate() 
   return (
     <section className={styles.newsContainer}>
       <nav className={styles.navLinks}>
@@ -68,7 +114,7 @@ function NewsSection() {
             className={styles.heroImage}
           />
         </a>
-        <h2 className={styles.sectionTitle}>Must-read</h2>
+        <h2 className={styles.sectionTitle} onClick={() => navigate("/article")}>Articles</h2>
         <div className={styles.articleGrid}>
           <div className={styles.articleRow}>
             {articles.map((article, index) => (

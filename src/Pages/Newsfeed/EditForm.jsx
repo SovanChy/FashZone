@@ -2,10 +2,10 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { Form, Spinner } from 'react-bootstrap';
 import { useState, useEffect } from 'react';
-import { useFirestore } from '../Hook/useFirestore';
-import { useAuthContext } from '../Hook/useAuthContext';
-import { useStorage } from '../Hook/useStorage';
-import { projectFirebase } from '../firebase/config';
+import { useFirestore } from '../../Hook/useFirestore';
+import { useAuthContext } from '../../Hook/useAuthContext';
+import { useStorage } from '../../Hook/useStorage';
+import { projectFirebase } from '../../firebase/config';
 
 function EditForm({ doc, show, onHide, name }) {
   const { user } = useAuthContext();

@@ -18,7 +18,7 @@ import { projectFirebase, firebase, projectAuth } from "../../firebase/config.js
 import { useState } from "react";
 import Sharelink from "../../Components/Sharelink";
 import TruncateDescription from "../../Components/TruncateDescription.jsx";
-import EditForm from "../../Components/EditForm.jsx";
+import EditForm from "./EditForm.jsx";
 
 export default function Post() {
   const { id } = useParams();
@@ -99,7 +99,7 @@ export default function Post() {
           <div className="d-flex f-column justify-content-start">
           <i className="bi bi-arrow-left-circle h1"
           onClick={() => {
-            navigate(-1)
+            navigate('/newsfeed')
           }}></i>
           </div>
         </Col>
