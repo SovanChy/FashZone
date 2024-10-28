@@ -1,9 +1,9 @@
 import React from "react";
 import styles from "./NewsSection.module.css";
 import ArticleCard from "./ArticleCard";
-import { Card, Row, Col } from "react-bootstrap";
+import BlogCard from "./BlogCard";
+import { Row, Col } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-import { useFirestore } from "../../Hook/useFirestore";
 
 // Article data
 
@@ -103,6 +103,9 @@ function NewsSection() {
         </div>
 
         <h2 className={styles.sectionTitle} onClick={(e) => navigate('/blog')}>Blogs</h2>
+        <div>
+          <BlogCard/>
+        </div>
         
       </div>
     </section>

@@ -11,20 +11,22 @@ import Job from "./Pages/Job/Job";
 import Portfolio from "./Pages/Job/Portfolio";
 import View from "./Pages/Job/View";
 import NewsSection from "./Pages/Newspage/NewsSection";
-import CalendarEvent from "./Pages/Calendar/Calendar";
 import ProfilePage from "./Pages/Profile/ProfilePage";
 import Post from "./Pages/Newsfeed/Post";
 import NewsList from "./Pages/Newspage/NewsList";
 import NewsForm from "./Pages/Newspage/NewsForm";
 import NewsPage from "./Pages/Newspage/NewsPage";
 import BlogForm from "./Pages/Newspage/BlogForm";
+import CalendarEvent from "./Pages/Calendar/Calendar";
+import CalendarForm from "./Pages/Calendar/CalendarForm";
+import BlogList from "./Pages/Newspage/BlogList";
+import BlogPage from "./Pages/Newspage/BlogPage";
 
 //custom hook and others
 import { useAuthContext } from "./Hook/useAuthContext";
 import { useLocation } from "react-router-dom";
 import { Navigate, Route, Routes } from "react-router-dom";
-import BlogList from "./Pages/Newspage/BlogList";
-import BlogPage from "./Pages/Newspage/BlogPage";
+
 
 function App() {
   const { user, authIsReady } = useAuthContext();
@@ -122,11 +124,14 @@ function App() {
               }
             />
             <Route path="/view/*" element={<View />} />
-            <Route
-              path="/events"
-              element={
+            <Route path="/events" element={
                 user ? <CalendarEvent /> : <Navigate to="/" replace />
-                // <CalendarEvent/>
+            
+              }
+            />
+            <Route path="/eventform" element={
+                user ? <CalendarForm /> : <Navigate to="/" replace />
+            
               }
             />
             <Route

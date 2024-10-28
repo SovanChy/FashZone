@@ -9,8 +9,8 @@ import {
 } from "react-bootstrap";
 import Comment from "./Comment.jsx";
 import { projectFirebase, firebase, projectAuth } from "../../firebase/config.js";
-import { useState, useEffect } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Sharelink from "../../Components/Sharelink.jsx";
 import TruncateDescription from "../../Components/TruncateDescription.jsx";
 import EditForm from "./EditForm.jsx";

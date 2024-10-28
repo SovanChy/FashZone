@@ -7,13 +7,10 @@ import { useAuthContext } from "../../Hook/useAuthContext";
 import { useStorage } from "../../Hook/useStorage";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
-import { useNavigate } from "react-router-dom";
 
-export default function EditBlogNewForm({ doc, name, show, onHide }) {
-  const { user } = useAuthContext();
+export default function EditBlogNewForm({ doc, show, onHide }) {
   const { updateDocument } = useFirestore("Blog");
   const { uploadMedia, urls, paths } = useStorage("Blog");
-  const navigate = useNavigate();
 
   const [imageVideo, setImageVideo] = useState([]);
   const [title, setTitle] = useState("");
@@ -24,10 +21,13 @@ export default function EditBlogNewForm({ doc, name, show, onHide }) {
   //accessing the id of an object modal
   const id = typeof doc === "object" && doc !== null ? doc.id : doc;
 
+
+  //returning an doc data for later updates
   useEffect(() => {
     if (doc) {
       setTitle(doc.title || "");
       setDescription(doc.description || "");
+      setImageVideo(doc.imageURL || "");
     }
   }, [doc]);
 
@@ -124,7 +124,7 @@ export default function EditBlogNewForm({ doc, name, show, onHide }) {
         updateDocument(id, updateData);
         setImageVideo([]);
         setTitle("");
-        setDescription({ ops: [] }); // Reset to empty Delta
+        setDescription({ ops: [] }); 
         setIsSubmitted(false);
         setIsLoading(false);
         onHide()

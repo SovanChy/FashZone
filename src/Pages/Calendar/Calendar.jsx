@@ -5,20 +5,38 @@ import timeGridPlugin from '@fullcalendar/timegrid';
 import listPlugin from '@fullcalendar/list';
 import multiMonthPlugin from '@fullcalendar/multimonth';
 import interactionPlugin from '@fullcalendar/interaction';
+import CalendarForm from './CalendarForm'
 import './Calendar.css'
-
+import { useEffect } from 'react';
+import { Button } from 'react-bootstrap';
+import { useCollection } from '../../Hook/useCollection';
 export default function CalendarEvent() {
+  const [calendarForm, setCalendarForm] = useState(false)
+  const {documents, error} = useCollection('events')
  
-  const [events, setEvents] = useState([
-    { title: 'event 1', start: '2024-10-01', end: '2024-10-10', },
-    { title: 'event 2', date: '2024-10-12',  end: '2024-10-10', },
-    {title: 'job', description: 'Job offer for this week', date: '2024-10-17', end: '2024-10-17'}
-  ]);
+  const [events, setEvents] = useState([]);
+  
+  useEffect(() => {
+    if (documents) {
+      const formattedEvents = documents.map(doc => ({
+        ...doc,
+        title: doc.title,
+        start: doc.start,
+        end: doc.end,
+        description: doc.description
+      }));
+      setEvents(formattedEvents);
+      console.log(formattedEvents);
+    }
+  }, [documents]);
 
+
+ 
 
   return (
     <div className='Calendar-body'>
-
+      <Button onClick={() => setCalendarForm(true)}>Add Calendar</Button>
+    
       <FullCalendar
         plugins={[
           dayGridPlugin,
@@ -35,6 +53,9 @@ export default function CalendarEvent() {
         eventBorderColor='black'
         eventDurationEditable={true}
         height={"80vh"}
+        selectable={true}
+        unselectAuto={true}
+        selectMirror={true}
         headerToolbar={
           {
             start: 'today prev,next',
@@ -49,9 +70,16 @@ export default function CalendarEvent() {
           );
           
         }}
-
-
       />
+      
+
+      <CalendarForm 
+      show={calendarForm}
+      onHide={() => setCalendarForm(false)}
+      name="Create"
+      events={events}/>
+
+      
     </div>
   );
 }

@@ -5,10 +5,8 @@ import { useState, useEffect } from 'react';
 import { useFirestore } from '../../Hook/useFirestore';
 import { useAuthContext } from '../../Hook/useAuthContext';
 import { useStorage } from '../../Hook/useStorage';
-import { projectFirebase } from '../../firebase/config';
 
 function EditForm({ doc, show, onHide, name }) {
-  const { user } = useAuthContext();
   const { updateDocument } = useFirestore('MediaPost');
   const { uploadMedia, urls, paths } = useStorage('MediaPost');
 
@@ -20,6 +18,16 @@ function EditForm({ doc, show, onHide, name }) {
 
   //accessing the id of an object modal
   const id = typeof doc === 'object' && doc !== null ? doc.id : doc;
+
+  //returning old data for edit
+
+  useEffect(() => {
+    if (doc) {
+      setTitle(doc.title || "");
+      setDescription(doc.description || "");
+      setImageVideo(doc.imageURL || "");
+    }
+  }, [doc]);
 
   const handlePost = (e) => {
     let selectedFiles = [];

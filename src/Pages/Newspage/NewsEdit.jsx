@@ -23,6 +23,17 @@ export default function EditNewForm({ doc, name, show, onHide }) {
 
   //accessing the id of an object modal
   const id = typeof doc === "object" && doc !== null ? doc.id : doc;
+
+  //returning old data for minor edit
+  //returning an doc data for later updates
+  useEffect(() => {
+    if (doc) {
+      setTitle(doc.title || "");
+      setDescription(doc.description || "");
+      setImageVideo(doc.imageURL || "");
+    }
+  }, [doc]);
+
   //words document format for editing
   const modules = {
     toolbar: {
