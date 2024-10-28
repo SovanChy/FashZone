@@ -1,4 +1,5 @@
 import { useCollection } from "../../Hook/useCollection";
+import { projectAuth, projectFirebase, firebase } from "../../firebase/config";
 import React, { useState, useEffect } from "react";
 import {
   Container,
@@ -9,29 +10,61 @@ import {
   DropdownToggle,
   DropdownMenu,
   Spinner,
+  Pagination,
 } from "react-bootstrap";
-import { truncateDescription } from "../../Components/TruncateDescription";
 import { useNavigate } from "react-router-dom";
 import { useFirestore } from "../../Hook/useFirestore";
-import EditForm from "./NewsBlogEditForm";
 import useTimestampFormat from "../../Hook/useTimeStampFormat";
-import Pagination from 'react-bootstrap/Pagination';
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
-import "./NewsList.css"
+import "./NewsList.css";
+import EditNewForm from "./NewsEdit";
 
 export default function NewsList() {
   // Custom hook for collection
   const { documents, error } = useCollection("Article", ["createdAt", "desc"]);
   const navigate = useNavigate();
-  const { deleteDocument, response } = useFirestore("Article");
+  const { updateDocument, deleteDocument, response } = useFirestore("Article");
   const { formatTimestamp } = useTimestampFormat();
 
-  
   // Group all useState hooks together at the top
   const [isLoading, setIsLoading] = useState(true);
   const [displayError, setDisplayError] = useState(null);
   const [editForm, setEditForm] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 10;
+
+  //handle current page
+  const handlePageChange = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
+
+  //handleView
+  // Handle view function
+  const handleView = (e, id) => {
+    e.preventDefault();
+    const userId = projectAuth.currentUser.uid;
+    const userViewedField = `views.${userId}`;
+    const docRef = projectFirebase.collection("Article").doc(id);
+
+    docRef
+      .get()
+      .then((doc) => {
+        if (doc.exists) {
+          const data = doc.data();
+          if (!data.views || !data.views[userId]) {
+            updateDocument(id, {
+              [userViewedField]: true,
+              viewsBy: firebase.firestore.FieldValue.arrayUnion(userId),
+              view: firebase.firestore.FieldValue.increment(1),
+            });
+          }
+        }
+      })
+      .catch((error) => {
+        console.error("Error handling view:", error);
+      });
+  };
 
   //delete feature
   const handleDelete = (e, id) => {
@@ -80,6 +113,12 @@ export default function NewsList() {
     );
   }
 
+  //Pagination logic
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentDocuments = documents.slice(indexOfFirstItem, indexOfLastItem);
+  const totalPages = Math.ceil(documents.length / itemsPerPage);
+
   return (
     <Container className="mt-5 mb-5">
       <div className="d-flex justify-content-between align-items-center mb-4">
@@ -95,13 +134,16 @@ export default function NewsList() {
       </div>
 
       <ListGroup>
-        {documents && documents.length > 0 ? (
-          documents.map((article) => (
+        {currentDocuments && currentDocuments.length > 0 ? (
+          currentDocuments.map((article) => (
             <ListGroup.Item key={article.id} className="d-flex flex-column">
               <div className="d-flex justify-content-between align-items-center">
                 <h5
-                  onClick={() => navigate(`/article/${article.id}`)}
-                  className="title"
+                  onClick={(e) => {
+                    handleView(e, article.id);
+                    navigate(`/article/${article.id}`);
+                  }}
+                  className="title mb-0"
                 >
                   {article.title}
                 </h5>
@@ -126,11 +168,13 @@ export default function NewsList() {
                       Edit
                     </Dropdown.Item>
 
-                    <EditForm
+                    <EditNewForm
                       show={editForm}
-                      onHide={() => setEditForm(false)}
-                      name="Edit"
+                      onHide={(e) => {
+                        setEditForm(false);
+                      }}
                       doc={article}
+                      name="Edit"
                     />
 
                     <Dropdown.Item
@@ -142,21 +186,33 @@ export default function NewsList() {
                   </DropdownMenu>
                 </Dropdown>
               </div>
-              <div className="d-flex justify-content-between align-items-center">
+              <div className="d-flex  align-items-start ">
                 <small>{formatTimestamp(article.createdAt)}</small>
+                <i className="bi bi-eye me-1 ms-2" />
+                <span className="ms-2">{article.view}</span>
               </div>
-              <div className="d-flex">
+              <div
+                className="d-flex mt-2"
+                style={{
+                  height: "200px",
+                }}
+              >
                 <Image
                   src={article.imageURL}
-                  fluid
-                  className="w-40"
-                  style={{ width: "250px", height: "200px", objectFit: "fit" }}
+                  style={{
+                    width: "300px",
+                    height: "200px",
+                    objectFit: "cover",
+                    flexShrink: 0, // Prevents the image from resizing
+                  }}
                 />
+
                 <ReactQuill
                   theme="bubble"
-                  value={truncateDescription(article.description, 30)}
+                  value={article.description}
                   readOnly={true}
                   modules={{ toolbar: false }}
+                  className="!border-none no-scroll"
                 />
               </div>
             </ListGroup.Item>
@@ -167,6 +223,17 @@ export default function NewsList() {
           </ListGroup.Item>
         )}
       </ListGroup>
+      <Pagination className="custom-pagination mt-4">
+        {[...Array(totalPages)].map((_, index) => (
+          <Pagination.Item
+            key={index + 1}
+            active={index + 1 === currentPage}
+            onClick={() => handlePageChange(index + 1)}
+          >
+            {index + 1}
+          </Pagination.Item>
+        ))}
+      </Pagination>
     </Container>
   );
 }

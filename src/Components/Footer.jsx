@@ -4,13 +4,10 @@ import * as Icon from 'react-bootstrap-icons';
 
 export default function Footer() {
     return (
-    <Container fluid > 
-        <Row className="d-flex flex-column p-5 bg-dark text-white">
+    <Container fluid className="d-flex flex-column min-vh-100">
+        <Row className="d-flex flex-column p-5 bg-dark text-white mt-auto">
             <Col className='d-flex flex-shrink justify-content-center mb-4'>
-
-               <a href="https://react-bootstrap.netlify.app/docs/getting-started/theming" style={{
-                color: "white",
-               }}><Icon.Google size={40}></Icon.Google></a>
+               <Icon.Google size={40}></Icon.Google>
             </Col> 
             <Col className='mx-3 px-5 w-100'>
                 <div className='d-flex justify-content-center'>

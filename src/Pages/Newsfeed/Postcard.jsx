@@ -215,7 +215,7 @@ export default function Postcard() {
                         <Carousel.Item key={index} style={{ height: "100%" }}>
                           {path.includes("image") ? (
                        
-                              <a
+                              <div
                                 onClick={(e) => {
                                   navigate(`/post/${doc.id}`);
                                   handleView(e, doc.id);
@@ -233,7 +233,7 @@ export default function Postcard() {
                                   }}
                                   src={doc.imageURL[index]}
                                 />
-                                </a>
+                                </div>
                         
                               ) : (
                               <>

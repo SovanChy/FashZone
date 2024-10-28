@@ -1,64 +1,11 @@
-
-
-
-
 import React from "react";
 import styles from "./NewsSection.module.css";
 import ArticleCard from "./ArticleCard";
-import BlogPost from "./BlogPost";
+import { Card, Row, Col } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
+import { useFirestore } from "../../Hook/useFirestore";
 
 // Article data
-const articles = [
-  {
-    image:
-      "https://cdn.builder.io/api/v1/image/assets/TEMP/6632fcf6780d3ad9a1f1975ca34d842f2875621076451fbc6ec1ca5ec7cfe3be?placeholderIfAbsent=true&apiKey=4c9afea5c10940a19f40b930532a4cdd",
-    title: "Beige Runway",
-    excerpt: "Lorem ipsum dolor sit amet consectetur. Sed et id at proin. Gravida",
-    author: "Jennifer",
-    link: "/articles/beige-runway",
-  },
-  {
-    image: "https://cdn.builder.io/api/v1/image/assets/TEMP/dadc31540fab0df7971e76d09089ab87a79412d6e6ec6e1b0d4586c9e9043e37?placeholderIfAbsent=true&apiKey=4c9afea5c10940a19f40b930532a4cdd",
-    title: "Dior-Jungle Collection",
-    excerpt: "Lorem ipsum dolor sit amet consectetur. Sed et id at proin. Gravida",
-    author: "Jessica",
-    link: "/articles/dior-jungle-collection",
-  },
-  {
-    image: "https://cdn.builder.io/api/v1/image/assets/TEMP/b637dd4937a6606a7262f4f0d64a58c576de4e6eb97a132efec7c4161271d4ff?placeholderIfAbsent=true&apiKey=4c9afea5c10940a19f40b930532a4cdd",
-    title: "Winter-Spring Collection",
-    excerpt: "Lorem ipsum dolor sit amet consectetur. Sed et id at proin. Gravida",
-    author: "Jessica",
-    link: "/articles/winter-spring-collection",
-  },
-
-  {
-    image: "https://cdn.builder.io/api/v1/image/assets/TEMP/b637dd4937a6606a7262f4f0d64a58c576de4e6eb97a132efec7c4161271d4ff?placeholderIfAbsent=true&apiKey=4c9afea5c10940a19f40b930532a4cdd",
-    title: "Winter-Spring Collection",
-    excerpt: "Lorem ipsum dolor sit amet consectetur. Sed et id at proin. Gravida",
-    author: "Jessica",
-    link: "/articles/winter-spring-collection",
-  },
-
-  {
-    image: "https://cdn.builder.io/api/v1/image/assets/TEMP/b637dd4937a6606a7262f4f0d64a58c576de4e6eb97a132efec7c4161271d4ff?placeholderIfAbsent=true&apiKey=4c9afea5c10940a19f40b930532a4cdd",
-    title: "Winter-Spring Collection",
-    excerpt: "Lorem ipsum dolor sit amet consectetur. Sed et id at proin. Gravida",
-    author: "Jessica",
-    link: "/articles/winter-spring-collection",
-  },
-  {
-    image: "https://cdn.builder.io/api/v1/image/assets/TEMP/b637dd4937a6606a7262f4f0d64a58c576de4e6eb97a132efec7c4161271d4ff?placeholderIfAbsent=true&apiKey=4c9afea5c10940a19f40b930532a4cdd",
-    title: "Winter-Spring Collection",
-    excerpt: "Lorem ipsum dolor sit amet consectetur. Sed et id at proin. Gravida",
-    author: "Jessica",
-    link: "/articles/winter-spring-collection",
-  },
-
- 
-  
-];
 
 // Blog data
 const blogPosts = [
@@ -98,7 +45,9 @@ const blogPosts = [
 ];
 
 function NewsSection() {
-  const navigate = useNavigate() 
+  const navigate = useNavigate();
+  
+
   return (
     <section className={styles.newsContainer}>
       <nav className={styles.navLinks}>
@@ -114,19 +63,22 @@ function NewsSection() {
             className={styles.heroImage}
           />
         </a>
-        <h2 className={styles.sectionTitle} onClick={() => navigate("/article")}>Articles</h2>
-        <div className={styles.articleGrid}>
-          <div className={styles.articleRow}>
-            {articles.map((article, index) => (
-              <div key={index} className={styles.articleColumn}>
-                <a href={article.link}>
-                  <ArticleCard {...article} />
-                </a>
-              </div>
-            ))}
-          </div>
-        </div>
-
+        <h2
+          className={styles.sectionTitle}
+          onClick={() => navigate("/article")}
+        >
+          Articles
+        </h2>
+        <h2
+          className={styles.sectionTitle}
+        >
+          Trending
+        </h2>
+        <Row className="g-4 mt-4">
+          <Col md={12} className="mb-4">
+            <ArticleCard />
+          </Col>
+        </Row>
         <div className={styles.imageGallery}>
           <div className={styles.imageRow}>
             <div className={styles.imageColumn}>
@@ -150,10 +102,8 @@ function NewsSection() {
           </div>
         </div>
 
-        <h2 className={styles.sectionTitle}>Blogs</h2>
-        {blogPosts.map((post, index) => (
-          <BlogPost key={index} {...post} />
-        ))}
+        <h2 className={styles.sectionTitle} onClick={(e) => navigate('/blog')}>Blogs</h2>
+        
       </div>
     </section>
   );

@@ -1,34 +1,31 @@
 import React, { useState } from 'react';
 
-const truncateDescription = (description, wordLimit = 20) => {
+const TruncateDescription = ({ description, wordLimit = 40 }) => {
+  const [isExpanded, setIsExpanded] = useState(false);
+  
+  // Handle empty, null, or non-string description
   if (!description || typeof description !== 'string') {
-    return '';
+    return null;
   }
-
+  
+  // Insert space every 20 characters if no spaces found
   const processedDescription = description.includes(' ') 
     ? description 
     : description.replace(/(.{20})/g, "$1 ");
-
+  
+  // Trim the description and split into words
   const words = processedDescription.trim().split(/\s+/);
   const shouldTruncate = words.length > wordLimit;
-
-  return shouldTruncate ? words.slice(0, wordLimit).join(" ") + '...' : description;
-};
-
-const TruncateDescription = ({ description, wordLimit = 20 }) => {
-  const [isExpanded, setIsExpanded] = useState(false);
-
+  
   const toggleExpand = (e) => {
     e.preventDefault();
     setIsExpanded(!isExpanded);
   };
-
-  if (!description || typeof description !== 'string') {
-    return null;
+  
+  if (!shouldTruncate) {
+    return <span className="text-gray-700">{description}</span>;
   }
-
-  const truncatedDescription = truncateDescription(description, wordLimit);
-
+  
   return (
     <span className="text-gray-700">
       {isExpanded ? (
@@ -44,7 +41,7 @@ const TruncateDescription = ({ description, wordLimit = 20 }) => {
         </>
       ) : (
         <>
-          {truncatedDescription}
+          {words.slice(0, wordLimit).join(" ")}...
           <button
             type="button"
             onClick={toggleExpand}
@@ -58,5 +55,4 @@ const TruncateDescription = ({ description, wordLimit = 20 }) => {
   );
 };
 
-export { truncateDescription };
 export default TruncateDescription;

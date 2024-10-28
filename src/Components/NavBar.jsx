@@ -4,11 +4,13 @@ import {Link} from 'react-router-dom';
 import './NavBar.scss'
 import {useLogout} from '../Hook/useLogout'
 import { useAuthContext } from "../Hook/useAuthContext";
+import { useNavigate } from "react-router-dom";
 
 
 export default function NavBar() {
   const {logout, isPending} = useLogout()
   const { user } = useAuthContext()
+  const navigate = useNavigate() 
 
   
   return (
@@ -20,6 +22,7 @@ export default function NavBar() {
               <img 
                 src={require(`../assets/Asset1.png`)} 
                 alt="Logo" 
+                onClick={() => navigate('/newsfeed')}
                 
               />
             </Navbar.Brand>

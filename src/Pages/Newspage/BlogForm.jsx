@@ -9,10 +9,10 @@ import 'react-quill/dist/quill.snow.css';
 import { useNavigate } from 'react-router-dom';
 
 function PostForm() {
-    const { addDocument } = useFirestore("Article");
+    const { addDocument } = useFirestore('Blog');
     const { user } = useAuthContext();
     const { uid, displayName, photoURL } = user;
-    const { uploadMedia, urls, paths, clearMedia } = useStorage('Article');
+    const { uploadMedia, urls, paths, clearMedia } = useStorage('Blog');
     const navigate = useNavigate();
 
     const [imageVideo, setImageVideo] = useState([]);
@@ -22,7 +22,7 @@ function PostForm() {
     const [share] = useState('');
     const [isSubmitted, setIsSubmitted] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
-    const [category, setCategory] = useState('Article');
+    const [category, setCategory] = useState('Blog');
 
 
     //word document format for adding post
@@ -115,7 +115,7 @@ function PostForm() {
                     setIsSubmitted(false);
                     setIsLoading(false);
                     clearMedia();
-                    navigate('/article');
+                    navigate('/blog');
                 })
                 .catch((err) => {
                     alert("Error adding document:", err.message);
@@ -128,7 +128,7 @@ function PostForm() {
         <Container fluid className='mb-5'>
             <Row className="justify-content-md-center">
                 <Col md={8}>
-                    <h1 className="mt-5">Post Article</h1>
+                    <h1 className="mt-5">Post Blog</h1>
                     {isLoading ? (
                         <div className="d-flex justify-content-center">
                             <Spinner animation="border" role="status">
@@ -166,7 +166,7 @@ function PostForm() {
                             <Button variant="danger" className='custom-button me-2' type="submit">
                                 Submit
                             </Button>
-                            <Button variant="danger" className='custom-button me-2' onClick={() => navigate('/article')}>
+                            <Button variant="danger" className='custom-button me-2' onClick={() => navigate('/blog')}>
                                 close
                             </Button>
                         </Form>

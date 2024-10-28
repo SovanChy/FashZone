@@ -13,6 +13,7 @@
     max-height: none; /* Optional: adjust as needed */
   }
 
+
   .custom-pagination .page-item .page-link { 
     background-color: white !important;
     color: #800000 !important; 

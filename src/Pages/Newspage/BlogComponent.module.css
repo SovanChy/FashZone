@@ -1,0 +1,43 @@
+
+.header {
+  margin-top: 40px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0;
+  align-items: flex-start;
+}
+
+.headerContent {
+  text-align: center;
+  padding: 187px 0;
+  font: 200 48px/1 Geologica, -apple-system, Roboto, Helvetica, sans-serif;
+  width: 50%;
+}
+
+.headerTitle {
+  font-weight: 600;
+  font-size: 30px;
+  letter-spacing: 5px;
+
+  margin-right: 40px;
+  margin-bottom: 0px !important;
+
+}
+
+
+.headerAuthor {
+ 
+  font-size: 24px;
+  letter-spacing: 2px;
+}
+
+.headerImage {
+  width: 50%;
+  object-fit: cover;
+  object-position: center;
+  height: 600px;
+  margin: 0;
+}
+
+
+

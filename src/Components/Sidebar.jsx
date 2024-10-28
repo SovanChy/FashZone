@@ -33,8 +33,7 @@ export default function Sidebar() {
                             <span className='userName'>{user.displayName.toUpperCase()}</span>
                             </Nav.Item>
                             <Nav.Item>
-                            <Nav.Link className="sidebar-header">
-                                <img src={require(`../assets/Asset1.png`)}className='logo'></img></Nav.Link>
+                                <img src={require(`../assets/Asset1.png`)}className='logo ms-3 mt-2'></img>
                             </Nav.Item>
                             <Nav.Item>
                             <Nav.Link className="active" as={Link} to="/">NEWSFEED</Nav.Link>

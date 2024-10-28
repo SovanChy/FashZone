@@ -28,14 +28,12 @@
       font-weight: 500;
       color: #333;
       
-      &.active {
+      &:hover {
         color: #fff;
         background-color: #000;
       }
     
-      &:hover {
-        color: #007bff;
-      }
+      
     }
 
     

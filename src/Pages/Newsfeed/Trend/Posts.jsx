@@ -1,5 +1,5 @@
 import React from 'react'
-import { projectFirebase, timestamp } from '../../firebase/config';
+import { projectFirebase, timestamp } from '../../../firebase/config';
 
   // posts.js
 export const PostsAPI = {
@@ -34,7 +34,6 @@ getTrendingPosts: async (limit = 10) => {
         trendingScore
       });
     });
-    console.log(posts);
     // Sort by trending score
     posts.sort((a, b) => b.trendingScore - a.trendingScore);
     return posts.slice(0, limit);

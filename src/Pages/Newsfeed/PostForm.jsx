@@ -36,6 +36,11 @@ function PostForm(props) {
         alert("A selected file must be an image or a video file");
         return false;
       }
+      if (file.length < 1) {
+        alert("You must select at least one file");
+        return false;
+      }
+
       if (file.size > 1000000000) {
         alert('File size must be less than 1GB');
         return false;
@@ -125,7 +130,8 @@ function PostForm(props) {
                 <Form.Control
                   type="text" placeholder="Title..."
                   onChange={(e) => setTitle(e.target.value)}
-                  value={title} />
+                  value={title} 
+                  />
               </Form.Group>
               <Form.Group className="mb-3" controlId="formDescription">
                 <Form.Label>Description</Form.Label>
@@ -135,11 +141,12 @@ function PostForm(props) {
                   type="text"
                   placeholder="Description..."
                   onChange={(e) => setDescription(e.target.value)}
-                  value={description} />
+                  value={description} 
+                  />
               </Form.Group>
               <Form.Group className="mb-3" controlId="formMedia">
-                <Form.Label>Image/Video (optional)</Form.Label>
-                <Form.Control type="file" multiple onChange={handlePost} />
+                <Form.Label>Image/Video</Form.Label>
+                <Form.Control type="file" multiple onChange={handlePost} required/>
               </Form.Group>
               <Button variant="danger" className='custom-button me-2' type="submit">
                 Submit

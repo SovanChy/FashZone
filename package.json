@@ -18,6 +18,7 @@
     "dotenv": "^16.4.5",
     "firebase": "8.5",
     "lucide-react": "^0.453.0",
+    "quill": "^2.0.2",
     "quill-delta-to-plaintext": "^1.0.0",
     "react": "^18.3.1",
     "react-bootstrap": "^2.10.5",
