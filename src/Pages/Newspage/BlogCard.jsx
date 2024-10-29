@@ -97,7 +97,7 @@ function BlogCard() {
                                 action 
                                 onClick={(e) => { 
                                     handleView(e, blog.id);
-                                    navigate(`/article/${blog.id}`);
+                                    navigate(`/blog/${blog.id}`);
                                 }}
                                 className="mb-4"
                             >

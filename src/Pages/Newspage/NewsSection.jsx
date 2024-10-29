@@ -8,41 +8,6 @@ import { useNavigate } from "react-router-dom";
 // Article data
 
 // Blog data
-const blogPosts = [
-  {
-    title: "October Runway",
-    content: "Lorem ipsum dolor sit amet consectetur. Sed et id at proin.",
-    author: "Jenny",
-  },
-  {
-    title: "The Best Fashion show you don't want to miss",
-    content: "Lorem ipsum dolor sit amet consectetur. Sed et id at proin.",
-    author: "Alliza",
-  },
-  {
-    title: "New Winter Collection",
-    content: "Lorem ipsum dolor sit amet consectetur. Sed et id at proin.",
-    author: "Author",
-  },
-
-  {
-    title: "New Winter Collection",
-    content: "Lorem ipsum dolor sit amet consectetur. Sed et id at proin.",
-    author: "Author",
-  },
-
-  {
-    title: "New Winter Collection",
-    content: "Lorem ipsum dolor sit amet consectetur. Sed et id at proin.",
-    author: "Author",
-  },
-
-  {
-    title: "New Winter Collection",
-    content: "Lorem ipsum dolor sit amet consectetur. Sed et id at proin.",
-    author: "Author",
-  },
-];
 
 function NewsSection() {
   const navigate = useNavigate();
@@ -56,13 +21,13 @@ function NewsSection() {
         <span>Article</span>
       </nav>
       <div className={styles.contentWrapper}>
-        <a href="/featured-news">
+       
           <img
             src="https://cdn.builder.io/api/v1/image/assets/TEMP/545a95243f184a5e89756a5a5e30a1dbd5fcd1ac072f4060a1b461e8ef4a1d43?placeholderIfAbsent=true&apiKey=4c9afea5c10940a19f40b930532a4cdd"
             alt="Featured news"
             className={styles.heroImage}
           />
-        </a>
+  
         <h2
           className={styles.sectionTitle}
           onClick={() => navigate("/article")}

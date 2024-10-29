@@ -2,3 +2,133 @@
   margin: 10px;
   padding: 10px;
 }
+
+.fc-daygrid-day-number {
+  color: #800000 !important;
+}
+
+.fc-timegrid-axis-cushion,
+.fc-timegrid-slot-label-cushion {
+  color: #800000 !important;
+}
+
+.fc-day-sun .fc-daygrid-day-number,
+.fc-day-sat .fc-daygrid-day-number {
+  color: #800000 !important;
+}
+
+/* If you want to change today's number color */
+.fc-day-today .fc-daygrid-day-number {
+  color: #800000 !important;
+}
+
+.fc-col-header-cell-cushion
+{
+  color: #800000 !important;
+
+}
+
+.fc-list-day-text
+{
+  color: #800000 !important;
+}
+
+.fc-list-day-side-text{
+  color: #800000 !important;
+
+}
+
+.fc-today-button{
+  color: #FFFFFF !important;
+  background-color: #800000 !important;
+  border-color: #800000 !important;
+  opacity: 100% !important;
+  border-radius: 0 !important;
+
+}
+
+.fc-prev-button.fc-button.fc-button-primary{
+  background-color: #800000 !important;
+  border-color: #800000 !important;
+  border-radius: 0 !important;
+}
+
+.fc-prev-button.fc-button.fc-button-primary:hover{
+  opacity: 75% !important;
+
+}
+
+.fc-next-button.fc-button.fc-button-primary{
+  background-color: #800000 !important;
+  border-color: #800000 !important;
+  border-radius: 0 !important;
+}
+
+.fc-next-button.fc-button.fc-button-primary:hover{
+  opacity: 75% !important;
+
+
+}
+
+.fc-multiMonthYear-button.fc-button.fc-button-primary{
+  background-color: #800000 !important;
+  border-color: #800000 !important;
+  border-radius: 0 !important;
+}
+
+.fc--button.fc-button.fc-button-primary{
+  background-color: #800000 !important;
+  border-color: #800000 !important;
+  border-radius: 0 !important;
+  opacity: 75% !important;
+}
+
+.fc-dayGridMonth-button.fc-button.fc-button-primary.fc-button-active{
+  background-color: #800000 !important;
+  border-color: #800000 !important;
+  border-radius: 0 !important;
+}
+.fc-timeGridWeek-button.fc-button.fc-button-primary{
+  background-color: #800000 !important;
+  border-color: #800000 !important;
+  border-radius: 0 !important;
+
+}
+
+.fc-timeGridDay-button.fc-button.fc-button-primary{
+  background-color: #800000 !important;
+  border-color: #800000 !important;
+  border-radius: 0 !important;
+
+}
+.fc-dayGridMonth-button.fc-button.fc-button-primary{
+  background-color: #800000 !important;
+  border-color: #800000 !important;
+  border-radius: 0 !important;
+
+}
+
+.fc-listYear-button.fc-button.fc-button-primary{
+  background-color: #800000 !important;
+  border-color: #800000 !important;
+  border-radius: 0 !important;
+}
+
+.fc-daygrid-day-bottom{
+  margin-top: 2px !important;
+  background-color: #800000 !important;
+  border-color: #800000 !important;
+  border-radius: 0 !important;
+}
+.fc-daygrid-more-link.fc-more-link{
+  color: #FFFFFF !important;
+}
+
+.fc-daygrid-more-link.fc-more-link
+{
+  border-color: #800000 !important;
+}
+
+
+
+
