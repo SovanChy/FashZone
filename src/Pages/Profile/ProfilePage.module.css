@@ -279,7 +279,7 @@
 .projectsRow {
   gap: 20px;
   display: flex;
-  padding: 40px;
+  padding: 20px;
   padding-top: 0px;
 }
 
@@ -330,8 +330,10 @@
 }
 
 .projectsSection{
+  display: flex;
   flex-wrap: wrap;
   width: 50%;
+  justify-content: center;
 }
 
 .custom-modal-height .modal-dialog {

@@ -53,7 +53,7 @@ function ProfilePage() {
                 profile={document.imageURL}
               />
               <AboutSection description={document.description} />
-              <ProjectsSection portfolio={document} />
+              <ProjectsSection portfolioProps={document}  />
             </>
           )}
         </>

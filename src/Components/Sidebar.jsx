@@ -61,7 +61,7 @@ export default function Sidebar() {
                                 <Nav.Link as={Link} to={`/profile/${user.uid}`}>PROFILE</Nav.Link>
                             </Nav.Item> 
                             <Nav.Item className='mb-2'>
-                                <Nav.Link as={Link} to={`/setting`}>SETTING</Nav.Link>
+                                <Nav.Link as={Link} to={`/setting/${user.uid}`}>SETTING</Nav.Link>
                             </Nav.Item>               
                             </div>
                         </div>

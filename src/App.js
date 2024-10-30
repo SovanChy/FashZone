@@ -21,7 +21,7 @@ import CalendarEvent from "./Pages/Calendar/Calendar";
 import CalendarForm from "./Pages/Calendar/CalendarForm";
 import BlogList from "./Pages/Newspage/BlogList";
 import BlogPage from "./Pages/Newspage/BlogPage";
-import ProfileEditForm from "./Pages/Profile/ProfileEditForm";
+import Setting from "./Pages/Profile/Setting";
 
 //custom hook and others
 import { useAuthContext } from "./Hook/useAuthContext";
@@ -138,6 +138,13 @@ function App() {
                 user ? <PricingPlans /> : <Navigate to="/" replace />
                 // <PricingPlans/>
               }
+            />
+
+            <Route 
+            path="/setting/:id"
+            element={
+              user? <Setting/> : <Navigate to="/" replace />
+            } 
             />
 
         

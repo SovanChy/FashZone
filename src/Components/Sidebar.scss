@@ -54,14 +54,14 @@
   }
 
   .custom-button-signOut{
-    display: flex;
-    justify-content: start;
+    display: flex !important;
+    justify-content: start !important;
     border-radius: 0 !important;
     background-color: rgba(0, 0, 0, 0) !important;
     border-color: rgba(0, 0, 0, 0)!important;
-    font-weight: 500;
-    color: #333;
-    width: 100%;
+    font-weight: 500 !important;
+    color: #333 !important;
+    width: 100% !important;
     
   }
 

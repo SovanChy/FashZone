@@ -62,7 +62,7 @@ export default function NavBar() {
                       <Dropdown.Menu>
                         <Dropdown.Item as={Link} to={`/profile/${user.uid}`}>{user.displayName}</Dropdown.Item>
                         <Dropdown.Divider />
-                        <Dropdown.Item as={Link} to={`/setting`}>Setting</Dropdown.Item>
+                        <Dropdown.Item as={Link} to={`/setting/${user.uid}`}>Setting</Dropdown.Item>
                         <Dropdown.Divider />
                         <Dropdown.Item as={Button} onClick={logout}>
                           Sign Out

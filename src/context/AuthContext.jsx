@@ -11,6 +11,8 @@ export const authReducer = (state, action) => {
       return { ...state, user: null }
     case 'AUTH_IS_READY':
       return { user: action.payload, authIsReady: true }
+    case "UPDATED_USER": 
+      return {...state, user: action.payload}
     default:
       return state
   }

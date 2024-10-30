@@ -12,7 +12,7 @@ import { projectFirebase } from '../../firebase/config';
 
 
 export default function ProfileEditForm({ portfolio, idPort,  onHide, show}) {
-  const { updateDocument, getDocument, response } = useFirestore("users");
+  const { updateDocument } = useFirestore("users");
   const { uploadMedia, urls, paths } = useStorage("users");
   const [portfolioImages, setPorfolioImages] = useState([]);
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -20,29 +20,24 @@ export default function ProfileEditForm({ portfolio, idPort,  onHide, show}) {
 
   //handle Portfolio images
   const handlePost = (e) => {
-    let selectedFiles = [];
-    try {
-      for (let i = 0; i < e.target.files.length; i++) {
-        selectedFiles.push(e.target.files[i]);
-      }
-    } catch (err) {
-      console.log(err);
+    const selectedFile = e.target.files[0];
+
+    if (!selectedFile) {
+      return;
     }
-  
-    const validFiles = selectedFiles.filter((file) => {
-      if (!file.type.includes('image')) {
-        alert("A selected file must be an image");
-        return false;
-      }
-      if (file.size > 100000000) {
-        alert('File size must be less than 100MB');
-        return false;
-      }
-      return true;
-    });
-  
-    setPorfolioImages(validFiles);
-    };
+
+    if (!selectedFile.type.includes('image')) {
+      alert("The selected file must be an image");
+      return;
+    }
+
+    if (selectedFile.size > 100000000) {
+      alert('File size must be less than 100MB');
+      return;
+    }
+
+    setPorfolioImages([selectedFile]);
+  };
 
   // Handle uploading data
   const handleSubmit = async (e) => {
@@ -74,14 +69,14 @@ export default function ProfileEditForm({ portfolio, idPort,  onHide, show}) {
           const doc = await ref.get();
           let updatedPortfolioURL = [];
 
-          if (doc.exists && doc.data().portfolioURL) {
-            updatedPortfolioURL = [...doc.data().portfolioURL, updateData];
+          if (doc.exists && doc.data().portfolio) {
+            updatedPortfolioURL = [...doc.data().portfolio, updateData];
           } else {
             updatedPortfolioURL = [updateData];
           }
 
           await updateDocument(idPort, {
-            portfolioURL: updatedPortfolioURL
+            portfolio: updatedPortfolioURL
           });
 
           setPorfolioImages([]);
