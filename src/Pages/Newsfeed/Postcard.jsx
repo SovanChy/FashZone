@@ -143,7 +143,7 @@ export default function Postcard() {
                 <img
                   src={doc.photoURL}
                   onClick={(e) => {
-                    navigate(`/profile`);
+                    navigate(`/profile/${doc.uid}`);
                   }}
                   alt="User Avatar"
                   className="rounded-circle me-3"

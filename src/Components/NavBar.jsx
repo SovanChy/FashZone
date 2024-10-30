@@ -50,16 +50,17 @@ export default function NavBar() {
                         <img
                           src={user.photoURL}
                           alt="User Avatar"
-                          className="rounded-circle"
+                          className="ms-2 rounded-circle"
                           style={{
                             width: "40px",
                             height: "40px",
                             cursor: "pointer",
+                            objectFit: "cover"
                           }}
                         />
                       </Dropdown.Toggle>
                       <Dropdown.Menu>
-                        <Dropdown.Item as={Link} to="/profile">{user.displayName}</Dropdown.Item>
+                        <Dropdown.Item as={Link} to={`/profile/${user.uid}`}>{user.displayName}</Dropdown.Item>
                         <Dropdown.Divider />
                         <Dropdown.Item as={Button} onClick={logout}>
                           Sign Out

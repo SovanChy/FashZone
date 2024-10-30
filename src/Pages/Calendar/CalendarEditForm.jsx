@@ -6,15 +6,17 @@ import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import { useCallback } from "react";
 import { useStorage } from "../../Hook/useStorage";
+import { useNavigate } from "react-router-dom";
 
 function CalendarEditForm({ show, onHide, name, selectedEvents }) {
+  const navigate = useNavigate()
   const { user } = useAuthContext();
   const { updateDocument, deleteDocument } = useFirestore("events");
   const [title, setTitle] = useState("");
   const [date, setDate] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [edit, setEdit] = useState(true);
-  const { uploadMedia, urls, paths } = useStorage("Events");
+  const { uploadMedia, urls, paths } = useStorage("events");
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [imageVideo, setImageVideo] = useState([]);
   const [description, setDescription] = useState({ ops: [] }); // Initialize as Delta
@@ -213,6 +215,7 @@ function CalendarEditForm({ show, onHide, name, selectedEvents }) {
                       src={selectedEvents.photoURL}
                       alt="User Avatar"
                       className="rounded-circle ms-3"
+                      onClick={() => navigate(`/profile/${selectedEvents.uid}`)}
                       style={{
                         objectFit: "cover",
                         width: "60px",

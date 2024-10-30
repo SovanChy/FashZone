@@ -1,4 +1,5 @@
 .profileContainer {
+  margin-top: 50px;
   max-width: 100%;
   background-color: #fff;
   display: flex;
@@ -48,7 +49,7 @@
   align-items: center;
   color: #040404;
   justify-content: center;
-  width: 100%;
+  width: 50%;
   padding: 225px 80px;
   /* padding: 40px; */
   margin: auto;
@@ -221,8 +222,9 @@
   line-height: normal;
   line-height: 2px;
   text-align: justify;
-  width: 50%;
-  padding-right: 40px;
+  width: 100%;
+  padding: 40px;
+
   /* margin-left: 20px; */
 }
 

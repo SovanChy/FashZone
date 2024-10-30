@@ -21,12 +21,12 @@ import CalendarEvent from "./Pages/Calendar/Calendar";
 import CalendarForm from "./Pages/Calendar/CalendarForm";
 import BlogList from "./Pages/Newspage/BlogList";
 import BlogPage from "./Pages/Newspage/BlogPage";
+import ProfileEditForm from "./Pages/Profile/ProfileEditForm";
 
 //custom hook and others
 import { useAuthContext } from "./Hook/useAuthContext";
 import { useLocation } from "react-router-dom";
 import { Navigate, Route, Routes } from "react-router-dom";
-
 
 function App() {
   const { user, authIsReady } = useAuthContext();
@@ -124,15 +124,13 @@ function App() {
               }
             />
             <Route path="/view/*" element={<View />} />
-            <Route path="/events" element={
-                user ? <CalendarEvent /> : <Navigate to="/" replace />
-            
-              }
+            <Route
+              path="/events"
+              element={user ? <CalendarEvent /> : <Navigate to="/" replace />}
             />
-            <Route path="/eventform" element={
-                user ? <CalendarForm /> : <Navigate to="/" replace />
-            
-              }
+            <Route
+              path="/eventform"
+              element={user ? <CalendarForm /> : <Navigate to="/" replace />}
             />
             <Route
               path="/pricing"
@@ -142,12 +140,17 @@ function App() {
               }
             />
 
+        
+
             <Route
-              path="/profile"
-              element={
-                user ? <ProfilePage /> : <Navigate to="/" replace />
-                // <ProfilePage/>
-              }
+              path="/profileEdit"
+              element={user ? <ProfileEditForm /> : <Navigate to="/" replace />}
+            />
+
+            {/* Dynamic route second */}
+            <Route
+              path="/profile/:id"
+              element={user ? <ProfilePage /> : <Navigate to="/" replace />}
             />
           </Routes>
           {!AuthPage && (

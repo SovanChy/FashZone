@@ -64,7 +64,7 @@ return (
                                 <img
                                     src={document.photoURL}
                                     onClick={(e) => {
-                                        navigate("/profile");
+                                        navigate(`/profile/${document.uid}`);
                                     }}
                                     alt="User Avatar"
                                     className="rounded-circle me-3"
