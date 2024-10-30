@@ -10,14 +10,15 @@ function AboutSection({description}) {
     <section className={styles.aboutSection}>
       <div className={styles.aboutContent}>
         <div className={styles.aboutTextColumn}>
-          <p className={styles.aboutText}>
+    
             <ReactQuill
               theme="bubble"
               value={description}
               readOnly={true}
               modules={{ toolbar: false }}
+              className={styles.aboutText}
             />
-          </p>
+      
         </div>
       </div>
     </section>

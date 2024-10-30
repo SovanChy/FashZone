@@ -52,3 +52,24 @@
     font-size: 1.2rem;
     font-weight: 500 ;
   }
+
+  .custom-button-signOut{
+    display: flex;
+    justify-content: start;
+    border-radius: 0 !important;
+    background-color: rgba(0, 0, 0, 0) !important;
+    border-color: rgba(0, 0, 0, 0)!important;
+    font-weight: 500;
+    color: #333;
+    width: 100%;
+    
+  }
+
+  .custom-button-signOut:hover {
+    border-radius: 0 !important;
+    background-color: #800000 !important;
+    border-color: #800000 !important;
+    color: white !important;
+
+
+  }

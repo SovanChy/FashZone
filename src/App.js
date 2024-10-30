@@ -141,12 +141,6 @@ function App() {
             />
 
         
-
-            <Route
-              path="/profileEdit"
-              element={user ? <ProfileEditForm /> : <Navigate to="/" replace />}
-            />
-
             {/* Dynamic route second */}
             <Route
               path="/profile/:id"

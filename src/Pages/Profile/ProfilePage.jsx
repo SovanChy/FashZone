@@ -8,41 +8,55 @@ import { useParams } from 'react-router-dom';
 import { useDocument } from '../../Hook/useDocument';
 import { Button } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
+import { projectFirebase } from '../../firebase/config';
 import ProfileEditForm from './ProfileEditForm';
+import PortfolioEditForm from './PortfolioEditForm';
+
 
 function ProfilePage() {
-  const [form, setForm] = useState(false)
-  const navigate = useNavigate() 
-  const {id} = useParams()
-  const {document, error} = useDocument("users", id); 
-  console.log(document)
- 
-
+  const [form, setForm] = useState(false);
+  const [portfolioForm, setPortfolioForm] = useState(false);
+  const { id } = useParams();
+  const { document, error } = useDocument("users", id);
 
   return (
     <main className={styles.profileContainer}>
+      <div className='d-flex'>
       <Button className='custom-button mb-3 me-3 ms-auto'
-       onClick={() => {
-        setForm(true)}}>
-    Edit Profile</Button>
+        onClick={() => {
+          setForm(true)
+        }}>
+        Edit Profile
+      </Button>
+      <Button className='custom-button mb-3 me-3'
+        onClick={() => {
+          setPortfolioForm(true)
+        }}>
+        Edit Portfolio
+      </Button>
+      </div>
       {document && (
         <>
-        {form ? (
+          {form ? (
             <ProfileEditForm profile={document} setForm={setForm} />
-           
-           
+          ) : portfolioForm ? (
+            <PortfolioEditForm 
+            portfolio={document}
+            show={portfolioForm} 
+            idPort={document.id}
+            onHide={(e) => setPortfolioForm(false)} />
           ) : (
             <>
-              <IntroSection 
+              <IntroSection
                 username={document.displayName}
                 occupation={document.occupations}
-                profile={document.imageURL} 
+                profile={document.imageURL}
               />
               <AboutSection description={document.description} />
-              <ProjectsSection />
+              <ProjectsSection portfolio={document} />
             </>
           )}
-      </> 
+        </>
       )}
     </main>
   );

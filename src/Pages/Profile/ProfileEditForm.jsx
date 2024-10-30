@@ -130,7 +130,7 @@ export default function ProfileEditForm({ profile, setForm }) {
                     setDescription({ ops: [] }); // Reset to empty Delta
                     setIsSubmitted(false);
                     setIsLoading(false);
-                    setForm(false);
+                    setForm(false)
                 }
             } catch (err) {
                 alert("Error adding document:", err.message);
@@ -181,7 +181,7 @@ export default function ProfileEditForm({ profile, setForm }) {
                             <Button variant="danger" className='custom-button me-2' type="submit">
                                 Submit
                             </Button>
-                            <Button variant="danger" className='custom-button me-2' onClick={() => navigate('/article')}>
+                            <Button variant="danger" className='custom-button me-2' onClick={() => setForm(false)}>
                                 Close
                             </Button>
                         </Form>

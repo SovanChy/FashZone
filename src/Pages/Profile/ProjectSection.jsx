@@ -1,28 +1,107 @@
-import React from 'react';
-import styles from './ProfilePage.module.css';
+import React from "react";
+import styles from "./ProfilePage.module.css";
+import { projectFirebase } from "../../firebase/config";
+import { Modal, Button } from "react-bootstrap";
+import { useState } from "react";
 
-const projects = [
-  { id: 1, src: "https://cdn.builder.io/api/v1/image/assets/TEMP/da6388239ab22a53eab009136608d5e1f05c90230abd1048cbd5515829782488?placeholderIfAbsent=true&apiKey=4c9afea5c10940a19f40b930532a4cdd", alt: "Project 1" },
-  { id: 2, src: "https://cdn.builder.io/api/v1/image/assets/TEMP/7ba0ed04127d39e73112ae5a9e9321a3b5ca3c375b7549da12e230885bd036f2?placeholderIfAbsent=true&apiKey=4c9afea5c10940a19f40b930532a4cdd", alt: "Project 2" },
-  { id: 3, src: "https://cdn.builder.io/api/v1/image/assets/TEMP/f3a8600dd506929064060297848c4991cdb819e6d9d5bca784c5be335701a1d7?placeholderIfAbsent=true&apiKey=4c9afea5c10940a19f40b930532a4cdd", alt: "Project 3" }
-];
+function ProjectsSection({ portfolio = [] }) {
+  //deleting comment
+  const handleDelete = async (e, portfolioID, currentPortfolioID) => {
+    e.preventDefault();
+    const docRef = projectFirebase.collection("users").doc(portfolioID);
+    const doc = await docRef.get();
+    const data = doc.data();
+    console.log(data);
+    const portfolios = data.portfolioURL ? [...data.portfolioURL] : [];
 
-function ProjectsSection() {
+    const portfoliosIndex = portfolios.findIndex(
+      (portfolio) => portfolio.id === currentPortfolioID
+    );
+
+    if (portfoliosIndex === -1) {
+      console.error("Comment not found");
+      return;
+    }
+    portfolios.splice(portfoliosIndex, 1); // Remove the comment from the array
+    await docRef.update({ portfolioURL: portfolios }); // Update the document in Firestore
+    setShowModal(false);
+  };
+
+  const [showModal, setShowModal] = useState(false);
+  const [selectedProject, setSelectedProject] = useState(null);
+
+  const handleShowModal = (project) => {
+    setSelectedProject(project);
+    setShowModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setShowModal(false);
+    setSelectedProject(null);
+  };
+
   return (
-    <section className={styles.projectsSection}>
+    <>
       <h2 className={styles.projectsTitle}>My Projects</h2>
-      <div className={styles.projectsGrid}>
-        <div className={styles.projectsRow}>
-          {projects.map((project) => (
-            <div key={project.id} className={styles.projectColumn}>
-              <div className={styles.projectCard}>
-                <img loading="lazy" src={project.src} className={styles.projectImage} alt={project.alt} />
+
+    <div className="d-flex flex-wrap">
+      {portfolio.portfolioURL.length &&
+        portfolio.portfolioURL.map((portfolioProject) => (
+          <section className={styles.projectsSection}>
+            <div className={styles.projectsGrid}>
+              <div className={styles.projectsRow}>
+                <div className={styles.projectColumn}>
+                  <div className={styles.projectCard}>
+                    <img
+                      loading="lazy"
+                      src={portfolioProject.portfolioURL}
+                      className={styles.projectImage}
+                      alt="image"
+                      onClick={() =>
+                        handleShowModal(portfolioProject.portfolioURL)
+                      }
+                    />
+                  </div>
+                </div>
               </div>
             </div>
-          ))}
+
+            <Modal size="xl" dialogClassName="custom-modal-height" show={showModal} onHide={handleCloseModal}>
+              <Modal.Header closeButton>
+                <Modal.Title>Project Details</Modal.Title>
+              </Modal.Header>
+              <Modal.Body>
+                {selectedProject && (
+                  <div>
+                    <a href={selectedProject} target="_blank" rel="noopener noreferrer">
+                    <img
+                      src={selectedProject}
+                      className={styles.projectImage}
+                      alt="image"
+                    />
+                    </a>
+                   
+                  </div>
+                )}
+              </Modal.Body>
+              <Modal.Footer>
+              <Button
+                      className="custom-button"
+                      onClick={(e) =>
+                        handleDelete(e, portfolio.id, portfolioProject.id)
+                      }
+                    >
+                      Delete
+                    </Button>
+                <Button variant="secondary" className="custom-button" onClick={handleCloseModal}>
+                  Close
+                </Button>
+              </Modal.Footer>
+            </Modal>
+          </section>
+        ))}
         </div>
-      </div>
-    </section>
+    </>
   );
 }
 

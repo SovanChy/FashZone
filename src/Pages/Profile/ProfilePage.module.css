@@ -293,7 +293,6 @@
 .projectColumn {
   display: flex;
   flex-direction: column;
-  line-height: normal;
   width: 100%;
   margin-left: 0;
 }
@@ -323,9 +322,21 @@
 
 .projectImage {
   aspect-ratio: 1;
-  object-fit: contain;
+  object-fit: cover;
   object-position: center;
   width: 100%;
+  height: 700px;
+  cursor: pointer;
+}
+
+.projectsSection{
+  flex-wrap: wrap;
+  width: 50%;
+}
+
+.custom-modal-height .modal-dialog {
+  height: 80vh; /* Or any height you want */
+  max-height: 80vh;
 }
 
 @media (max-width: 991px) {
@@ -345,3 +356,4 @@
   white-space: nowrap;
   border: 0;
 }
+

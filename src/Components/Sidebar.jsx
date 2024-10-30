@@ -20,7 +20,7 @@ export default function Sidebar() {
                         <Nav className="col-md-2 col-sm-3 d-none d-md-block bg-light sidebar">
                         <div className="sidebar-sticky">
                         <Nav.Item className='d-flex align-items-center'>
-                            <div onClick={() => navigate(`/profile/${user.uid}`)}>
+                            <div className='d-flex align-items-center' onClick={() => navigate(`/profile/${user.uid}`)}>
                             <img
                             src={user.photoURL}
                             alt="User Avatar"
@@ -35,7 +35,7 @@ export default function Sidebar() {
                             <span className='userName'>{user.displayName.toUpperCase()}</span>
                             </div>
                             </Nav.Item>
-                            <Nav.Item>
+                            <Nav.Item className='mt-2'>
                                 <img src={require(`../assets/Asset1.png`)}className='logo ms-3 mt-2'></img>
                             </Nav.Item>
                             <Nav.Item>
@@ -54,12 +54,15 @@ export default function Sidebar() {
                             <Nav.Link as={Link} to="/events">EVENTS</Nav.Link>
                             </Nav.Item>
                             <div className="sidebar-bottom"> 
-                            <Nav.Item>
-                                <Button className='custom-button ms-3'  onClick={logout}>Sign out</Button>
+                            <Nav.Item className="custom-button-signOut" as={Button} onClick={() => logout()}>
+                                SIGN OUT
                             </Nav.Item>
-                            <Nav.Item>
+                            <Nav.Item > 
                                 <Nav.Link as={Link} to={`/profile/${user.uid}`}>PROFILE</Nav.Link>
-                            </Nav.Item>             
+                            </Nav.Item> 
+                            <Nav.Item className='mb-2'>
+                                <Nav.Link as={Link} to={`/setting`}>SETTING</Nav.Link>
+                            </Nav.Item>               
                             </div>
                         </div>
                         </Nav>
