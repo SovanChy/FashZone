@@ -17,7 +17,6 @@ const Setting = () => {
     const { updateDocument } = useFirestore("users");
     const { dispatch } = useAuthContext();
 
-
     const handleProfile = (e) => {
         let selectedFile = e.target.files[0];
 
@@ -38,8 +37,6 @@ const Setting = () => {
         setProfile(selectedFile);
     };
 
-
-
     const handleUserChanges = async () => {
         try {
             const user = projectAuth.currentUser;
@@ -48,22 +45,27 @@ const Setting = () => {
                 throw new Error('No user is currently signed in');
             }
 
-            await user.updateProfile({
+            // Update the displayName and optionally the photoURL if a new image was uploaded
+            const profileUpdateData = {
                 displayName: displayName,
-                photoURL: urls[0] // Assuming the first URL is the profile picture
-            });
+            };
 
+            if (urls[0]) {
+                profileUpdateData.photoURL = urls[0];
+            }
+
+            await user.updateProfile(profileUpdateData);
+
+            // Update Firestore document
             await projectFirebase
                 .collection("users")
                 .doc(user.uid)
                 .update({
-                    displayName: displayName,
-                    photoURL: urls[0],
-                    updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+                    ...profileUpdateData,
+                    updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
                 });
 
-            dispatch({ type: 'LOGIN', payload: user })
-            console.log(user)
+            dispatch({ type: 'LOGIN', payload: user });
             console.log("Profile updated successfully");
             alert("Profile updated successfully");
             setIsUpdated(true);
@@ -95,7 +97,7 @@ const Setting = () => {
 
     useEffect(() => {
         const updateUserProfile = async () => {
-            if (isSubmitted && urls.length > 0) {
+            if (isSubmitted) {
                 try {
                     await handleUserChanges();
                     alert("Profile has successfully been updated");
@@ -126,7 +128,7 @@ const Setting = () => {
                     />
                 </Form.Group>
                 <Form.Group controlId="formUsername">
-                    <Form.Label>Profile Picture</Form.Label>
+                    <Form.Label>Profile Picture (Optional)</Form.Label>
                     <Form.Control
                         type="file"
                         onChange={handleProfile}

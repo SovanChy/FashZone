@@ -59,7 +59,7 @@ function ProjectsSection({ portfolioProps = [] }) {
                     <div className={styles.projectCard}>
                       <img
                         src={portfolioProject.portfolioURL}
-                        className={styles.projectImage}
+                        className={styles.projectImageOutside}
                         alt="image"
                         onClick={() =>
                           handleShowModal(portfolioProject)

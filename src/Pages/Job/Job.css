@@ -2,9 +2,9 @@
 .view-button-portfolio {
   font-size: 14px; 
   padding: 10px 20px; 
-  border-radius: 5px; 
+  border-radius: 0px; 
   transition: background-color 0.3s, transform 0.3s; 
-  background-color: #600000; 
+  background-color: #800000; 
   border: none; 
   color: white; 
   position: absolute;
@@ -106,11 +106,11 @@
 .job-button, .portfolio-button {
   font-size: 16px;
   padding: 10px 65px;
-  border-radius: 5px;
+  border-radius: 0px !important;
   transition: background-color 0.3s, transform 0.3s, color 0.3s;
-  background-color: transparent;
-  border: 2px solid #600000; 
-  color: #000000;
+  background-color: #800000 !important;
+  border: 2px solid #800000 !important; 
+  color: white;
   cursor: pointer;
   outline: none; /* Remove default outline */
 }
@@ -121,7 +121,13 @@
 }
 
 .job-button:hover, .portfolio-button:hover {
-  background-color: #600000;
+  background-color: white !important;
+  color: black !important; 
+  transform: translateY(-5px);
+}
+
+.job-button:active, .portfolio-button:active {
+  background-color: white !important;
   color: white; 
   transform: translateY(-5px);
 }
@@ -131,17 +137,24 @@
   text-align: center;
 }
 .view-button {
-  font-size: 14px; 
+  font-size: 13px; 
   padding: 10px 10px; 
-  border-radius: 5px; 
+  border-radius: 0px; 
   transition: background-color 0.3s, transform 0.3s; 
-  background-color: #600000; 
+  background-color: #800000; 
   border: none; 
   color: white; 
-  position: absolute;
-  margin: 15px 10px;
+  margin: 8px 10px;
   right: 30px; 
  }
+
+ .view-button:hover{
+  background-color: #800000 !important;
+  color: white !important;
+  opacity: 60% !important;
+ 
+ }
+
  /*css for job page */
 
  /*css for view more job detail */
@@ -223,4 +236,12 @@ p {
 }
 /*css for portfolio page */
 
+
+.custom-button{
+  border-radius: 0 !important;
+  background-color: #800000 !important;
+  border-color: #800000 !important;
+  width: 100px !important;
+
+}
 

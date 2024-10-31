@@ -120,7 +120,6 @@ export default function ProfileEditForm({ portfolio, idPort,  onHide, show}) {
           <Form.Label>Portfolio</Form.Label>
           <Form.Control 
           type="file" 
-          multiple 
           onChange={handlePost} 
           />
         </Form.Group>

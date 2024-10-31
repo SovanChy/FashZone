@@ -22,6 +22,7 @@ import CalendarForm from "./Pages/Calendar/CalendarForm";
 import BlogList from "./Pages/Newspage/BlogList";
 import BlogPage from "./Pages/Newspage/BlogPage";
 import Setting from "./Pages/Profile/Setting";
+import JobForm from './Pages/Job/JobForm'
 
 //custom hook and others
 import { useAuthContext } from "./Hook/useAuthContext";
@@ -116,6 +117,14 @@ function App() {
                 // <Job />
               }
             />
+
+<Route
+              path="/jobForm"
+              element={
+                user ? <JobForm /> : <Navigate to="/" replace />
+                // <Job />
+              }
+            />
             <Route
               path="/portfolio"
               element={
@@ -123,7 +132,7 @@ function App() {
                 // <Portfolio/>
               }
             />
-            <Route path="/view/*" element={<View />} />
+            <Route path="/view/:id" element={<View />} />
             <Route
               path="/events"
               element={user ? <CalendarEvent /> : <Navigate to="/" replace />}
