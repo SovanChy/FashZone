@@ -2,9 +2,11 @@
 import React from "react";
 import styles from "./LandingPage.module.css";
 import NewsCard from "./NewsCard";
+import { useCollection } from "../../Hook/useCollection";
 
 //the whole thing of news aexction with data
 const newsArticles = [
+  
   {
     title: "Beige Runway",
     imageSrc:
@@ -32,11 +34,17 @@ const newsArticles = [
 ];
 
 function NewsSection() {
+  const { documents: articleDocuments, error: articleError } = useCollection("Article");
+
+
+
+
+
   return (
     <section className={styles.newsSection}>
       <h2 className={styles.sectionTitle}>News & Article</h2>
       <div className={styles.newsGrid}>
-        {newsArticles.map((article, index) => (
+        {articleDocuments && articleDocuments.slice(0,3).map((article, index) => (
           <NewsCard key={index} {...article} />
         ))}
       </div>

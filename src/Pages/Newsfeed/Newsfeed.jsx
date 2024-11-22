@@ -50,19 +50,23 @@ export default function Newsfeed() {
               <Button variant="danger" className="post-button" onClick={Post}>Post</Button>
               <hr />
               <div className="user-sidebar">
-                <h2>Other users</h2>
+                <h2 style={{
+                  color: "#800000",
+                  fontWeight: "bold",
+
+                }}>Users</h2>
                 {error && <div>{error}</div>}
                 {documents && (
-                  <div style={{ maxHeight: '400px', overflowY: 'auto' }}>
+                  <div style={{ maxHeight: '1200px', overflowY: 'auto' }}>
                     {documents.map(user => (
                       <div className="d-flex  align-items-center  mb-2" key={user.id}>
                         <div
                           className={user.online ? 'online-status ' : 'offline-status'}
                           style={{ flexShrink: 0 }}
                         ></div>
-                        <div className="user" onClick={() => navigate(`/profile`)}>
+                        <div className="user" onClick={() => navigate(`/profile/${user.id}`)}>
                           <img
-                            src={user.photoURL}
+                            src={user.photoURL || `https://placehold.co/40x40`}
                             alt="User Avatar"
                             className="rounded-circle"
                             style={{

@@ -32,3 +32,16 @@
     color: #fff !important; /* Text color for active */
     border-color: #800000 !important; /* Active border color */
 }
+
+.listGroup{
+    box-shadow: 0 1px 3px rgba(1, 1, 0, 1) !important;
+    gap: 2px !important;
+    border-bottom: 1px solid black;
+
+}
+
+.dropdown-toggle.btn.btn-primary{
+    padding: 0px !important;
+}
+
+

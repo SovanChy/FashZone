@@ -34,7 +34,7 @@ export default function BlogList() {
 
     //set page up for pagination
     const [currentPage, setCurrentPage] = useState(1);
-    const itemsPerPage = 10;
+    const itemsPerPage = 5;
     
     const handlePageChange = (pageNumber) => {
         setCurrentPage(pageNumber);
@@ -131,17 +131,19 @@ export default function BlogList() {
                         navigate("/news");
                     }}
                 ></i>
+
+                <h1>BLOG</h1>
                 <Button className="custom-button" onClick={handleCreate}>
-                    Create Blog
+                    Create
                 </Button>
             </div>
 
-            <ListGroup>
+            <ListGroup className="listGroup">
                 {currentDocuments && currentDocuments.length > 0 ? (
                     currentDocuments.map((blog) => (
                         <ListGroup.Item key={blog.id} className="d-flex flex-column">
                             <div className="d-flex justify-content-between align-items-center">
-                                <h5
+                                <h2
                                     onClick={(e) => {
                                         handleView(e, blog.id);
                                         navigate(`/blog/${blog.id}`);
@@ -149,7 +151,7 @@ export default function BlogList() {
                                     className="title mb-0"
                                 >
                                     {blog.title}
-                                </h5>
+                                </h2>
                                 <Dropdown>
                                     <DropdownToggle
                                         style={{
@@ -216,6 +218,7 @@ export default function BlogList() {
                                     readOnly={true}
                                     modules={{ toolbar: false }}
                                     className="!border-none no-scroll"
+                                  
                                 />
                             </div>
                         </ListGroup.Item>

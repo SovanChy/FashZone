@@ -1,21 +1,19 @@
 import React, { useState, useEffect } from 'react';
-import { Form, Button, Container } from 'react-bootstrap';
-import { useParams } from 'react-router-dom';
+import { Form, Button, Container, Alert } from 'react-bootstrap';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useStorage } from '../../Hook/useStorage';
-import { useFirestore } from '../../Hook/useFirestore';
 import { projectAuth, projectFirebase, firebase } from '../../firebase/config';
 import { useAuthContext } from '../../Hook/useAuthContext';
 
 const Setting = () => {
-    const { id } = useParams();
     const [profile, setProfile] = useState(null);
     const [displayName, setDisplayName] = useState('');
     const [isSubmitted, setIsSubmitted] = useState(false);
     const [isUpdated, setIsUpdated] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const { uploadMedia, urls, paths } = useStorage("users");
-    const { updateDocument } = useFirestore("users");
     const { dispatch } = useAuthContext();
+    const navigate = useNavigate()
 
     const handleProfile = (e) => {
         let selectedFile = e.target.files[0];
@@ -47,8 +45,11 @@ const Setting = () => {
 
             // Update the displayName and optionally the photoURL if a new image was uploaded
             const profileUpdateData = {
-                displayName: displayName,
+               
             };
+            if (displayName){
+                profileUpdateData.displayName = displayName;
+            }
 
             if (urls[0]) {
                 profileUpdateData.photoURL = urls[0];
@@ -66,13 +67,15 @@ const Setting = () => {
                 });
 
             dispatch({ type: 'LOGIN', payload: user });
-            console.log("Profile updated successfully");
-            alert("Profile updated successfully");
+            if (displayName || urls[0]){
             setIsUpdated(true);
+            }
+            else {
+                alert("You haven't entered information in the field")
+            }
             return true;
 
         } catch (error) {
-            console.error("Error updating profile:", error.message);
             alert("Error updating profile: " + error.message);
             setIsUpdated(false);
             throw error;
@@ -100,7 +103,6 @@ const Setting = () => {
             if (isSubmitted) {
                 try {
                     await handleUserChanges();
-                    alert("Profile has successfully been updated");
                 } catch (error) {
                     alert("There was an error with the process. Please try again");
                 }
@@ -108,6 +110,7 @@ const Setting = () => {
                 setProfile(null);
                 setIsSubmitted(false);
                 setIsLoading(false);
+           
             }
         };
 
@@ -116,6 +119,13 @@ const Setting = () => {
 
     return (
         <Container className='mt-10'>
+           
+            {isUpdated && (
+                <Alert variant="success" onClose={() => setIsUpdated(false)} dismissible>
+                    Update is successful
+                </Alert>
+            )}
+            {isUpdated && setTimeout(() => setIsUpdated(false), 5000)}
             <h2>Edit Profile</h2>
             <Form onSubmit={handleSubmit}>
                 <Form.Group className='mt-2' controlId="formDisplayName">
@@ -127,7 +137,7 @@ const Setting = () => {
                         placeholder='Username...'
                     />
                 </Form.Group>
-                <Form.Group controlId="formUsername">
+                <Form.Group controlId="formUsername" className='mt-2 mb-2'>
                     <Form.Label>Profile Picture (Optional)</Form.Label>
                     <Form.Control
                         type="file"
@@ -135,8 +145,9 @@ const Setting = () => {
                     />
                 </Form.Group>
                 <Button variant="primary" className='custom-button mt-2' type="submit" disabled={isLoading}>
-                    {isLoading ? 'Saving...' : 'Save Changes'}
+                    {isLoading ? 'Saving...' : 'Save'}
                 </Button>
+                <Button className='custom-button mt-2' onClick={() => navigate(-1)}>Back</Button>
             </Form>
         </Container>
     );

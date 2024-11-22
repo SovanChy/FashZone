@@ -23,6 +23,9 @@ export default function NavBar() {
                 src={require(`../assets/Asset1.png`)} 
                 alt="Logo" 
                 onClick={() => navigate('/newsfeed')}
+                style={{
+                  cursor: "pointer"
+                }}
                 
               />
             </Navbar.Brand>
@@ -48,7 +51,7 @@ export default function NavBar() {
                         className="d-flex align-items-center"
                       >
                         <img
-                          src={user.photoURL}
+                          src={user.photoURL || `https://placehold.co/40x40`}
                           alt="User Avatar"
                           className="ms-2 rounded-circle"
                           style={{
@@ -60,7 +63,10 @@ export default function NavBar() {
                         />
                       </Dropdown.Toggle>
                       <Dropdown.Menu>
-                        <Dropdown.Item as={Link} to={`/profile/${user.uid}`}>{user.displayName}</Dropdown.Item>
+                        <Dropdown.Item as={Link} to={`/profile/${user.uid}`} style={{
+                          fontWeight: "bold",
+                          textTransform: "uppercase"
+                        }}>{user.displayName}</Dropdown.Item>
                         <Dropdown.Divider />
                         <Dropdown.Item as={Link} to={`/setting/${user.uid}`}>Setting</Dropdown.Item>
                         <Dropdown.Divider />

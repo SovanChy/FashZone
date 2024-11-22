@@ -141,9 +141,10 @@ export default function Postcard() {
             <Card.Body>
               <div className="d-flex align-items-center">
                 <img
-                  src={doc.photoURL}
+                  src={doc.photoURL || `https://placehold.co/40x40`}
                   onClick={(e) => {
-                    navigate(`/profile/${doc.uid}`);
+                    navigate(`/profile/${doc.uid}`)
+                   
                   }}
                   alt="User Avatar"
                   className="rounded-circle me-3"
@@ -195,7 +196,7 @@ export default function Postcard() {
                   </DropdownMenu>
                 </Dropdown>
               </div>
-              <p>{formatTimestamp(doc.createdAt)}</p>
+              <p className="mt-2">{formatTimestamp(doc.createdAt)}</p>
               {Array.isArray(doc.imagePath) && doc.imagePath.length > 0 && (
                 <div
                   className="media-container"
@@ -368,8 +369,9 @@ export default function Postcard() {
                     color: "white",
                     cursor: "pointer",
                   }}
-                  onClick={() => {
+                  onClick={(e) => {
                     navigate(`/post/${doc.id}`);
+                    handleView(e, doc.id)
                   }}
                 >
                   Go to Post

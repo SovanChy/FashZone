@@ -99,7 +99,7 @@ export default function Post() {
           <div className="d-flex f-column justify-content-start">
           <i className="bi bi-arrow-left-circle h1"
           onClick={() => {
-            navigate('/newsfeed')
+            navigate(-1)
           }}></i>
           </div>
         </Col>
@@ -230,7 +230,7 @@ export default function Post() {
             <Card.Body>
               <div className="d-flex align-items-center">
                 <img
-                  src={document.photoURL}
+                  src={document.photoURL || `https://placehold.co/40x40`}
                   onClick={(e) => {
                     navigate(`/profile/${document.uid}`);
                   }}
@@ -286,7 +286,7 @@ export default function Post() {
                   </DropdownMenu>
                 </Dropdown>
               </div>
-              <p>{formatTimestamp(document.createdAt)}</p>
+              <p className="mt-2">{formatTimestamp(document.createdAt)}</p>
 
              
 

@@ -26,13 +26,13 @@ function ProfilePage() {
         onClick={() => {
           setForm(true)
         }}>
-        Edit Profile
+        Edit 
       </Button>
       <Button className='custom-button mb-3 me-3'
         onClick={() => {
           setPortfolioForm(true)
         }}>
-        Edit Portfolio
+         Portfolio
       </Button>
       </div>
       {document && (

@@ -154,7 +154,7 @@
 }
 
 .sectionTitle:hover {
-  transform: rotate(10deg);
+  transform: translateY(-5px);
   color: #800000;
 
 }

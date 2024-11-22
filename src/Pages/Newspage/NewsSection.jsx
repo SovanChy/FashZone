@@ -34,11 +34,7 @@ function NewsSection() {
         >
           Articles
         </h2>
-        <h2
-          className={styles.sectionTitle}
-        >
-          Trending
-        </h2>
+      
         <Row className="g-4 mt-4">
           <Col md={12} className="mb-4">
             <ArticleCard />

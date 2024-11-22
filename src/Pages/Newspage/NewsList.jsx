@@ -32,7 +32,7 @@ export default function NewsList() {
   const [displayError, setDisplayError] = useState(null);
   const [editForm, setEditForm] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 10;
+  const itemsPerPage = 5;
 
   //handle current page
   const handlePageChange = (pageNumber) => {
@@ -128,17 +128,19 @@ export default function NewsList() {
             navigate("/news");
           }}
         ></i>
+        <h1>ARTICLES</h1>
+
         <Button className="custom-button" onClick={handleCreate}>
-          Create Article
+          Create
         </Button>
       </div>
 
-      <ListGroup>
+      <ListGroup className="listGroup">
         {currentDocuments && currentDocuments.length > 0 ? (
           currentDocuments.map((article) => (
             <ListGroup.Item key={article.id} className="d-flex flex-column">
               <div className="d-flex justify-content-between align-items-center">
-                <h5
+                <h2
                   onClick={(e) => {
                     handleView(e, article.id);
                     navigate(`/article/${article.id}`);
@@ -146,8 +148,8 @@ export default function NewsList() {
                   className="title mb-0"
                 >
                   {article.title}
-                </h5>
-                <Dropdown>
+                </h2>
+                <Dropdown className="ms-auto p-0 ">
                   <DropdownToggle
                     style={{
                       backgroundColor: "white",
@@ -188,7 +190,7 @@ export default function NewsList() {
               </div>
               <div className="d-flex  align-items-start ">
                 <small>{formatTimestamp(article.createdAt)}</small>
-                <i className="bi bi-eye me-1 ms-2" />
+                <i className="bi bi-eye ms-auto" />
                 <span className="ms-2">{article.view}</span>
               </div>
               <div
@@ -203,6 +205,7 @@ export default function NewsList() {
                     width: "300px",
                     height: "200px",
                     objectFit: "cover",
+                    objectPosition: "center",
                     flexShrink: 0, // Prevents the image from resizing
                   }}
                 />

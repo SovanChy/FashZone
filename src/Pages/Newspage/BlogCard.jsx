@@ -8,6 +8,7 @@ import "react-quill/dist/quill.snow.css";
 import { useNavigate } from "react-router-dom";
 import { useFirestore } from "../../Hook/useFirestore";
 import { projectAuth, projectFirebase, firebase } from "../../firebase/config";
+import "./BlogCard.css"
 
 function BlogCard() {
     const [blogList, setBlogList] = useState([]);
@@ -90,18 +91,12 @@ function BlogCard() {
         <Container fluid className="mt-5">
             <Row>
                 <Col>
-                    <ListGroup>
                         {blogList && blogList.map((blog) => (
-                            <ListGroup.Item 
-                                key={blog.id} 
-                                action 
-                                onClick={(e) => { 
+                           
+                                <Card className="cardList"  onClick={(e) => { 
                                     handleView(e, blog.id);
                                     navigate(`/blog/${blog.id}`);
-                                }}
-                                className="mb-4"
-                            >
-                                <Card style={{ cursor: "pointer", height: "400px" }}>
+                                }}>
                                     <div style={{ display: 'flex', flexDirection: 'row' }}>
                                         <Card.Img variant="top" src={blog.imageURL} alt="img" style={{
                                             width: "50%",
@@ -113,7 +108,9 @@ function BlogCard() {
                                         <Card.Body style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', width: "50%" }}>
                                             <div>
                                                 <Card.Title style={{
-                                                    color: "#800000",
+                                                    color: "white",
+                                                    backgroundColor: "#800000",
+                                                    padding: "10px",
                                                     fontWeight: "bold",
                                                     fontSize: "26px"
                                                 }}>{blog.title}</Card.Title>
@@ -123,22 +120,20 @@ function BlogCard() {
                                                         value={blog.description}
                                                         readOnly={true}
                                                         modules={{ toolbar: false }}
-                                                        className="!border-none no-scroll"
+                                                        // className="!border-none no-scroll"
                                                     />
                                                 </Card.Text>
                                             </div>
                                             <Card.Footer style={{
-                                                backgroundColor: "#800000",
-                                                color: "white"
+                                               
+                                                paddingTop: "10px"
                                             }}>
                                                 <h5>Written by {blog.displayName}</h5>
                                             </Card.Footer>
                                         </Card.Body>
                                     </div>
                                 </Card>
-                            </ListGroup.Item>
                         ))}
-                    </ListGroup>
                 </Col>
             </Row>
         </Container>

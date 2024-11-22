@@ -2,6 +2,9 @@
 import React from "react";
 import styles from "./LandingPage.module.css";
 import OpportunityCard from "./OpportunityCard";
+import { useCollection } from "../../Hook/useCollection";
+
+
 
 const opportunities = [
   {
@@ -28,10 +31,11 @@ const opportunities = [
 ];
 
 function OpportunitiesSection() {
+  const { documents: jobDocuments, error: jobError } = useCollection("Job");  
   return (
     <section className={styles.opportunitiesSection}>
       <h2 className={styles.sectionTitle}>Opportunities</h2>
-      {opportunities.map((opportunity, index) => (
+      {jobDocuments && jobDocuments.slice(0, 3).map((opportunity, index) => (
         <OpportunityCard key={index} {...opportunity} />
       ))}
     </section>

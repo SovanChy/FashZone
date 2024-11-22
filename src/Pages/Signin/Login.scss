@@ -45,13 +45,27 @@ h1 {
   background-color: #800000 !important;
   border-color: #800000 !important;
   margin: 2px; 
+  width: 400px !important;
+  display: flex;
+ 
 }
 
-.custom-button-1 {
+.custom-button {
   border-radius: 0 !important;
   background-color: #b90101 !important;
   border-color: #800000 !important;
   
+}
+
+
+//red button
+.custom-button-1 {
+  border-radius: 0 !important;
+  background-color: #800000 !important;
+  border-color: #800000 !important;
+  margin: 2px; 
+  display: flex;
+ 
 }
 
 

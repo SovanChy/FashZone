@@ -175,7 +175,7 @@ export default function ProfileEditForm({ profile, setForm }) {
                                 </div>
                             </Form.Group>
                             <Form.Group className="mb-3" controlId="formMedia">
-                                <Form.Label>Image/Video (optional)</Form.Label>
+                                <Form.Label>Image (optional)</Form.Label>
                                 <Form.Control type="file" onChange={handlePostProfile} />
                             </Form.Group>
                             <Button variant="danger" className='custom-button me-2' type="submit">

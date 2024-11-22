@@ -106,11 +106,11 @@ export default function BlogPage() {
                                     </div>
                             </div>
                             <div className="d-flex">
-                                <p className="text-muted me-2">
+                                <p className="text-muted me-2 mt-2">
                                     {formatTimestamp(document.createdAt)}
                                 </p>
-                                <i className="bi bi-eye me-2" />
-                                <span>{document.view}</span>
+                                <i className="bi bi-eye me-2 mt-2" />
+                                <span className="mt-2">{document.view}</span>
                             </div>
                         </header>
                         
@@ -122,7 +122,7 @@ export default function BlogPage() {
                                 value={document.description}
                                 readOnly={true}
                                 modules={{ toolbar: false }}
-                                style={{ width: "100%", height: "400px" }}
+                                style={{ width: "100%"}}
                             />
                         </section>
                     </article>

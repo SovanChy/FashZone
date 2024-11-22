@@ -6,6 +6,7 @@ import './Job.css';
 import fancy from './image/fancy.jpg';
 import Nike from './image/Nike.png';
 import remade from './image/remade.JPG';
+
 // import Onitsuka from './image/Onitsuka.jpg';
 import { useFirestore } from '../../Hook/useFirestore';
 import { useCollection } from '../../Hook/useCollection';
@@ -24,7 +25,7 @@ const Job = () => {
 
   // Pagination
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 10;
+  const itemsPerPage = 5;
 
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
@@ -77,12 +78,12 @@ const Job = () => {
           {/* Left Text Section */}
           <div className="col-md-4 text-section">
             <h1>Opportunities.<br /> Vacancies.<br /> Openings.</h1>
-            <div className="button-container">
+            <div className="button-container w-100">
               <LinkContainer to="/Job">
-                <Button className="job-button">Job</Button>
+                <Button className="job-button w-40">Job</Button>
               </LinkContainer>
               <LinkContainer to="/Portfolio">
-                <Button className="portfolio-button">Portfolio</Button>
+                <Button className="portfolio-button w-40">Portfolio</Button>
               </LinkContainer>
             </div>
           </div>
@@ -103,11 +104,6 @@ const Job = () => {
                     <img src={Nike} alt="Nike" />
                   </div>
                   </Carousel.Item>
-                  <Carousel.Item>
-                  <div className="carousel-item-image">
-                    <img src="" alt="Onitsuka" />
-                  </div>
-                  </Carousel.Item>
                 </Carousel>
                 </div>
               </div>
@@ -120,7 +116,7 @@ const Job = () => {
                 </Button>
                 </div>
                 {currentDocuments.map((job, index) => (
-                <Card className="mb-4" key={index}>
+                <Card className="card-job mb-4" key={index}>
                   <Card.Body className="d-flex align-items-center">
                   <img
                     src={job.imageURL}
@@ -137,7 +133,7 @@ const Job = () => {
                   </Card.Text>
                     <Button className="ms-auto custom-button"onClick={(e) => {handleDelete(e, job.id)}}>Delete</Button>
                   <LinkContainer to={`/view/${job.id}`}>
-                    <Button className="view-button mb-2">View More</Button>
+                    <Button className="custom-button">View</Button>
                   </LinkContainer>
               </Card.Body>
             </Card>

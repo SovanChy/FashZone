@@ -23,6 +23,7 @@ import BlogList from "./Pages/Newspage/BlogList";
 import BlogPage from "./Pages/Newspage/BlogPage";
 import Setting from "./Pages/Profile/Setting";
 import JobForm from './Pages/Job/JobForm'
+import "./App.scss"
 
 //custom hook and others
 import { useAuthContext } from "./Hook/useAuthContext";

@@ -45,6 +45,20 @@
       min-width: 200px;
       border-radius: 0 !important;
     }
+
+    .post-button:hover{
+      border-radius: 0 !important;
+      background-color: white !important;
+      border-color: #800000 !important;
+      color: black !important;
+      width: 100px !important;
+      box-shadow: 0 1px 3px rgba(1, 1, 0, 1) !important;
+      transition: background-color 0.3s, transform 0.3s, color 0.3s !important;
+      width: 300px;
+      max-width: 500px;
+      min-width: 200px;
+    
+    }
   }
 
   .online-status{

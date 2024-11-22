@@ -23,20 +23,20 @@ export default function ProfileEditForm({ portfolio, idPort,  onHide, show}) {
     const selectedFile = e.target.files[0];
 
     if (!selectedFile) {
-      return;
+      return null;
     }
 
     if (!selectedFile.type.includes('image')) {
       alert("The selected file must be an image");
-      return;
+      return null;
     }
 
     if (selectedFile.size > 100000000) {
       alert('File size must be less than 100MB');
-      return;
+      return null;
     }
-
     setPorfolioImages([selectedFile]);
+  
   };
 
   // Handle uploading data
@@ -121,6 +121,7 @@ export default function ProfileEditForm({ portfolio, idPort,  onHide, show}) {
           <Form.Control 
           type="file" 
           onChange={handlePost} 
+          required
           />
         </Form.Group>
         <Button variant="danger" className='custom-button me-2' type="submit">

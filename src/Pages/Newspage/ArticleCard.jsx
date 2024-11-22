@@ -5,6 +5,7 @@ import { ArticlesAPI } from "./ArticlesTrending";
 import { useState, useEffect } from 'react';
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
+import './ArticleCard.css'
 import { useNavigate } from "react-router-dom";
 import { useFirestore } from "../../Hook/useFirestore";
 import { projectAuth, projectFirebase, firebase } from "../../firebase/config";
@@ -93,24 +94,32 @@ function ArticleCard() {
         {articlesList && articlesList.map((article) => (
           <Col lg={6} md={6} key={article.id} className="mb-4">
             <Card 
+            className="card"
             onClick={(e) => { 
               handleView(e, article.id)
               navigate(`/article/${article.id}`)
             }}
               style={{
-              height: "700px",
-              cursor: "pointer"
+              height: "600px",
+              cursor: "pointer",
+              
+
             }}>
               <Card.Img variant="top" src={article.imageURL} alt="img" style={{
-              height: "400px",
+              height: "300px",
               objectFit: "cover",
                 objectPosition: "center"
               }}
             />
               <Card.Body>
                 <Card.Title style={{
-                  color: "#800000",
-                  fontWeight: "bold"
+                  fontWeight: "bold",
+                   backgroundColor: "#800000",
+                  color: "white",
+                  padding: "10px",
+                  height: "44px",
+                  overflow: "hidden",
+                  
                   }}>{article.title}</Card.Title>
                 <Card.Text className={styles.articleExcerpt}>
                   <ReactQuill
@@ -119,11 +128,13 @@ function ArticleCard() {
                     readOnly={true}
                     modules={{ toolbar: false }}
                     className="!border-none no-scroll"
+                    style={{
+                      overflow: "hidden"
+                    }}
                   />
                 </Card.Text>
                 <Card.Footer style={{
-                  backgroundColor: "#800000",
-                  color: "white"
+                 
                 }}>
                   <h5>Written by {article.displayName}</h5>
                 </Card.Footer>

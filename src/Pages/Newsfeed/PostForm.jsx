@@ -131,6 +131,7 @@ function PostForm(props) {
                   type="text" placeholder="Title..."
                   onChange={(e) => setTitle(e.target.value)}
                   value={title} 
+
                   />
               </Form.Group>
               <Form.Group className="mb-3" controlId="formDescription">
@@ -141,7 +142,8 @@ function PostForm(props) {
                   type="text"
                   placeholder="Description..."
                   onChange={(e) => setDescription(e.target.value)}
-                  value={description} 
+                  value={description}
+                  required 
                   />
               </Form.Group>
               <Form.Group className="mb-3" controlId="formMedia">

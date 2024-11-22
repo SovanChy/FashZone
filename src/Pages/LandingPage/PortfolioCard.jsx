@@ -1,26 +1,40 @@
-
 import React from "react";
 import styles from "./LandingPage.module.css";
 import { useNavigate } from "react-router-dom";
-
-function PortfolioCard({ name, role, description, imageSrc }) {
-  const navigate = useNavigate(); 
+import ReactQuill, { displayName } from "react-quill";
+import "react-quill/dist/quill.snow.css";
+import {Image} from 'react-bootstrap'
+function PortfolioCard({ displayName, occupations, description, imageURL, id}) {
+  const navigate = useNavigate();
 
   return (
-    <article className={styles.portfolioCard}>
+    <article className={styles.portfolioCard} onClick={() => navigate(`profile/${id}`)}>
       <div className={styles.portfolioInfo}>
-        <h3 className={styles.portfolioName}>{name}</h3>
-        <p className={styles.portfolioRole}>{role}</p>
-        <p className={styles.portfolioDescription}>{description}</p>
+        <h3 className={styles.portfolioName}>{displayName}</h3>
+        <p className={styles.portfolioRole}>{occupations}</p>
+        <p className={styles.portfolioDescription}>
+      
+          <ReactQuill
+            theme="bubble"
+            value={description}
+            readOnly={true}
+            modules={{ toolbar: false }}
+            style={{ width: "80%", height: "400px" }}
+            className="!border-none no-scroll"
+          />
+        </p>
         {/* <button className={styles.viewMoreButton}>View More</button> */}
-        <button className={styles.PButton} onClick={() => navigate("signup")}>View More</button>
+        <button className={styles.PButton} onClick={() => navigate("signup")}>
+          View More
+        </button>
       </div>
       {/* <div className={styles.portfolioImageWrapper}> */}
-        <img
-          src={imageSrc}
-          alt={`${name}'s portfolio`}
-          className={styles.portfolioImage}
-        />
+      <Image
+        fluid
+        src={imageURL}
+        alt={`${displayName}'s portfolio`}
+        className={styles.portfolioImage}
+      />
       {/* </div> */}
     </article>
   );

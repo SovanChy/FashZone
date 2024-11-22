@@ -73,3 +73,28 @@
 
 
   }
+
+  .SideProfile:hover{
+    background-color: #000;
+    width: 100%;
+    padding: 10px 0px;
+    color: white;
+
+    .userName{
+      cursor: pointer;
+    }
+    .userName:hover{
+
+    }
+
+  }
+  .logoContainer:hover{
+    background-color: #000;
+    width: 100%;
+    padding: 10px 0px;
+    color: white;
+    cursor: pointer;
+
+  }
+
+

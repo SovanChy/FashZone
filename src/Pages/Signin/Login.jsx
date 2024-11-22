@@ -80,14 +80,14 @@ export default function Login() {
 
             {!isPending && (
               <div className="d-grid gap-2 ">
-                <Button className="custom-button" variant="danger" type="submit">
+                <Button className="custom-button-1" variant="danger" type="submit">
                   Login
                 </Button>
               </div>
             )}
             {isPending && (
               <div className="d-grid gap-2 ">
-              <Button className="custom-button" variant="danger" type="submit" disabled>
+              <Button className="custom-button-1" variant="danger" type="submit" disabled>
                 Logging
               </Button>
             </div>
@@ -97,12 +97,12 @@ export default function Login() {
             <hr style={{ backgroundColor: 'white', color: 'white', opacity: "100%", height: '3px', border: 'none', margin: '20px 10px', }} />
 
             <div className="d-grid gap-2 mt-3 ">
-              <Button className="custom-button" variant="danger" as={Link} to="/signup">
+              <Button className="custom-button-1" variant="danger" as={Link} to="/signup">
                 Sign up
               </Button>
             </div>
             <div className="d-grid gap-2 mt-3">
-                <Button className="custom-button" variant="danger" as={Link} to="/">
+                <Button className="custom-button-1" variant="danger" as={Link} to="/">
                   Back
                 </Button>
               </div>

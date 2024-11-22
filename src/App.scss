@@ -4,8 +4,12 @@
 
 @import '~bootstrap/scss/bootstrap';
 
-@import './Custom/Newsfeed.scss';
-@import './Custom/Trend.scss';
+
+
+/* App.css */
+body {
+  font-family: 'Helvetica', 'Arial', sans-serif; /* Fallback to Arial if Helvetica is unavailable */
+}
 
 
 

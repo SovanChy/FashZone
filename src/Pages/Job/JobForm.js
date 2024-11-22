@@ -135,7 +135,7 @@ function PostForm() {
     <Container fluid className="mb-5">
       <Row className="justify-content-md-center">
         <Col md={8}>
-          <h1 className="mt-5">Post Article</h1>
+          <h1 className="mt-5">Create Job Posting</h1>
           {isLoading ? (
             <div className="d-flex justify-content-center">
               <Spinner animation="border" role="status">
@@ -216,7 +216,7 @@ function PostForm() {
               <Button
                 variant="danger"
                 className="custom-button me-2"
-                onClick={() => navigate("/article")}
+                onClick={() => navigate("/job")}
               >
                 close
               </Button>

@@ -2,6 +2,7 @@
 import React from "react";
 import styles from "./LandingPage.module.css";
 import PortfolioCard from "./PortfolioCard";
+import { useCollection } from "../../Hook/useCollection";
 
 const portfolioItems = [
   {
@@ -23,11 +24,13 @@ const portfolioItems = [
 ];
 
 function PortfolioSection() {
+  const { documents: usersDocuments, error: usersError } = useCollection("users");
+
   return (
     <section className={styles.portfolioSection}>
       <h2 className={styles.sectionTitle}>Portfolio</h2>
       <div className={styles.portfolioGrid}>
-        {portfolioItems.map((item, index) => (
+        {usersDocuments && usersDocuments.slice(0,2).map((item, index) => (
           <PortfolioCard key={index} {...item} />
         ))}
       </div>

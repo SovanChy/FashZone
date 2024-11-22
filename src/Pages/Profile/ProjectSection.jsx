@@ -3,6 +3,7 @@ import styles from "./ProfilePage.module.css";
 import { projectFirebase } from "../../firebase/config";
 import { Modal, Button } from "react-bootstrap";
 import { useState } from "react";
+import {Image} from "react-bootstrap"
 
 function ProjectsSection({ portfolioProps = [] }) {
   const [showModal, setShowModal] = useState(false);
@@ -57,13 +58,15 @@ function ProjectsSection({ portfolioProps = [] }) {
                 <div className={styles.projectsRow}>
                   <div className={styles.projectColumn}>
                     <div className={styles.projectCard}>
-                      <img
+                      <Image
+                      fluid
                         src={portfolioProject.portfolioURL}
                         className={styles.projectImageOutside}
                         alt="image"
                         onClick={() =>
                           handleShowModal(portfolioProject)
                         }
+                       
                       />
 
                       <Modal
@@ -77,7 +80,10 @@ function ProjectsSection({ portfolioProps = [] }) {
                         </Modal.Header>
                         <Modal.Body>
                           {selectedProject && (
-                            <div>
+                            <div style={{
+                              display: "flex",
+                              justifyContent: "center"
+                            }}> 
                               <a
                                 href={selectedProject.portfolioURL}
                                 target="_blank"
@@ -85,7 +91,7 @@ function ProjectsSection({ portfolioProps = [] }) {
                               >
                                 <img
                                   src={selectedProject.portfolioURL}
-                                  className={styles.projectImage}
+                                  className={styles.projectImageDetail}
                                   alt="image"
                                 />
                               </a>
