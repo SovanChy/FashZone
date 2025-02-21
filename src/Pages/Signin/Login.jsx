@@ -26,7 +26,7 @@ export default function Login() {
 }, []);
 
   
-  
+  //handle login process
   const handleSubmit = async (e) => {
     e.preventDefault()
     try{
