@@ -1,0 +1,29 @@
+Nav a{
+    text-decoration: none;
+    color: black;
+    margin: 5px;
+    padding: 5px;
+}
+
+Nav a.active{
+    background-color: black;
+    color: white;
+}
+
+.custom-button-nav{
+  border-radius: 0 !important;
+  background-color: #800000 !important;
+  border-color: #800000 !important;
+  width: 100px !important;
+
+}
+
+
+// body {
+//     padding-top: 0px;
+//   }
+//   @media (max-width: 979px) {
+//     body {
+//       padding-top: 0px;
+//     }
+//   }

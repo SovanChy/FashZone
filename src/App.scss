@@ -3,11 +3,22 @@
 // Import custom SCSS
 
 @import '~bootstrap/scss/bootstrap';
-@import './Custom/SignIn.scss';
-@import './Custom/Newsfeed.scss';
-@import './Custom/Trend.scss';
+
+
+
+/* App.css */
+body {
+  font-family: 'Helvetica', 'Arial', sans-serif; /* Fallback to Arial if Helvetica is unavailable */
+}
 
 
 
 
 
+.custom-button{
+    border-radius: 0 !important;
+    background-color: #800000 !important;
+    border-color: #800000 !important;
+    width: 100px !important;
+  
+  }

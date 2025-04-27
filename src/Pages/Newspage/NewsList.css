@@ -1,0 +1,47 @@
+.title {
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.title:hover {
+    text-decoration: underline;
+}
+
+
+.no-scroll .ql-editor {
+    overflow: hidden;
+    max-height: none; /* Optional: adjust as needed */
+  }
+
+  .custom-pagination .page-item .page-link { 
+    background-color: white !important;
+    color: #800000 !important; 
+    border-color: #800000 !important; 
+}
+
+/* Hover state */
+.custom-pagination .page-item .page-link:hover {
+    background-color: #800000 !important; 
+    color: white !important; /* Text color on hover */
+    border-color: #800000 !important; /* Hover border color */
+}
+
+/* Active state */
+.custom-pagination .page-item.active .page-link {
+    background-color: #800000 !important; /* Active page color */
+    color: #fff !important; /* Text color for active */
+    border-color: #800000 !important; /* Active border color */
+}
+
+.listGroup{
+    box-shadow: 0 1px 3px rgba(1, 1, 0, 1) !important;
+    gap: 2px !important;
+    border-bottom: 1px solid black;
+
+}
+
+.dropdown-toggle.btn.btn-primary{
+    padding: 0px !important;
+}
+
+
