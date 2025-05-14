@@ -15,7 +15,7 @@
     "@testing-library/user-event": "^13.5.0",
     "bootstrap": "^5.3.3",
     "bootstrap-icons": "^1.11.3",
-    "dotenv": "^16.4.5",
+    "dotenv": "^16.5.0",
     "firebase": "8.5",
     "lucide-react": "^0.453.0",
     "quill": "^2.0.2",
