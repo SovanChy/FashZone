@@ -21,7 +21,7 @@
     "quill": "^2.0.2",
     "quill-delta-to-plaintext": "^1.0.0",
     "react": "^18.3.1",
-    "react-bootstrap": "^2.10.5",
+    "react-bootstrap": "^2.10.10",
     "react-bootstrap-icons": "^1.11.4",
     "react-dom": "^18.3.1",
     "react-quill": "^2.0.0",
